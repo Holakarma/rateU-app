@@ -1,0 +1,20 @@
+import React, { useEffect } from 'react';
+import { CriterionInput } from './CriterionInput/CriterionInput';
+import { getCriteria } from '../../../utils/getCriteria';
+
+export function SettingsSection() {
+    const [criteriaList, setCriteriaList] = React.useState([]);
+    useEffect(async () => {
+        const answer = await getCriteria();
+        setCriteriaList(answer);
+    });
+    return (
+        <div>
+            <h4>Настройка критериев</h4>
+            {criteriaList.map((criterion) => (
+                <CriterionInput key={criterion.ID} criterion={criterion} refreshHandler={result => setCriteriaList(result)} />
+            ))}
+            <CriterionInput refreshHandler={result => setCriteriaList(result)}/>
+        </div>
+    );
+}
