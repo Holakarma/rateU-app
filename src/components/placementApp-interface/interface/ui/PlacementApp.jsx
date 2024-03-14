@@ -1,14 +1,12 @@
 import React from 'react';
+import { Responsibles } from '../../Responsibles/Responsibles';
 
-BX24.callMethod('tasks.task.get', {taskId: '752', select:['ID', 'RESPONSIBLE_ID', 'TITLE']}, res => {
-    console.log(res.data())
-})
 
 const PlacementApp = () => {
     return (
         <div className="container position-relative">
-            <h1>Placement Page</h1>
-            
+            <h1>Оценка сотрудников</h1>
+            <Responsibles />
         </div>
     );
 };

@@ -1,8 +1,10 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useContext } from "react";
 import { MainApp } from "../mainApp-interface/Interface";
 import { PlacementApp } from "../placementApp-interface/interface";
+import { PlacementContext } from "../../utils/placementContext";
 
-export function Workspace({ placementInfo }) {
+export function Workspace() {
+    const placementInfo = useContext(PlacementContext)
     return (
         <Suspense
             fallback={
