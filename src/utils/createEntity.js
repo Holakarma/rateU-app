@@ -1,16 +1,20 @@
-export const getSectionId = (function createEntity(savedCategoryId) {
+export const getSectionId = (function createEntity(
+    savedSectionsId = { criteriaSection: undefined, ratesSection: undefined },
+) {
     return function () {
         return new Promise((resolve) => {
-            if (savedCategoryId) {
-                resolve(savedCategoryId[0]);
-                return ;
+            if (
+                savedSectionsId.criteriaSection &&
+                savedSectionsId.ratesSection
+            ) {
+                resolve(savedSectionsId);
+                return;
             }
             BX24.callMethod('entity.get', {}, (res) => {
                 const createdEntities = res.data();
                 const entity = createdEntities.find(
                     (createdEntity) => createdEntity.ENTITY == 'rates',
                 );
-                // console.log(entity)
                 if (entity) {
                     BX24.callMethod(
                         'entity.section.get',
@@ -21,8 +25,21 @@ export const getSectionId = (function createEntity(savedCategoryId) {
                             },
                         },
                         (res) => {
-                            savedCategoryId = res.data();
-                            resolve(savedCategoryId); // section id
+                            savedSectionsId.criteriaSection = res.data()[0]?.ID;
+                            BX24.callMethod(
+                                'entity.section.get',
+                                {
+                                    ENTITY: 'rates',
+                                    FILTER: {
+                                        NAME: 'userRates',
+                                    },
+                                },
+                                (res) => {
+                                    savedSectionsId.ratesSection =
+                                        res.data()[0]?.ID;
+                                    resolve(savedSectionsId); // sections id
+                                },
+                            );
                         },
                     );
                 } else {
@@ -39,8 +56,73 @@ export const getSectionId = (function createEntity(savedCategoryId) {
                                         'Критерии для оценки сотрудников',
                                 },
                                 (res) => {
-                                    savedCategoryId = res.data();
-                                    resolve(savedCategoryId); // section id
+                                    savedSectionsId.criteriaSection =
+                                        res.data();
+                                    BX24.callMethod(
+                                        'entity.section.add',
+                                        {
+                                            ENTITY: 'rates',
+                                            NAME: 'userRates',
+                                            DESCRIPTION: 'Оценки сотрудников',
+                                        },
+                                        (res) => {
+                                            BX24.callBatch(
+                                                [
+                                                    [
+                                                        'entity.item.property.add',
+                                                        {
+                                                            ENTITY: 'rates',
+                                                            PROPERTY: 'TASK_ID',
+                                                            NAME: 'task id in rate',
+                                                            TYPE: 'N',
+                                                        },
+                                                    ],
+                                                    [
+                                                        'entity.item.property.add',
+                                                        {
+                                                            ENTITY: 'rates',
+                                                            PROPERTY: 'USER_ID',
+                                                            NAME: 'user id in rate',
+                                                            TYPE: 'N',
+                                                        },
+                                                    ],
+                                                    [
+                                                        'entity.item.property.add',
+                                                        {
+                                                            ENTITY: 'rates',
+                                                            PROPERTY:
+                                                                'CRITERION_ID',
+                                                            NAME: 'criterion id in rate',
+                                                            TYPE: 'N',
+                                                        },
+                                                    ],
+                                                    [
+                                                        'entity.item.property.add',
+                                                        {
+                                                            ENTITY: 'rates',
+                                                            PROPERTY: 'COMMENT',
+                                                            NAME: 'comment in rate',
+                                                            TYPE: 'S',
+                                                        },
+                                                    ],
+                                                    [
+                                                        'entity.item.property.add',
+                                                        {
+                                                            ENTITY: 'rates',
+                                                            PROPERTY: 'RATE',
+                                                            NAME: 'rate value in rate',
+                                                            TYPE: 'N',
+                                                        },
+                                                    ],
+                                                ],
+                                                (res) => {
+                                                    savedSectionsId.ratesSection =
+                                                        res.data();
+                                                    resolve(savedSectionsId); // section id
+                                                },
+                                            );
+                                        },
+                                    );
                                 },
                             );
                         },
@@ -57,8 +139,6 @@ export const getSectionId = (function createEntity(savedCategoryId) {
 /* BX24.callMethod('entity.get', {}, res => {
     console.log(res)
 }) */
-
-
 
 /* BX24.callMethod('entity.delete', {ENTITY: "rates"}, res => {
     console.log(res)

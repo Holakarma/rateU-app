@@ -1,3 +1,3 @@
-import React from "react";
+import { createContext } from 'react';
 
-export const PlacementContext = React.createContext()
+export const PlacementContext = createContext();
