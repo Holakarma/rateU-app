@@ -1,0 +1,27 @@
+import { getSectionId } from './createEntity';
+
+export const getRates = (function createSavedCriteria(savedRates = []) {
+    return function (refresh = false) {
+        return new Promise(async (resolve) => {
+            if (refresh) {
+                savedRates = [];
+            }
+            if (savedRates.length > 0) {
+                resolve(savedRates);
+                return;
+            }
+            const sectionId = (await getSectionId()).ratesSection;
+            BX24.callMethod(
+                'entity.item.get',
+                {
+                    ENTITY: 'rates',
+                    SECTION: sectionId,
+                },
+                (res) => {
+                    savedRates = res.data();
+                    resolve(savedRates);
+                },
+            );
+        });
+    };
+})();

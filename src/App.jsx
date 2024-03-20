@@ -3,6 +3,8 @@ import { Workspace } from './components/Workspace/Workspace';
 import { getSectionId } from './utils/createEntity';
 import { PlacementContext } from './utils/placementContext';
 
+
+
 export function App() {
     const [isReady, setReady] = React.useState(false);
     const placementInfo = BX24.placement.info(); // Release version

@@ -5,7 +5,8 @@ export default function addCriterion(name) {
         return;
     }
     return new Promise(async (resolve) => {
-        const sectionId = await getSectionId();
+        const sectionId = (await getSectionId()).criteriaSection;
+        console.log(sectionId)
         BX24.callMethod(
             'entity.item.add',
             {
