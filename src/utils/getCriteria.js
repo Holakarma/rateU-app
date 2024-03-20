@@ -10,14 +10,17 @@ export const getCriteria = (function createSavedCriteria(savedCriteria = []) {
                 resolve(savedCriteria);
                 return;
             }
-            const sectionId = await getSectionId();
+            const sectionId = (await getSectionId()).criteriaSection;
             BX24.callMethod(
                 'entity.item.get',
                 {
                     ENTITY: 'rates',
-                    SECTION: sectionId,
+                    FILTER: {
+                        // 'SECTION': sectionId
+                    }
                 },
                 (res) => {
+                    console.log(res.data())
                     savedCriteria = res.data();
                     resolve(savedCriteria);
                 },

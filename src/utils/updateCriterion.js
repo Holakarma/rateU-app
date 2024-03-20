@@ -1,5 +1,3 @@
-import { getSectionId } from './createEntity';
-
 export function updateCriterion(id, name) {
     if (!id || !name.length) return;
     return new Promise((resolve) => {
