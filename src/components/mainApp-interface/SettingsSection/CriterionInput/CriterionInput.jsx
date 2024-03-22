@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Delete } from '../../../../icons/Delete/Delete';
 import addCriterion from '../../../../utils/addCriterion';
 import { getCriteria } from '../../../../utils/getCriteria';
@@ -13,7 +13,11 @@ export function CriterionInput({ criterion, refreshHandler }) {
     const [criterionName, setCriterionName] = React.useState(
         criterion ? criterion.NAME : '',
     );
+    const [isCriterionActive, setCriterionActive] = React.useState(
+        criterion?.ACTIVE === 'Y' ? true : false,
+    );
     const [isCorrect, setCorrect] = React.useState(true);
+    const [showApprove, setApprove] = React.useState(false);
     async function criterionHandler() {
         if (!criterionName.length) {
             setCorrect(false);
@@ -23,22 +27,39 @@ export function CriterionInput({ criterion, refreshHandler }) {
             await addCriterion(criterionName);
             setCriterionName('');
         } else {
-            await updateCriterion(criterion.ID, criterionName);
+            await updateCriterion(
+                criterion.ID,
+                criterionName,
+                !isCriterionActive,
+            );
         }
-        const result = await getCriteria(true);
+        const result = await getCriteria(true, true);
         refreshHandler(result);
     }
     async function deleteHandler() {
         if (criterion) {
             await deleteCriterion(criterion.ID);
-            const result = await getCriteria(true);
+            const result = await getCriteria(true, true);
             refreshHandler(result);
         }
     }
 
     return (
-        <div className="row mb-2">
+        <div className="row mb-2 align-items-center justify-content-end">
             <div className="input-group col">
+                {criterion ? (
+                    <div className="input-group-text">
+                        <input
+                            className="form-check-input mt-0"
+                            type="checkbox"
+                            checked={isCriterionActive}
+                            onChange={() => {
+                                criterionHandler();
+                                setCriterionActive(!isCriterionActive);
+                            }}
+                        />
+                    </div>
+                ) : null}
                 <input
                     type="text"
                     className={`form-control ${
@@ -50,7 +71,14 @@ export function CriterionInput({ criterion, refreshHandler }) {
                         setCriterionName(e.target.value);
                         setCorrect(true);
                     }}
-                    onBlur={() => {setCriterionName(criterionName.trim())}}
+                    onBlur={() => {
+                        setCriterionName(criterionName.trim());
+                    }}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                            criterionHandler();
+                        }
+                    }}
                     value={criterionName}
                 />
                 {criterionName.length && criterionName != criterion?.NAME ? (
@@ -71,15 +99,30 @@ export function CriterionInput({ criterion, refreshHandler }) {
             </div>
             {criterion ? (
                 <button
-                    onClick={deleteHandler}
+                    onClick={() => {
+                        setApprove(!showApprove);
+                    }}
                     type="button"
                     className="btn btn-danger col-1"
                 >
                     <Delete size={24} />
                 </button>
             ) : (
-                <div className="col"></div>
+                <div className="col-1"></div>
             )}
+            {showApprove ? (
+                <div className="col-12 py-2 text-end row align-items-center justify-content-end">
+                    <p className="col mb-0">
+                        Будут утеряны все оценки этого критерия. Вы уверены?
+                    </p>
+                    <button
+                        className="btn btn-secondary col-2"
+                        onClick={deleteHandler}
+                    >
+                        Удалить
+                    </button>
+                </div>
+            ) : null}
         </div>
     );
 }

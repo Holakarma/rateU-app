@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { RateCriterion } from '../RateCriterion/RateCriterion';
 import { RatesContext } from '../../../utils/ratesContext';
+import { ArrowDropDown } from '../../../icons/ArrowDropDown/ArrowDropDown';
 
 export function RateUser({ userData, criteria }) {
     const { rates, setRates } = React.useContext(RatesContext);
@@ -22,14 +23,23 @@ export function RateUser({ userData, criteria }) {
     return (
         <div className="card my-2">
             <div
-                className="card-header dropdown-toggle"
+                className="card-header"
                 role="button"
                 onClick={() => {
                     setRateOn(!isRateOn);
                 }}
             >
-                {userData.name}{' '}
-                {rated ? <span className="opacity-50">– оценён</span> : null}
+                <div className="row justify-content-between">
+                    <div className="col">
+                        {userData.name}
+                        {rated ? (
+                            <span className="opacity-50"> – оценён</span>
+                        ) : null}
+                    </div>
+                    <div className="col-1 text-end">
+                        <ArrowDropDown size={26} active={isRateOn}/>
+                    </div>
+                </div>
             </div>
             {isRateOn ? (
                 <div className="card-body">
