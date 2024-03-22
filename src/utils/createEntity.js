@@ -144,7 +144,7 @@ export const getSectionId = (function createEntity(
     console.log(res)
 }) */
 
-/* 
+/*
 BX24.callMethod('entity.section.add', {ENTITY: "rates", NAME:"creteria", DESCRIPTION: "Созданные критерии для оценки сотрудников"}, res => {
     console.log(res)
 })
@@ -162,9 +162,9 @@ BX24.callMethod('entity.section.add', {ENTITY: "rates", NAME:"creteria", DESCRIP
 }) */
 
 /* BX24.callMethod('entity.item.add', {
-	ENTITY: 'rates',
-	NAME: 'Пунктуальность',
-	SECTION: 134
+    ENTITY: 'rates',
+    NAME: 'Пунктуальность',
+    SECTION: 134
 }, res => {
     console.log(res)
 }); */
