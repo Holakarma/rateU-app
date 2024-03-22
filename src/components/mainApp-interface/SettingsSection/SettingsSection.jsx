@@ -5,7 +5,7 @@ import { getCriteria } from '../../../utils/getCriteria';
 export function SettingsSection() {
     const [criteriaList, setCriteriaList] = React.useState([]);
     useEffect(async () => {
-        const answer = await getCriteria();
+        const answer = await getCriteria(false, true);
         setCriteriaList(answer);
     });
     return (

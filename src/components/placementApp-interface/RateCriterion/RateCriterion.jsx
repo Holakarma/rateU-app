@@ -89,7 +89,7 @@ export function RateCriterion({ criterion, userData, changeRated }) {
         changeRated(newRates);
     }
     function inputComm(value) {
-        setComm(value.trim());
+        setComm(value);
         rateCriterion.comm = value.trim();
         changeHandler(rate);
     }

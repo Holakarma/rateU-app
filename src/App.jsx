@@ -4,14 +4,16 @@ import { getSectionId } from './utils/createEntity';
 import { PlacementContext } from './utils/placementContext';
 
 
+// BX24.callMethod('entity.item.get', {ENTITY: 'rates'}, res => {console.log(res)})
+
 
 export function App() {
     const [isReady, setReady] = React.useState(false);
-    const placementInfo = BX24.placement.info(); // Release version
-    // const placementInfo = {
-    //     options: { taskId: '300' },
-    //     placement: 'TASK_VIEW_TAB',
-    // };
+    // const placementInfo = BX24.placement.info(); // Release version
+    const placementInfo = {
+        options: { taskId: '300' },
+        placement: 'TASK_VIEW_TAB',
+    };
     useEffect(() => {
         getSectionId().then((result) => {
             if (placementInfo.placement === 'DEFAULT') {

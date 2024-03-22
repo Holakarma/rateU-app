@@ -1,0 +1,9 @@
+.ArrowDropDown {
+    transform: rotate(90deg);
+    fill: var(--bs-body-color);
+    transition: transform .2s ease;
+}
+
+.ArrowDropDown--active {
+    transform: none;
+}

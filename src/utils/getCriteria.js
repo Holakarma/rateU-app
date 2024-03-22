@@ -1,7 +1,7 @@
 import { getSectionId } from './createEntity';
 
 export const getCriteria = (function createSavedCriteria(savedCriteria = []) {
-    return function (refresh = false) {
+    return function (refresh = false, getInactive = false) {
         return new Promise(async (resolve) => {
             if (refresh) {
                 savedCriteria = [];
@@ -11,20 +11,30 @@ export const getCriteria = (function createSavedCriteria(savedCriteria = []) {
                 return;
             }
             const sectionId = (await getSectionId()).criteriaSection;
-            BX24.callMethod(
-                'entity.item.get',
-                {
-                    ENTITY: 'rates',
-                    FILTER: {
-                        'SECTION': sectionId
-                    }
-                },
-                (res) => {
-                    // console.log(res.data())
-                    savedCriteria = res.data();
-                    resolve(savedCriteria);
-                },
-            );
+            const queryParams = getInactive
+                ? {
+                      ENTITY: 'rates',
+                      FILTER: {
+                          SECTION: sectionId,
+                      },
+                  }
+                : {
+                      ENTITY: 'rates',
+                      FILTER: {
+                          ACTIVE: 'Y',
+                          SECTION: sectionId,
+                      },
+                  };
+            let resultArray = [];
+            BX24.callMethod('entity.item.get', queryParams, (res) => {
+                resultArray = resultArray.concat(res.data());
+                if (res.more()) {
+                    res.next();
+                    return;
+                }
+                savedCriteria = resultArray;
+                resolve(savedCriteria);
+            });
         });
     };
 })();
