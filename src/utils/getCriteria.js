@@ -16,11 +16,11 @@ export const getCriteria = (function createSavedCriteria(savedCriteria = []) {
                 {
                     ENTITY: 'rates',
                     FILTER: {
-                        // 'SECTION': sectionId
+                        'SECTION': sectionId
                     }
                 },
                 (res) => {
-                    console.log(res.data())
+                    // console.log(res.data())
                     savedCriteria = res.data();
                     resolve(savedCriteria);
                 },
