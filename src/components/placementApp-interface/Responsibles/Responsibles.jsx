@@ -12,9 +12,15 @@ export function Responsibles() {
     const placementInfo = useContext(PlacementContext);
     const [criteria, setCriteria] = React.useState([]);
     const [rates, setRates] = React.useState([]);
+    const [isCriteriaAdded, setCriteriaAdded] = React.useState(true);
     useEffect(async () => {
         const placementTask = await getTask(placementInfo.options.taskId);
-        setCriteria(await getCriteria());
+        const fetchedCriteria = await getCriteria();
+        if (fetchedCriteria.length) {
+            setCriteria(fetchedCriteria);
+        } else {
+            setCriteriaAdded(false);
+        }
         const accomplicesList = placementTask.task.accomplices;
         if (accomplicesList.length) {
             placementTask.task.accomplices = accomplicesList.filter(
@@ -29,29 +35,39 @@ export function Responsibles() {
     return task ? (
         <div>
             <RatesContext.Provider value={{ rates, setRates }}>
-                <h5>Ответственный</h5>
-                <RateUser
-                    userData={task.responsible}
-                    criteria={criteria}
-                />
-                {task.accomplices.length > 0 ? (
+                {isCriteriaAdded ? (
                     <>
-                        <h5>Соисполнители</h5>
-                        <div>
-                            {task.accomplices.map((accomplice) => (
-                                <RateUser
-                                    key={accomplice}
-                                    userData={task.accomplicesData[accomplice]}
-                                    criteria={criteria}
-                                />
-                            ))}
-                        </div>
-                        <SaveRatesBtn />
+                        <h5>Ответственный</h5>
+                        <RateUser
+                            userData={task.responsible}
+                            criteria={criteria}
+                        />
+                        {task.accomplices.length > 0 ? (
+                            <>
+                                <h5>Соисполнители</h5>
+                                <div>
+                                    {task.accomplices.map((accomplice) => (
+                                        <RateUser
+                                            key={accomplice}
+                                            userData={
+                                                task.accomplicesData[accomplice]
+                                            }
+                                            criteria={criteria}
+                                        />
+                                    ))}
+                                </div>
+                                <SaveRatesBtn />
+                            </>
+                        ) : (
+                            <div className="spinner-grow">
+                                <span className="visually-hidden">
+                                    Loading...
+                                </span>
+                            </div>
+                        )}
                     </>
                 ) : (
-                    <div className="spinner-grow">
-                        <span className="visually-hidden">Loading...</span>
-                    </div>
+                    <div>Пожалуйста, добавьте критерии для оценки в приложении RateU</div>
                 )}
             </RatesContext.Provider>
         </div>
