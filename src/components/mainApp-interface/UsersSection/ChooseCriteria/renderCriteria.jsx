@@ -1,17 +1,21 @@
-import { ChooseCriteria } from "./ChooseCriteria"
+import React from 'react';
 
+export function RenderCriteria({ criteria }) {
 
-export function renderCriteria({criteria}) {
-
-    criteria.map((criteria) => {
-        setCriteria(criteria)
-    })
+    console.log(criteria)
 
     return (
         <ul className="list-group list-group-flush gy-1">
-            {criteria.map((criteria) => {
-                <li key={criteria.ID} className="list-group-item">{criterion.NAME}</li>
-            })}
+            {criteria.map((criterion) =>
+                <li key={criterion.ID} className="list-group-item">
+                    <input
+                        className="form-check-input me-2"
+                        type="checkbox"
+
+                    />
+                    {criterion.NAME}
+                </li>
+            )}
         </ul>
     )
 }

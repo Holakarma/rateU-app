@@ -24,7 +24,7 @@ export function ShowEmployee({employee, criteria}) {
                         <div className='border rounded border-secondary-subtle'>
                             <ul className="list-group list-group-flush gy-1">
                                 {criteria.map(criterion => 
-                                    <li key={criteria.ID} className="list-group-item">{criterion.NAME}: 10/10</li>
+                                    <li key={criterion.ID} className="list-group-item">{criterion.NAME}: 10/10</li>
                                 )}
                             </ul>
                         </div>
