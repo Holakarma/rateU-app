@@ -17,7 +17,7 @@ export function UserSection() {
             <h3>Оценка сотрудников</h3>
             <div className='d-flex gap-3'>
                 <UserSelect setEmployees={setEmployees}/>
-                <ChooseCriteria criteria={criteria} setCriteria={setCriteria}/>
+                <ChooseCriteria criteria={criteria}/>
             </div>
             <div className='mt-4 row g-3'>
                 {employees.map((employee) =>

@@ -1,32 +1,27 @@
 import React, { useEffect } from 'react';
-import { renderCriteria } from './renderCriteria';
+import { RenderCriteria } from './renderCriteria';
 
-export function ChooseCriteria( {criteria, setCriteria} ) {
+export function ChooseCriteria({ criteria }) {
 
-    // useEffect(() => {
-        function chooseCriteria() { 
-            criteria.map((criteria) => {
-                setCriteria(criteria)
-        })}
-    // }, [])
+    const [isCriteria, setCriteria] = React.useState(false)
 
-    // }
-
-    // renderCriteria({criteria})
     // console.log(criteria)
-
-    // const condition = true;
-
     return (
         <div>
-            <button 
-                onClick={chooseCriteria}
-                type='button'
-                className="btn btn-primary dropdown-toggle"
-            >
-                Выбор критериев
-            </button>
-            {/* {condition ? "true" : null} */}
+            <div>
+                <button
+                    onClick={() => setCriteria(!isCriteria)}
+                    type='button'
+                    className="btn btn-primary dropdown-toggle"
+                >
+                    Выбор критериев
+                </button>
+            </div>
+            {
+                isCriteria ?
+                    <RenderCriteria criteria={criteria} /> :
+                    null
+            }
         </div>
     )
 }
