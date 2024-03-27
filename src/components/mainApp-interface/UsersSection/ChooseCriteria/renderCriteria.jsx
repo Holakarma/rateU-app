@@ -4,17 +4,28 @@ export function RenderCriteria({ criteria }) {
 
     console.log(criteria)
 
-    return (
-        <ul className="list-group list-group-flush gy-1">
-            {criteria.map((criterion) =>
-                <li key={criterion.ID} className="list-group-item">
-                    <input
-                        className="form-check-input me-2"
-                        type="checkbox"
+    // const [checkboxCriterion, setCheckboxCriterion] = React.useState(false)
 
+    // function checkboxToggleCriterion() {
+    //     setCheckboxCriterion(!checkboxCriterion)
+    // }
+
+    return (
+        <ul className="dropdown-menu rounded">
+            {criteria.map((criterion) => (
+                <li key={criterion.ID} className="dropdown-item">
+                    <input
+                        className="form-check-input me-2 pe-auto"
+                        type="checkbox"
+                        id={`${criterion.ID}dropdownCheckbox`}
+                        onChange={checkboxToggleCriterion}
+                        checked={checkboxCriterion}
                     />
-                    {criterion.NAME}
+                    <label htmlFor={`${criterion.ID}dropdownCheckbox`}>
+                        {criterion.NAME}
+                    </label>
                 </li>
+            )
             )}
         </ul>
     )
