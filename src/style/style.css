@@ -1,0 +1,11 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.form-check-input[type=checkbox] {
+    cursor: pointer;
+}
+
+.form-check-label {
+    cursor: pointer;
+}
