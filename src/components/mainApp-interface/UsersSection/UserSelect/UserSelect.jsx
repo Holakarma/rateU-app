@@ -1,8 +1,8 @@
 import React from 'react';
 import { saveEmployees } from '../../../../utils/saveEmployeesLS';
 
-export function UserSelect({setEmployees}) {
-    
+export function UserSelect({ setEmployees }) {
+
     function selectHandler() {
         setEmployees([])
         BX24.selectUsers((res) => {
@@ -12,7 +12,7 @@ export function UserSelect({setEmployees}) {
         })
     }
     return (
-        <div> 
+        <div>
             <button
                 onClick={selectHandler}
                 type="button"
