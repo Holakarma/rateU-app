@@ -1,11 +1,13 @@
 import React from 'react';
+import { saveEmployees } from '../../../../utils/saveEmployeesLS';
 
 export function UserSelect({setEmployees}) {
     
     function selectHandler() {
         setEmployees([])
         BX24.selectUsers((res) => {
-            // console.log(res)
+            console.log(res)
+            saveEmployees(res);
             setEmployees(res)
         })
     }
@@ -21,4 +23,3 @@ export function UserSelect({setEmployees}) {
         </div>
     );
 }
-

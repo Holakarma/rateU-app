@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react';
 import { RateCriterion } from '../RateCriterion/RateCriterion';
 import { RatesContext } from '../../../utils/ratesContext';
+import { PlacementContext } from '../../../utils/placementContext';
 import { ArrowDropDown } from '../../../icons/ArrowDropDown/ArrowDropDown';
 
 export function RateUser({ userData, criteria }) {
     const { rates, setRates } = React.useContext(RatesContext);
     const [rated, setRated] = React.useState(false);
     const [isRateOn, setRateOn] = React.useState(false);
+    const placementInfo = React.useContext(PlacementContext);
     useEffect(() => {
         if (changeRated(rates)) setRateOn(true);
     }, []);
 
     function changeRated(rates) {
-        if (rates.some((rate) => rate.user === userData.id)) {
+        if (rates.some((rate) => rate.user === userData.id && rate.task == placementInfo.options.taskId)) {
             setRated(true);
             return true;
         }

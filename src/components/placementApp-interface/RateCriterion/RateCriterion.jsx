@@ -33,7 +33,8 @@ export function RateCriterion({ criterion, userData, changeRated }) {
         rates.find((el, id) => {
             if (
                 el.user === rateCriterion.user &&
-                el.criterion === rateCriterion.criterion
+                el.criterion === rateCriterion.criterion &&
+                el.task === rateCriterion.task
             ) {
                 rateId = id;
                 return true;
@@ -43,9 +44,12 @@ export function RateCriterion({ criterion, userData, changeRated }) {
         return rateId;
     }
 
-    function changeHandler(value) {
-        if (value) {
-            rateCriterion.rate = value;
+    function changeHandler(rate, comm) {
+        if (rate) {
+            rateCriterion.rate = rate;
+        }
+        if (comm) {
+            rateCriterion.comm = comm;
         }
         updateRate();
     }
@@ -91,7 +95,7 @@ export function RateCriterion({ criterion, userData, changeRated }) {
     function inputComm(value) {
         setComm(value);
         rateCriterion.comm = value.trim();
-        changeHandler(rate);
+        changeHandler(rate, comm);
     }
 
     function toggleComm() {
@@ -124,22 +128,25 @@ export function RateCriterion({ criterion, userData, changeRated }) {
                     />
                     {criterion.NAME}
                 </label>
-                <input
-                    disabled={!isEnabled}
-                    value={rate}
-                    onChange={(e) => {
-                        setRate(parseInt(e.target.value));
-                        changeHandler(parseInt(e.target.value));
-                    }}
-                    type="range"
-                    className={`form-range col `}
-                    min="0"
-                    max="10"
-                />
-                <div className="col-1 text-body-secondary text-center">
+                <div className="col-3">
+                    <input
+                        disabled={!isEnabled}
+                        value={rate}
+                        onChange={(e) => {
+                            setRate(parseInt(e.target.value));
+                            changeHandler(parseInt(e.target.value), comm);
+                        }}
+                        type="range"
+                        className={`form-range`}
+                        min="0"
+                        max="10"
+                    />
+                </div>
+
+                <div className="col-2 text-body-secondary text-center">
                     {isEnabled ? <>{rate}/10</> : null}
                 </div>
-                <div className="col-2">
+                <div className="col-3">
                     {isEnabled ? (
                         <ins
                             style={{ cursor: 'pointer' }}
