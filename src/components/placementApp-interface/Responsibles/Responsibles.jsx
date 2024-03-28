@@ -56,18 +56,15 @@ export function Responsibles() {
                                         />
                                     ))}
                                 </div>
-                                <SaveRatesBtn />
                             </>
-                        ) : (
-                            <div className="spinner-grow">
-                                <span className="visually-hidden">
-                                    Loading...
-                                </span>
-                            </div>
-                        )}
+                        ) : null}
+                        <SaveRatesBtn />
                     </>
                 ) : (
-                    <div>Пожалуйста, добавьте критерии для оценки в приложении RateU</div>
+                    <div>
+                        Пожалуйста, добавьте критерии для оценки в приложении
+                        RateU
+                    </div>
                 )}
             </RatesContext.Provider>
         </div>

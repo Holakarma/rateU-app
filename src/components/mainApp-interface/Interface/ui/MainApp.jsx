@@ -19,7 +19,7 @@ const MainApp = () => {
 
     return (
         <div className="container position-relative">
-            <h1>Main Page</h1>
+            <h1>Статистика</h1>
             <SettingsButton
                 setSection={setSection}
                 openedSection={openedSection}

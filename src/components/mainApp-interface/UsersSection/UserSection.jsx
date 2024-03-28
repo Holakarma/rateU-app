@@ -4,15 +4,19 @@ import { ShowEmployee } from './/ShowEmployee/ShowEmployee';
 import { getCriteria } from '../../../utils/getCriteria';
 import { ChooseCriteria } from './ChooseCriteria/ChooseCriteria';
 import { getRates } from '../../../utils/getRates';
+import { saveEmployees } from '../../../utils/saveEmployeesLS';
 
 export function UserSection() {
-    const [employees, setEmployees] = React.useState([]);
+    let savedEmployees = saveEmployees();
+    const [employees, setEmployees] = React.useState(savedEmployees ? savedEmployees : []);
     const [criteria, setCriteria] = React.useState([]);
     const [fetchedRates, setFetchedRates] = React.useState([]);
+    const [isLoaded, setLoaded] = React.useState(false);
 
     useEffect(async () => {
         setCriteria(await getCriteria());
         setFetchedRates(await getRates());
+        setLoaded(true);savedEmployees
     }, []);
 
     return (
@@ -26,7 +30,7 @@ export function UserSection() {
                 />
             </div>
             <div className="mt-4 row g-3">
-                {fetchedRates.length ? (
+                {isLoaded ? (
                     employees.map((employee) => (
                         <ShowEmployee
                             key={employee.id}
@@ -39,9 +43,7 @@ export function UserSection() {
                     <div
                         className="spinner-grow"
                         role="status"
-                    >
-                        <span className="visually-hidden">Loading...</span>
-                    </div>
+                    ></div>
                 )}
             </div>
         </div>
