@@ -1,0 +1,40 @@
+.criteriaDropdown:active {
+    background-color: #d4d1fd !important;
+}
+
+.criteriaDropdown:hover {
+    background-color: white !important;
+    color: black;
+}
+
+.criteriaDropdownBtn:active {
+    background-color: white !important;
+}
+
+.criteriaDropdownBtn:hover {
+    background-color: white !important;
+}
+
+.bgBtn {
+    background-color: #8376FF !important;
+    border: #6f5fff92;
+    cursor: auto;
+    transition: all ease .50s !important;
+}
+
+.bgBtn:hover {
+    background: linear-gradient(
+                            206deg,
+                            hsla(168, 85%, 52%, 0.5),
+                            hsla(263, 88%, 45%, 0.5) 100%
+                          );
+}
+
+.bgBtn:active {
+    background: linear-gradient(
+                            35deg,
+                            hsla(168, 85%, 52%, 0.5),
+                            hsla(263, 88%, 45%, 0.5) 100%
+                          );
+}
+

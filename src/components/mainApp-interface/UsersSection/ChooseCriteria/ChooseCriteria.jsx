@@ -1,27 +1,20 @@
-import React, { useEffect } from 'react';
-import { RenderCriteria } from './renderCriteria';
+import React from 'react';
+import { RenderCriteria } from './RenderCriteria';
+import { Dropdown } from 'react-bootstrap';
 
 export function ChooseCriteria({ criteria }) {
 
-    const [isCriteria, setCriteria] = React.useState(false)
-
-    // console.log(criteria)
     return (
         <div>
-            <div>
-                <button
-                    onClick={() => setCriteria(!isCriteria)}
-                    type='button'
-                    className="btn btn-primary dropdown-toggle"
+            <Dropdown autoClose="outside">
+                <Dropdown.Toggle
+                    className="position-relative"
+                    id="dropdown-autoclose-outside"
                 >
                     Выбор критериев
-                </button>
-            </div>
-            {
-                isCriteria ?
-                    <RenderCriteria criteria={criteria} /> :
-                    null
-            }
+                </Dropdown.Toggle>
+                <RenderCriteria criteria={criteria} />
+            </Dropdown>
         </div>
     )
 }
