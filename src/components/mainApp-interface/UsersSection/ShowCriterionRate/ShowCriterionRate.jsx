@@ -1,31 +1,42 @@
 import React, { useEffect } from 'react';
 
-export function ShowCriterionRate({ criterion, fetchedRates, employeeId, getRate }) {
+export function ShowCriterionRate({
+    criterion,
+    employeeRates,
+    employeeId,
+    getRate,
+}) {
     const [rate, setRate] = React.useState(-1);
     useEffect(() => {
-        fetchedRates = fetchedRates.filter(
+        employeeRates = employeeRates.filter(
             (fetchedRate) =>
-                fetchedRate.PROPERTY_VALUES.CRITERION_ID === criterion.ID &&
-                fetchedRate.PROPERTY_VALUES.USER_ID === employeeId,
+                fetchedRate.PROPERTY_VALUES.CRITERION_ID === criterion.ID,
         );
-        if (fetchedRates.length) {
-            let sum = 0;
-            fetchedRates.map((fetchedRate) => {
-                sum += fetchedRate.PROPERTY_VALUES.RATE;
-            });
-            sum /= Math.round(fetchedRates.length*100)/100;
+        if (employeeRates.length) {
+            let sum = employeeRates.reduce(
+                (acc, fetchedRate) =>
+                    acc + parseInt(fetchedRate.PROPERTY_VALUES.RATE),
+                0,
+            );
+            sum /= employeeRates.length;
             setRate(sum);
             getRate(sum);
         }
     }, []);
     return (
         <li className="list-group-item">
-            {criterion.NAME}:{' '}
+            {criterion.NAME}:
             {rate === -1 ? (
-                <i className="opacity-75">Нет оценок</i>
+                <i className="opacity-50 ms-1">Нет оценок</i>
             ) : (
-                <span>
-                    <span className={`${rate < 2 ? 'text-danger' : ''} ${rate > 7 ? 'text-success' : ''}`}>{rate}</span>
+                <span className="ms-1">
+                    <span
+                        className={`${rate < 2 ? 'text-danger' : ''} ${
+                            rate > 7 ? 'text-success' : ''
+                        }`}
+                    >
+                        {Math.round(rate * 100) / 100}
+                    </span>
                     <span className={`opacity-50`}>/10</span>
                 </span>
             )}
