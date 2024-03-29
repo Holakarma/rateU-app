@@ -4,6 +4,8 @@ import Tooltip from 'react-bootstrap/Tooltip';
 
 export function ShowDetailedRate({ rate, criterion }) {
     const date = new Date(rate.TIMESTAMP_X);
+    const dateCreate = new Date(rate.DATE_CREATE);
+    const isChanged = date.getTime() !== dateCreate.getTime();
 
     const dateOptions = {
         day: 'numeric',
@@ -28,7 +30,7 @@ export function ShowDetailedRate({ rate, criterion }) {
                             className="w-100"
                             disabled
                             value={rate.PROPERTY_VALUES.COMMENT}
-                            style={{height: 'auto'}}
+                            style={{ height: 'auto' }}
                         />
                     ) : null}
                 </div>
@@ -38,6 +40,7 @@ export function ShowDetailedRate({ rate, criterion }) {
                             <Tooltip>
                                 <span>
                                     {date.toLocaleString('ru', timeOptions)}
+                                    {isChanged ? <i> (изм.)</i> : ''}
                                 </span>
                             </Tooltip>
                         }

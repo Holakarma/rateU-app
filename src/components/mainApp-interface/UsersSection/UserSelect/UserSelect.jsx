@@ -3,21 +3,20 @@ import { saveEmployees } from '../../../../utils/saveEmployeesLS';
 import cls from '../ChooseCriteria/renderCriteria.module.css'
 
 export function UserSelect({ setEmployees }) {
-
     function selectHandler() {
-        setEmployees([])
+        setEmployees([]);
         BX24.selectUsers((res) => {
-            console.log(res)
+            console.log(res);
             saveEmployees(res);
-            setEmployees(res)
-        })
+            setEmployees(res);
+        });
     }
     return (
-        <div>
+        <div className="col">
             <button
                 onClick={selectHandler}
                 type="button"
-                className={`btn btn-primary dropdown-toggle ${cls.bgBtn}`}
+                className={`btn btn-primary dropdown-toggle ${cls.bgBtn} w-100`}
             >
                 Выбор сотрудников
             </button>

@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ShowCriterionRate } from '../ShowCriterionRate/ShowCriterionRate';
 import { RatesHistoryButton } from '../RatesHistoryButton/RatesHistoryButton';
 // import cls from './showEmployee.module.css'
 
 export function ShowEmployee({ employee, criteria, fetchedRates }) {
-    const domain = window.location.hostname;
-
-    // setTimeout(BX24.fitWindow(), 20);
-
     const [countRates, setCountRates] = React.useState(0);
     const sum = React.useRef(0);
     const count = React.useRef(0);
 
-    const employeeRates = fetchedRates.filter(
-        (fetchedRate) => fetchedRate.PROPERTY_VALUES.USER_ID === employee.id,
-    );
+    const [employeeRates, setEmployeeRates] = React.useState([]);
+
+    useEffect(() => {
+        setEmployeeRates(
+            fetchedRates.filter(
+                (fetchedRate) =>
+                    fetchedRate.PROPERTY_VALUES.USER_ID === employee.id,
+            ),
+        );
+    }, [fetchedRates]);
+    console.log(employeeRates);
 
     return (
         <div className="col-6">
