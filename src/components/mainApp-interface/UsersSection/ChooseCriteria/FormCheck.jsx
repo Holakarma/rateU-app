@@ -3,14 +3,20 @@ import { Form, FormGroup, FormLabel } from "react-bootstrap";
 import cls from './renderCriteria.module.css'
 
 
-export function FormCheck({ criterion }) {
+export function FormCheck({ criterion, selectedCriteria, setSelectedCriteria }) {
 
     const [checkedCriterion, setCheckedCriterion] = React.useState(true);
     function handleChangeCriterion() {
-        setCheckedCriterion(!checkedCriterion)
+        setCheckedCriterion(!checkedCriterion);
+        if (!checkedCriterion) {
+            setSelectedCriteria(prevState => [...prevState, criterion.NAME]);
+        } else {
+            setSelectedCriteria(prevState => prevState.filter(name => name !== criterion.NAME));
+        }
     };
 
-    // console.log(checkedCriterion)
+    // console.log(selectedCriteria)
+    // console.log(criterion.NAME)
 
     return (
         <div className={`${cls.criteriaDropdown} dropdown-item p-0`}>
