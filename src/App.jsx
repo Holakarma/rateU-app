@@ -2,10 +2,15 @@ import React, { useEffect } from 'react';
 import { Workspace } from './components/Workspace/Workspace';
 import { getSectionId } from './utils/createEntity';
 import { PlacementContext } from './utils/placementContext';
+import { PrimeReactProvider } from 'primereact/api';
+import { addLocale } from 'primereact/api';
+import { locale } from './utils/localePR';
 
 // BX24.callMethod('entity.delete', {ENTITY: 'rates'}, res => {console.log(res)})
 
 export function App() {
+    addLocale('ru', locale);
+    const lang = 'ru';
     const [isReady, setReady] = React.useState(false);
     const placementInfo = BX24.placement.info(); // Release version
     // const placementInfo = {
@@ -53,7 +58,7 @@ export function App() {
                         },
                     ); */
                         BX24.installFinish();
-                        setReady(true); 
+                        setReady(true);
                     }
                 });
             } else {
@@ -63,9 +68,11 @@ export function App() {
     });
 
     return isReady ? (
-        <PlacementContext.Provider value={placementInfo}>
-            <Workspace />
-        </PlacementContext.Provider>
+        <PrimeReactProvider value={lang}>
+            <PlacementContext.Provider value={placementInfo}>
+                <Workspace />
+            </PlacementContext.Provider>
+        </PrimeReactProvider>
     ) : (
         <div className="d-flex justify-content-center">
             <div className="spinner-grow">

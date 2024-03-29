@@ -3,12 +3,11 @@ import { RenderCriteria } from './RenderCriteria';
 import { Dropdown } from 'react-bootstrap';
 
 export function ChooseCriteria({ criteria }) {
-
     return (
-        <div>
+        <div className="col">
             <Dropdown autoClose="outside">
                 <Dropdown.Toggle
-                    className="position-relative"
+                    className="position-relative w-100"
                     id="dropdown-autoclose-outside"
                 >
                     Выбор критериев
@@ -16,5 +15,5 @@ export function ChooseCriteria({ criteria }) {
                 <RenderCriteria criteria={criteria} />
             </Dropdown>
         </div>
-    )
+    );
 }

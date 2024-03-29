@@ -1,7 +1,7 @@
 import { getSectionId } from './createEntity';
 
 export const getRates = (function createSavedCriteria(savedRates = []) {
-    return function (refresh = false) {
+    return function (refresh = false, period = {dateBegin: null, dateEnd: null}) {
         return new Promise(async (resolve) => {
             if (refresh) {
                 savedRates = [];
@@ -18,6 +18,8 @@ export const getRates = (function createSavedCriteria(savedRates = []) {
                     ENTITY: 'rates',
                     FILTER: {
                         SECTION: sectionId,
+                        '>=TIMESTAMP_X': period.dateBegin,
+                        '<TIMESTAMP_X': period.dateEnd,
                     }
                 },
                 (res) => {
