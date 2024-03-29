@@ -5,6 +5,7 @@ import { getCriteria } from '../../../utils/getCriteria';
 import { ChooseCriteria } from './ChooseCriteria/ChooseCriteria';
 import { getRates } from '../../../utils/getRates';
 import { saveEmployees } from '../../../utils/saveEmployeesLS';
+import cls from './ChooseCriteria/renderCriteria.module.css'
 
 export function UserSection() {
     let savedEmployees = saveEmployees();
@@ -16,7 +17,7 @@ export function UserSection() {
     useEffect(async () => {
         setCriteria(await getCriteria());
         setFetchedRates(await getRates());
-        setLoaded(true);savedEmployees
+        setLoaded(true); savedEmployees
     }, []);
 
     return (

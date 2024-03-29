@@ -53,7 +53,7 @@ export function App() {
                         },
                     ); */
                         BX24.installFinish();
-                        setReady(true); 
+                        setReady(true);
                     }
                 });
             } else {

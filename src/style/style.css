@@ -1,9 +1,19 @@
+body {
+    /* border: 1px solid;
+    border-radius: 10px;
+    border-image: linear-gradient(20deg, #2c8fc4 38%, #00deff 65%);
+    border-image-slice: 1; */
+    min-height: 100vh;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
 
 .form-check-input[type=checkbox] {
     cursor: pointer;
+    background-color: #2c8fc4;
+    border: none;
 }
 
 .form-check-label {

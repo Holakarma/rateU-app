@@ -16,25 +16,25 @@
 }
 
 .bgBtn {
-    background-color: #8376FF !important;
-    border: #6f5fff92;
+    background-color: #236a90 !important;
+    border: none;
     cursor: auto;
-    transition: all ease .50s !important;
+    transition: 0.5s !important;
+}
+
+.textGradient {
+    background: linear-gradient(45deg, #1c1579 33%, #ffffff 66%, #ffffff);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #0B2349;
+    display: table;
 }
 
 .bgBtn:hover {
-    background: linear-gradient(
-                            206deg,
-                            hsla(168, 85%, 52%, 0.5),
-                            hsla(263, 88%, 45%, 0.5) 100%
-                          );
+    background: linear-gradient(205deg, #2c8fc4 33%, #226e97 66%, #2c8fc4);
 }
 
 .bgBtn:active {
-    background: linear-gradient(
-                            35deg,
-                            hsla(168, 85%, 52%, 0.5),
-                            hsla(263, 88%, 45%, 0.5) 100%
-                          );
+    background: linear-gradient(35deg, #2c8fc4 33%, #226e97 66%, #2c8fc4);
 }
 
