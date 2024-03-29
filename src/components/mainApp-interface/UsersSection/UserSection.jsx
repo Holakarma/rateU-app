@@ -5,6 +5,7 @@ import { getCriteria } from '../../../utils/getCriteria';
 import { ChooseCriteria } from './ChooseCriteria/ChooseCriteria';
 import { getRates } from '../../../utils/getRates';
 import { saveEmployees } from '../../../utils/saveEmployeesLS';
+import cls from './ChooseCriteria/renderCriteria.module.css'
 import { PeriodPicker } from './PeriodPicker/PeriodPicker';
 
 export function UserSection() {

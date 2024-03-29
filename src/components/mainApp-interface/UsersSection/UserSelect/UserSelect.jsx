@@ -1,5 +1,6 @@
 import React from 'react';
 import { saveEmployees } from '../../../../utils/saveEmployeesLS';
+import cls from '../ChooseCriteria/renderCriteria.module.css'
 
 export function UserSelect({ setEmployees }) {
     function selectHandler() {
@@ -15,7 +16,7 @@ export function UserSelect({ setEmployees }) {
             <button
                 onClick={selectHandler}
                 type="button"
-                className="btn btn-primary dropdown-toggle w-100"
+                className={`btn btn-primary dropdown-toggle ${cls.bgBtn} w-100`}
             >
                 Выбор сотрудников
             </button>
