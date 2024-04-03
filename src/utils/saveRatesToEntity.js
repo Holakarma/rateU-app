@@ -10,10 +10,6 @@ function findRate(where, what) {
     );
 }
 
-BX24.callMethod('entity.item.get', { ENTITY: 'rates' }, (res) => {
-    console.log('items', res.data());
-});
-
 export const getRates = (function (savedRates = []) {
     return function (rates, taskId) {
         return new Promise(async (resolve) => {

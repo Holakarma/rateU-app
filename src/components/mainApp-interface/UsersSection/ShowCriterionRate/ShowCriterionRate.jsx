@@ -8,22 +8,23 @@ export function ShowCriterionRate({
 }) {
     const [rate, setRate] = React.useState(-1);
     useEffect(() => {
-        employeeRates = employeeRates.filter(
+        setRate(-1)
+        const criterionRates = employeeRates.filter(
             (fetchedRate) =>
                 fetchedRate.PROPERTY_VALUES.CRITERION_ID === criterion.ID,
         );
-        if (employeeRates.length) {
-            let sum = employeeRates.reduce(
+        if (criterionRates.length) {
+            let sum = criterionRates.reduce(
                 (acc, fetchedRate) =>
                     acc + parseInt(fetchedRate.PROPERTY_VALUES.RATE),
                 0,
             );
-            sum /= employeeRates.length;
+            sum /= criterionRates.length;
             setRate(sum);
             getRate(sum);
         }
-    }, []);
-    // console.log(criterion)
+    }, [employeeRates]);
+  
     return (
         <li className="list-group-item">
             {criterion.NAME}:

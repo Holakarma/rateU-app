@@ -1,5 +1,5 @@
 import React from 'react';
-import { saveEmployees } from '../../../../utils/saveEmployeesLS';
+import { saveEmployees } from '../../../../utils/saveToLS';
 import cls from '../ChooseCriteria/renderCriteria.module.css'
 
 export function UserSelect({ setEmployees }) {

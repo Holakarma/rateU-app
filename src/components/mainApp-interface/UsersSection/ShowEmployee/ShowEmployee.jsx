@@ -10,6 +10,9 @@ export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
     const [employeeRates, setEmployeeRates] = React.useState([]);
 
     useEffect(() => {
+        sum.current = 0;
+        count.current = 0;
+        setCountRates(0);
         setEmployeeRates(
             fetchedRates.filter(
                 (fetchedRate) =>
