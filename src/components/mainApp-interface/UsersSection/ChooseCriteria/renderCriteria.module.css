@@ -1,6 +1,6 @@
 .criteriaDropdown:active {
     background-color: #d4d1fd !important;
-}
+} 
 
 .criteriaDropdown:hover {
     background-color: white !important;
@@ -16,25 +16,52 @@
 }
 
 .bgBtn {
-    background-color: #236a90 !important;
+    background-color: #00416A !important;
     border: none;
     cursor: auto;
-    transition: 0.5s !important;
 }
 
-.textGradient {
+.bgBtn:hover {
+    background: linear-gradient(205deg, #00416A 33%, #506f91 66%, #00416A);
+}
+
+.bgBtn:active {
+    background: linear-gradient(35deg, #00416A 33%, #506f91 66%, #00416A);
+}
+
+.btnSave {
+    background-color: #266855 !important;
+    border: none;
+    cursor: auto;
+}
+
+.btnSave:hover {
+    background: linear-gradient(205deg, #266855 33%, #37967b 66%, #266855);
+}
+
+.btnSave:active {
+    background: linear-gradient(35deg, #266855 33%, #37967b 66%, #266855);
+}
+
+.btnReset {
+    background-color: #c32121 !important;
+    border: none;
+    cursor: auto;
+}
+
+.btnReset:hover {
+    background: linear-gradient(205deg, #c32121 33%, #da6a6a 66%, #c32121);
+}
+
+.btnReset:active {
+    background: linear-gradient(35deg, #c32121 33%, #da6a6a 66%, #c32121);
+}
+
+/* .textGradient {
     background: linear-gradient(45deg, #1c1579 33%, #ffffff 66%, #ffffff);
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: #0B2349;
     display: table;
-}
-
-.bgBtn:hover {
-    background: linear-gradient(205deg, #2c8fc4 33%, #226e97 66%, #2c8fc4);
-}
-
-.bgBtn:active {
-    background: linear-gradient(35deg, #2c8fc4 33%, #226e97 66%, #2c8fc4);
-}
+} */
 

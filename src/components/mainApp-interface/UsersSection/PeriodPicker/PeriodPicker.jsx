@@ -1,5 +1,6 @@
 import React from 'react';
 import { DatePicker } from '../DatePicker/DatePicker';
+import cls from '../ChooseCriteria/renderCriteria.module.css'
 
 import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
 
@@ -28,7 +29,7 @@ export function PeriodPicker({ setPeriod }) {
                     </div>
                     <div className="col-3">
                         <button
-                            className="btn btn-success w-100 mb-1"
+                            className={`btn ${cls.btnSave} text-light w-100 mb-1`}
                             onClick={() => {
                                 setPeriod({
                                     dateBegin,
@@ -39,7 +40,7 @@ export function PeriodPicker({ setPeriod }) {
                             Сохранить
                         </button>
                         <button
-                            className="btn btn-danger w-100"
+                            className={`btn ${cls.btnReset} text-light w-100`}
                             onClick={() => {
                                 setDateBegin(null);
                                 setDateEnd(null);

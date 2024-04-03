@@ -23,6 +23,7 @@ export function ShowCriterionRate({
             getRate(sum);
         }
     }, []);
+    // console.log(criterion)
     return (
         <li className="list-group-item">
             {criterion.NAME}:
@@ -31,9 +32,8 @@ export function ShowCriterionRate({
             ) : (
                 <span className="ms-1">
                     <span
-                        className={`${rate < 2 ? 'text-danger' : ''} ${
-                            rate > 7 ? 'text-success' : ''
-                        }`}
+                        className={`${rate < 2 ? 'text-danger' : ''} ${rate > 7 ? 'text-success' : ''
+                            }`}
                     >
                         {Math.round(rate * 100) / 100}
                     </span>
