@@ -16,7 +16,7 @@ export function UserSelect({ setEmployees }) {
             <button
                 onClick={selectHandler}
                 type="button"
-                className={`btn btn-primary dropdown-toggle ${cls.bgBtn} w-100`}
+                className={`btn dropdown-toggle text-light ${cls.bgBtn} w-100`}
             >
                 Выбор сотрудников
             </button>

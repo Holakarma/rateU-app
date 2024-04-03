@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { ShowCriterionRate } from '../ShowCriterionRate/ShowCriterionRate';
 import { RatesHistoryButton } from '../RatesHistoryButton/RatesHistoryButton';
-// import cls from './showEmployee.module.css'
 
-export function ShowEmployee({ employee, criteria, fetchedRates }) {
+export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
     const [countRates, setCountRates] = React.useState(0);
     const sum = React.useRef(0);
     const count = React.useRef(0);
@@ -58,11 +57,11 @@ export function ShowEmployee({ employee, criteria, fetchedRates }) {
                     <div className="px-2 m-0 mt-2">
                         <div className="border rounded border-secondary-subtle">
                             <ul className="list-group list-group-flush gy-1">
-                                {criteria.map((criterion) => (
+                                {selectedCriteria.map((selectedCriterion) => (
                                     <ShowCriterionRate
-                                        key={criterion.ID}
+                                        key={selectedCriterion.ID}
                                         employeeRates={employeeRates}
-                                        criterion={criterion}
+                                        criterion={selectedCriterion}
                                         employeeId={employee.id}
                                         getRate={(rate) => {
                                             count.current++;

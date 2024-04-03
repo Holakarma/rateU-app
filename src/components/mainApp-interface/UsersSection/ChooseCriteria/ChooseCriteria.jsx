@@ -3,9 +3,8 @@ import { RenderCriteria } from './RenderCriteria';
 import { Dropdown } from 'react-bootstrap';
 import cls from './renderCriteria.module.css'
 
-export function ChooseCriteria({ criteria }) {
+export function ChooseCriteria({ criteria, setSelectedCriteria }) {
     return (
-
         <>
             {
                 criteria.length ?
@@ -17,7 +16,10 @@ export function ChooseCriteria({ criteria }) {
                             >
                                 Выбор критериев
                             </Dropdown.Toggle>
-                            <RenderCriteria criteria={criteria} />
+                            <RenderCriteria
+                                criteria={criteria}
+                                setSelectedCriteria={setSelectedCriteria}
+                            />
                         </Dropdown>
                     </div> :
                     null
