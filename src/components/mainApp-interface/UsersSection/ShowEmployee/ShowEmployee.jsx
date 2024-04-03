@@ -48,7 +48,7 @@ export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
                     <div className="col-3">
                         {employeeRates.length === 0 ? null : (
                             <RatesHistoryButton
-                                criteria={criteria}
+                                criteria={selectedCriteria}
                                 employee={employee}
                                 employeeRates={employeeRates}
                             />
