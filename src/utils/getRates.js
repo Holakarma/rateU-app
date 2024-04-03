@@ -18,8 +18,8 @@ export const getRates = (function createSavedCriteria(savedRates = []) {
                     ENTITY: 'rates',
                     FILTER: {
                         SECTION: sectionId,
-                        '>=TIMESTAMP_X': period.dateBegin,
-                        '<TIMESTAMP_X': period.dateEnd,
+                        '>=DATE_CREATE': period.dateBegin,
+                        '<DATE_CREATE': period.dateEnd,
                     }
                 },
                 (res) => {

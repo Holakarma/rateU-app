@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { RatesContext } from '../../../utils/ratesContext';
 import { PlacementContext } from '../../../utils/placementContext';
-import { saveRates } from '../../../utils/saveRatesLS';
+import { saveRates } from '../../../utils/saveToLS';
 
 export function RateCriterion({ criterion, userData, changeRated }) {
     useEffect(() => {

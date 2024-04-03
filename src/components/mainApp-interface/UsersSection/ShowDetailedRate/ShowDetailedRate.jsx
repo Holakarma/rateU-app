@@ -6,7 +6,6 @@ export function ShowDetailedRate({ rate, criterion }) {
     const date = new Date(rate.TIMESTAMP_X);
     const dateCreate = new Date(rate.DATE_CREATE);
     const isChanged = date.getTime() !== dateCreate.getTime();
-
     const dateOptions = {
         day: 'numeric',
         month: 'long',
@@ -39,13 +38,30 @@ export function ShowDetailedRate({ rate, criterion }) {
                         overlay={
                             <Tooltip>
                                 <span>
-                                    {date.toLocaleString('ru', timeOptions)}
-                                    {isChanged ? <i> (изм.)</i> : ''}
+                                    {dateCreate.toLocaleString(
+                                        'ru',
+                                        timeOptions,
+                                    )}
+                                    {isChanged ? (
+                                        <div>
+                                            <i>
+                                                изм.:{' '}
+                                                {date.toLocaleString('ru', {
+                                                    ...dateOptions,
+                                                    ...timeOptions,
+                                                })}
+                                            </i>
+                                        </div>
+                                    ) : (
+                                        ''
+                                    )}
                                 </span>
                             </Tooltip>
                         }
                     >
-                        <span>{date.toLocaleString('ru', dateOptions)}</span>
+                        <span>
+                            {dateCreate.toLocaleString('ru', dateOptions)}
+                        </span>
                     </OverlayTrigger>
                 </div>
             </div>

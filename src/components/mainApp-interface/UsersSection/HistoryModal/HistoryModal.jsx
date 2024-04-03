@@ -16,6 +16,7 @@ export function HistoryModal({
 
     useEffect(async () => {
         setUser(await getCurrentUser());
+        setRatesList([]);
         const uniqueTasks = Array.from(
             new Set(employeeRates.map((rate) => rate.PROPERTY_VALUES.TASK_ID)),
         );
@@ -31,8 +32,7 @@ export function HistoryModal({
                 { taskId: task, rates: ratesForTheTask },
             ]);
         });
-    }, []);
-
+    }, [employeeRates]);
     return (
         <Modal
             show={show}
