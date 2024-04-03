@@ -1,7 +1,7 @@
 export const getTask = (function createSavedTask(savedTasks = []) {
     return function (
         id,
-        selectArray = ['ID', 'RESPONSIBLE_ID', 'ACCOMPLICES', 'TITLE'],
+        selectArray = ['ID', 'RESPONSIBLE_ID', 'ACCOMPLICES', 'TITLE', 'CREATED_BY'],
     ) {
         return new Promise((resolve) => {
             let savedTask = savedTasks.find((task) => task.task.id == id);

@@ -4,26 +4,26 @@ import { ShowEmployee } from './/ShowEmployee/ShowEmployee';
 import { getCriteria } from '../../../utils/getCriteria';
 import { ChooseCriteria } from './ChooseCriteria/ChooseCriteria';
 import { getRates } from '../../../utils/getRates';
-import { saveEmployees } from '../../../utils/saveEmployeesLS';
-import cls from './ChooseCriteria/renderCriteria.module.css'
+import { saveEmployees, savePeriod } from '../../../utils/saveToLS';
+import cls from './ChooseCriteria/renderCriteria.module.css';
 import { PeriodPicker } from './PeriodPicker/PeriodPicker';
 
 export function UserSection() {
     let savedEmployees = saveEmployees();
+    let savedPeriod = savePeriod();
     const [employees, setEmployees] = React.useState(
         savedEmployees ? savedEmployees : [],
     );
     const [criteria, setCriteria] = React.useState([]);
     const [fetchedRates, setFetchedRates] = React.useState([]);
     const [isLoaded, setLoaded] = React.useState(false);
-    const [period, setPeriod] = React.useState({
-        dateBegin: null,
-        dateEnd: null,
-    });
+
+    const [period, setPeriod] = React.useState(savedPeriod);
 
     useEffect(async () => {
+        savePeriod(true, period);
         setFetchedRates(await getRates(true, period));
-    }, [period])
+    }, [period]);
 
     useEffect(async () => {
         setCriteria(await getCriteria());
@@ -41,7 +41,10 @@ export function UserSection() {
                         setCriteria={setCriteria}
                     />
                 </div>
-                <PeriodPicker setPeriod={setPeriod}/>
+                <PeriodPicker
+                    setPeriod={setPeriod}
+                    period={period}
+                />
             </div>
             <div className="mt-4 row g-3">
                 {isLoaded ? (

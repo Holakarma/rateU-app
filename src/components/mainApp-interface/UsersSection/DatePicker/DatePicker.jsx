@@ -1,10 +1,11 @@
 import React from 'react';
 import { Calendar } from 'primereact/calendar';
 
-export function DatePicker({ id, date, setDate, minDate }) {
+export function DatePicker({ id, date, setDate, minDate, maxDate }) {
     function datePick(e) {
-        if (e.target.value)
-        setDate(new Date(e.target.value));
+        if (e.target.value) {
+            setDate(new Date(e.target.value));
+        } else setDate(null);
     }
     return (
         <>
@@ -16,6 +17,7 @@ export function DatePicker({ id, date, setDate, minDate }) {
             </label>
             <Calendar
                 minDate={minDate}
+                maxDate={maxDate}
                 className="w-100"
                 inputId={id}
                 showButtonBar

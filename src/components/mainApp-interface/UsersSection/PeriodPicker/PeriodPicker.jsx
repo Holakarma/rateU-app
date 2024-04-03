@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DatePicker } from '../DatePicker/DatePicker';
 
 import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
 
-export function PeriodPicker({ setPeriod }) {
-    const [dateBegin, setDateBegin] = React.useState(null);
-    const [dateEnd, setDateEnd] = React.useState(null);
+export function PeriodPicker({ setPeriod, period }) {
+    const [dateBegin, setDateBegin] = React.useState(period?.dateBegin ? new Date(period?.dateBegin) : null);
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const [dateEnd, setDateEnd] = React.useState(tomorrow);
+
+    useEffect(() => {
+        setPeriod({
+            dateBegin: dateBegin,
+            dateEnd: dateEnd,
+        });
+    }, []);
 
     return (
         <div className="card">
@@ -16,6 +25,7 @@ export function PeriodPicker({ setPeriod }) {
                             id={'dateBegin'}
                             date={dateBegin}
                             setDate={setDateBegin}
+                            maxDate={dateEnd}
                         />
                     </div>
                     <div className="col">
@@ -44,8 +54,8 @@ export function PeriodPicker({ setPeriod }) {
                                 setDateBegin(null);
                                 setDateEnd(null);
                                 setPeriod({
-                                    datebegin: null,
-                                    dateEnd: null,
+                                    dateBegin: dateBegin,
+                                    dateEnd: dateEnd,
                                 });
                             }}
                         >

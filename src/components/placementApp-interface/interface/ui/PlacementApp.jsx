@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { Responsibles } from '../../Responsibles/Responsibles';
 import { getRates } from '../../../../utils/saveRatesToEntity';
-import { saveRates } from '../../../../utils/saveRatesLS';
+import { saveRates } from '../../../../utils/saveToLS';
 import { PlacementContext } from '../../../../utils/placementContext';
 
 const PlacementApp = () => {

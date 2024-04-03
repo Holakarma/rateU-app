@@ -11,6 +11,9 @@ export function ShowEmployee({ employee, criteria, fetchedRates }) {
     const [employeeRates, setEmployeeRates] = React.useState([]);
 
     useEffect(() => {
+        sum.current = 0;
+        count.current = 0;
+        setCountRates(0);
         setEmployeeRates(
             fetchedRates.filter(
                 (fetchedRate) =>
@@ -18,7 +21,6 @@ export function ShowEmployee({ employee, criteria, fetchedRates }) {
             ),
         );
     }, [fetchedRates]);
-    console.log(employeeRates);
 
     return (
         <div className="col-6">
