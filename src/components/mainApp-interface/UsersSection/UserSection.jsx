@@ -15,6 +15,7 @@ export function UserSection() {
         savedEmployees ? savedEmployees : [],
     );
     const [criteria, setCriteria] = React.useState([]);
+    const [selectedCriteria, setSelectedCriteria] = React.useState([])
     const [fetchedRates, setFetchedRates] = React.useState([]);
     const [isLoaded, setLoaded] = React.useState(false);
 
@@ -26,9 +27,14 @@ export function UserSection() {
     }, [period]);
 
     useEffect(async () => {
-        setCriteria(await getCriteria());
+        const listAllCriteria = await getCriteria()
+        setCriteria(listAllCriteria);
+        setSelectedCriteria(listAllCriteria) // здесь нужны критерии из RenderCriteria
         setLoaded(true);
     }, []);
+
+    // console.log(selectedCriteria)
+    // console.log(employees)
 
     return (
         <div>
@@ -38,7 +44,8 @@ export function UserSection() {
                     <UserSelect setEmployees={setEmployees} />
                     <ChooseCriteria
                         criteria={criteria}
-                        setCriteria={setCriteria}
+                        setSelectedCriteria={setSelectedCriteria}
+                    // setCriteria={setCriteria}
                     />
                 </div>
                 <PeriodPicker
@@ -52,7 +59,7 @@ export function UserSection() {
                         <ShowEmployee
                             key={employee.id}
                             employee={employee}
-                            criteria={criteria}
+                            selectedCriteria={selectedCriteria}
                             fetchedRates={fetchedRates}
                         />
                     ))
