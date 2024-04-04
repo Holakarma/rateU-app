@@ -18,23 +18,23 @@ export function UserSection() {
     const [selectedCriteria, setSelectedCriteria] = React.useState([])
     const [fetchedRates, setFetchedRates] = React.useState([]);
     const [isLoaded, setLoaded] = React.useState(false);
-
     const [period, setPeriod] = React.useState(savedPeriod);
-
-    useEffect(async () => {
-        savePeriod(true, period);
-        setFetchedRates(await getRates(true, period));
-    }, [period]);
 
     useEffect(async () => {
         const listAllCriteria = await getCriteria()
         setCriteria(listAllCriteria);
-        setSelectedCriteria(listAllCriteria) // здесь нужны критерии из RenderCriteria
+        setSelectedCriteria(listAllCriteria)
         setLoaded(true);
     }, []);
 
-    // console.log(selectedCriteria)
-    // console.log(employees)
+
+    useEffect(async () => {
+        savePeriod(true, period);
+        const allRates = await getRates();
+        const ratesCriteria = allRates.filter(fetValue => selectedCriteria.find(selCrit => fetValue.PROPERTY_VALUES.CRITERION_ID === selCrit.ID)
+        )
+        setFetchedRates(ratesCriteria);
+    }, [period, selectedCriteria]);
 
     return (
         <div>

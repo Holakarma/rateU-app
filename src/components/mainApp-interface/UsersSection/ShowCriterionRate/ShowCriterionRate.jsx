@@ -24,7 +24,7 @@ export function ShowCriterionRate({
             getRate(sum);
         }
     }, [employeeRates]);
-  
+
     return (
         <li className="list-group-item">
             {criterion.NAME}:

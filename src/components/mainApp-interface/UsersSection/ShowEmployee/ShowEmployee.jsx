@@ -19,8 +19,8 @@ export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
                     fetchedRate.PROPERTY_VALUES.USER_ID === employee.id,
             ),
         );
-    }, [fetchedRates]);
-
+        console.log(employeeRates.length)
+    }, [fetchedRates, selectedCriteria]);
     return (
         <div className="col-6">
             <div className="card position-relative h-100">
