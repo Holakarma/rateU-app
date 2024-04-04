@@ -9,9 +9,9 @@ export function RenderCriteria({ criteria, setSelectedCriteria }) {
 
     const handleSaveCriteria = () => {
         const activeCriteria = activetedCriteria;
+        setSelectedCriteria(activeCriteria)
     };
 
-    setSelectedCriteria(activetedCriteria)
 
     return (
         <Dropdown.Menu>
