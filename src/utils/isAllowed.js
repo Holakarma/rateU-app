@@ -1,5 +1,4 @@
 export function isAllowed(task, userInfo) {
-    console.log(task)
     return new Promise((resolve) => {
         if (BX24.isAdmin()) {
             resolve(true);
