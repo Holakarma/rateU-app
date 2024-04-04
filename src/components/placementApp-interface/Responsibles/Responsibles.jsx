@@ -9,6 +9,7 @@ import { saveRates } from '../../../utils/saveToLS';
 import { SaveRatesBtn } from '../SaveRatesBtn/SaveRatesBtn';
 import { isAllowed } from '../../../utils/isAllowed';
 
+
 export function Responsibles() {
     const [task, setTask] = React.useState();
     const placementInfo = useContext(PlacementContext);
@@ -20,6 +21,7 @@ export function Responsibles() {
 
     useEffect(async () => {
         const placementTask = await getTask(placementInfo.options.taskId);
+        console.log(userInfo)
         if (await isAllowed(placementTask.task, userInfo?.ID)) {
             setAllow(true);
             const fetchedCriteria = await getCriteria();

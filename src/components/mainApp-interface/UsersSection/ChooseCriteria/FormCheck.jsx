@@ -4,7 +4,7 @@ import cls from './renderCriteria.module.css'
 
 
 export function FormCheck({ criterion, setActivetedCriteria }) {
-
+    console.log(criterion)
     const [checkedCriterion, setCheckedCriterion] = React.useState(true);
     function handleChangeCriterion() {
         setCheckedCriterion(!checkedCriterion);

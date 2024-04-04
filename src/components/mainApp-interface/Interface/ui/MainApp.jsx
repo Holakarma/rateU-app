@@ -5,7 +5,6 @@ import { SettingsSection } from '../../SettingsSection/SettingsSection';
 import { UserSection } from '../../UsersSection/UserSection';
 import cls from '../../UsersSection/ChooseCriteria/renderCriteria.module.css'
 
-
 const MainApp = () => {
     const [openedSection, setSection] = React.useState({
         isSettings: false,
