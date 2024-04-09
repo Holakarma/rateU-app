@@ -4,14 +4,24 @@ import { RatesContext } from '../../../utils/ratesContext';
 import { PlacementContext } from '../../../utils/placementContext';
 import { UserContext } from '../../../utils/userContext';
 import { ArrowDropDown } from '../../../icons/ArrowDropDown/ArrowDropDown';
+import { getUsers } from '../../../utils/createSavedUsers';
 
 export function RateUser({ userData, criteria, rights }) {
-    const { rates, setRates } = React.useContext(RatesContext);
+    const { rates, setRates } = useContext(RatesContext);
     const [rated, setRated] = React.useState(false);
     const [isRateOn, setRateOn] = React.useState(false);
-    const placementInfo = React.useContext(PlacementContext);
+    const placementInfo = useContext(PlacementContext);
     const userInfo = useContext(UserContext);
     const [access, setAccess] = React.useState(false);
+    const [genderUser, setGenderUser] = React.useState('M')
+
+    useEffect(() => {
+        getUsers([userData.id]).then((res) => {
+            setGenderUser(res[0].PERSONAL_GENDER)
+        })
+    }, []);
+    console.log(genderUser)
+
     useEffect(() => {
         if (changeRated(rates)) setRateOn(true);
         if (userData.id !== userInfo.ID) {
@@ -57,7 +67,7 @@ export function RateUser({ userData, criteria, rights }) {
                                 {rated ? (
                                     <span className="opacity-50">
                                         {' '}
-                                        – оценён
+                                        {genderUser === 'F' ? '- оценена' : '- оценён'}
                                     </span>
                                 ) : null}
                             </div>
