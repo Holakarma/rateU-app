@@ -1,14 +1,36 @@
 import React, { useEffect } from 'react';
 import { ShowCriterionRate } from '../ShowCriterionRate/ShowCriterionRate';
 import { RatesHistoryButton } from '../RatesHistoryButton/RatesHistoryButton';
-import cls from '../userSection.module.css'
+import { getUserInfo } from '../../../../utils/getUserInfo';
+import cls from '../userSection.module.css';
 
-export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
+export function ShowEmployee({
+    employee,
+    selectedCriteria,
+    fetchedRates,
+    rights,
+}) {
     const [countRates, setCountRates] = React.useState(0);
     const sum = React.useRef(0);
     const count = React.useRef(0);
 
     const [employeeRates, setEmployeeRates] = React.useState([]);
+
+    const [access, setAccess] = React.useState(false);
+
+    useEffect(async () => {
+        switch (rights) {
+            case 'isAdmin':
+                setAccess(true);
+                break;
+            case 'haveSub':
+                const subordinates = (await getUserInfo()).SUBORDINATES.map(
+                    (sub) => sub.ID,
+                );
+                if (subordinates.includes(employee.id)) setAccess(true);
+                break;
+        }
+    }, []);
 
     useEffect(() => {
         sum.current = 0;
@@ -48,7 +70,7 @@ export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
                         </span>
                     </div>
                     <div className="col-3">
-                        {employeeRates.length === 0 ? null : (
+                        {employeeRates.length === 0 || !access ? null : (
                             <RatesHistoryButton
                                 criteria={selectedCriteria}
                                 employee={employee}
@@ -64,7 +86,7 @@ export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
                                         key={selectedCriterion.ID}
                                         employeeRates={employeeRates}
                                         criterion={selectedCriterion}
-                                        employeeId={employee.id}
+                                        access={access}
                                         getRate={(rate) => {
                                             count.current++;
                                             sum.current += rate;
@@ -72,6 +94,14 @@ export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
                                         }}
                                     />
                                 ))}
+                                {!access && (
+                                    <li className="list-group-item opacity-75">
+                                        <i>
+                                            Недостаточно прав для просмотра
+                                            оценок
+                                        </i>
+                                    </li>
+                                )}
                             </ul>
                         </div>
                     </div>
