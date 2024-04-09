@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { ShowCriterionRate } from '../ShowCriterionRate/ShowCriterionRate';
 import { RatesHistoryButton } from '../RatesHistoryButton/RatesHistoryButton';
+import cls from '../userSection.module.css'
 
 export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
     const [countRates, setCountRates] = React.useState(0);
@@ -22,7 +23,7 @@ export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
     }, [fetchedRates, selectedCriteria]);
     return (
         <div className="col-6">
-            <div className="card position-relative h-100">
+            <div className={`${cls.card} card position-relative h-100`}>
                 <div className="card-body row">
                     <div className="col-2">
                         <img

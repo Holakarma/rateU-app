@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, FormGroup, FormLabel } from "react-bootstrap";
-import cls from './renderCriteria.module.css'
-
+import cls from '../userSection.module.css'
 
 export function FormCheck({ criterion, setActivetedCriteria }) {
     const [checkedCriterion, setCheckedCriterion] = React.useState(true);

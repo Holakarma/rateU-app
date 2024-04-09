@@ -1,8 +1,8 @@
 body {
-    /* border: 1px solid;
-    border-radius: 10px;
-    border-image: linear-gradient(20deg, #2c8fc4 38%, #00deff 65%);
-    border-image-slice: 1; */
+    font-family: "Montserrat", sans-serif;
+    background: #f2fcff;
+    background: -webkit-linear-gradient(0deg, #f2fcff 0%, #d4faff 50%, #e3e0ff 100%);
+    background: linear-gradient(0deg, #f2fcff 0%, #d4faff 50%, #e3e0ff 100%);
     min-height: 100vh;
 }
 
