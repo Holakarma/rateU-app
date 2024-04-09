@@ -16,21 +16,21 @@
 }
 
 .bgBtn {
-    background-color: #00416A !important;
+    background-color: #7568c5 !important;
     border: none;
     cursor: auto;
 }
 
 .bgBtn:hover {
-    background: linear-gradient(205deg, #00416A 33%, #506f91 66%, #00416A);
+    background: linear-gradient(205deg, #6154b3 33%, #a188ed 66%, #7568c5);
 }
 
 .bgBtn:active {
-    background: linear-gradient(35deg, #00416A 33%, #506f91 66%, #00416A);
+    background: linear-gradient(35deg, #6154b3 33%, #a188ed 66%, #6154b3);
 }
 
 .btnSave {
-    background-color: #266855 !important;
+    background-color: #3f937b !important;
     border: none;
     cursor: auto;
 }
@@ -44,7 +44,7 @@
 }
 
 .btnReset {
-    background-color: #c32121 !important;
+    background-color: #d35959 !important;
     border: none;
     cursor: auto;
 }
@@ -57,11 +57,6 @@
     background: linear-gradient(35deg, #c32121 33%, #da6a6a 66%, #c32121);
 }
 
-/* .textGradient {
-    background: linear-gradient(45deg, #1c1579 33%, #ffffff 66%, #ffffff);
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: #0B2349;
-    display: table;
-} */
-
+.card {
+    box-shadow: 5px 4.5px 7px -3px #938f9f;
+}

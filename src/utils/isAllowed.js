@@ -28,5 +28,5 @@ export function isAllowed(task, userInfo) {
                 resolve(undefined);
             }
         }
-    });
+    })
 }

@@ -9,6 +9,35 @@ import { locale } from './utils/localePR';
 import { getUserInfo } from './utils/getUserInfo';
 
 // BX24.callMethod('entity.delete', {ENTITY: 'rates'}, res => {console.log(res)})
+// BX24.callMethod('department.get', {}, res => {
+//     console.log(res.data())
+// })
+
+function getSubordinates() {
+    return new Promise(resolve => {
+        BX24.callMethod('user.get', {}, res => {
+            console.log(res.data())
+        })
+    })
+}
+
+async function getUserInfo() {
+    return new Promise((resolve) => {
+        BX24.callMethod('user.current', {}, (res) => {
+            BX24.callMethod('department.get', {}, (result) => {
+                console.log(result.data())
+                const departments = result.data();
+                const headedDepartment = departments.find(d => d.UF_HEAD === res.data().ID)
+                if (!headedDepartment) {
+                    resolve({ ...res.data(), SUBORDINATES: [] });
+                } else {
+                    getSubordinates();
+                    resolve(res.data());
+                }
+            });
+        });
+    });
+}
 
 export function App() {
     addLocale('ru', locale);

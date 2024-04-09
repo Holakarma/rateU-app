@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { DatePicker } from '../DatePicker/DatePicker';
-import cls from '../ChooseCriteria/renderCriteria.module.css'
+import cls from '../userSection.module.css'
 
 import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
 
@@ -18,9 +18,9 @@ export function PeriodPicker({ setPeriod, period }) {
     }, []);
 
     return (
-        <div className="card">
+        <div className={`${cls.card} card`}>
             <div className="card-body">
-                <div className="row">
+                <div className="row align-items-end">
                     <div className="col">
                         <DatePicker
                             id={'dateBegin'}
@@ -37,9 +37,9 @@ export function PeriodPicker({ setPeriod, period }) {
                             minDate={dateBegin}
                         />
                     </div>
-                    <div className="col-3">
+                    <div className="col-2">
                         <button
-                            className={`btn ${cls.btnSave} text-light w-100 mb-1`}
+                            className={`btn ${cls.btnSave} text-light w-100`}
                             onClick={() => {
                                 setPeriod({
                                     dateBegin,
@@ -49,6 +49,8 @@ export function PeriodPicker({ setPeriod, period }) {
                         >
                             Сохранить
                         </button>
+                    </div>
+                    <div className='col-2'>
                         <button
                             className={`btn ${cls.btnReset} text-light w-100`}
                             onClick={() => {

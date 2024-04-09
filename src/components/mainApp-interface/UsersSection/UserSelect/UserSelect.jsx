@@ -1,6 +1,6 @@
 import React from 'react';
 import { saveEmployees } from '../../../../utils/saveToLS';
-import cls from '../ChooseCriteria/renderCriteria.module.css'
+import cls from '../userSection.module.css'
 
 export function UserSelect({ setEmployees }) {
     function selectHandler() {

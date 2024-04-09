@@ -1,5 +1,6 @@
 import React from 'react';
 import { HistoryModal } from '../HistoryModal/HistoryModal';
+import cls from '../userSection.module.css'
 
 export function RatesHistoryButton({ employee, employeeRates, criteria }) {
     const [isModalShowed, setModalShow] = React.useState(false);
@@ -8,7 +9,7 @@ export function RatesHistoryButton({ employee, employeeRates, criteria }) {
         <>
             <button
                 onClick={() => setModalShow(!isModalShowed)}
-                className="text-light rounded border border-primary bg-primary px-2 py-1"
+                className={`${cls.bgBtn} text-light rounded px-2 py-1`}
             >
                 История
             </button>
