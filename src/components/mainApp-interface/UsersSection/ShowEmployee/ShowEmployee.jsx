@@ -20,7 +20,6 @@ export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
                     fetchedRate.PROPERTY_VALUES.USER_ID === employee.id,
             ),
         );
-        console.log(employeeRates.length)
     }, [fetchedRates, selectedCriteria]);
     return (
         <div className="col-6">
@@ -38,7 +37,9 @@ export function ShowEmployee({ employee, selectedCriteria, fetchedRates }) {
                             Средний балл:
                             {countRates ? (
                                 <span className="ms-1">
-                                    {sum.current / count.current}
+                                    {Math.round(
+                                        (sum.current * 100) / count.current,
+                                    ) / 100}
                                     <span className="opacity-50">/10</span>
                                 </span>
                             ) : (

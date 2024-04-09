@@ -14,18 +14,17 @@ export function UserSection() {
         savedEmployees ? savedEmployees : [],
     );
     const [criteria, setCriteria] = React.useState([]);
-    const [selectedCriteria, setSelectedCriteria] = React.useState([])
+    const [selectedCriteria, setSelectedCriteria] = React.useState([]);
     const [fetchedRates, setFetchedRates] = React.useState([]);
     const [isLoaded, setLoaded] = React.useState(false);
     const [period, setPeriod] = React.useState(savedPeriod);
 
     useEffect(async () => {
-        const listAllCriteria = await getCriteria()
+        const listAllCriteria = await getCriteria();
         setCriteria(listAllCriteria);
-        setSelectedCriteria(listAllCriteria)
+        setSelectedCriteria(listAllCriteria);
         setLoaded(true);
     }, []);
-
 
     useEffect(async () => {
         savePeriod(true, period);

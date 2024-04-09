@@ -6,9 +6,9 @@ import { UserContext } from './utils/userContext';
 import { PrimeReactProvider } from 'primereact/api';
 import { addLocale } from 'primereact/api';
 import { locale } from './utils/localePR';
+import { getUserInfo } from './utils/getUserInfo';
 
 // BX24.callMethod('entity.delete', {ENTITY: 'rates'}, res => {console.log(res)})
-
 // BX24.callMethod('department.get', {}, res => {
 //     console.log(res.data())
 // })
@@ -46,7 +46,7 @@ export function App() {
     let [userInfo, setUserInfo] = React.useState();
     const placementInfo = BX24.placement.info(); // Release version
     // const placementInfo = {
-    //     options: { taskId: '795' },
+    //     options: { taskId: '549' },
     //     placement: 'TASK_VIEW_TAB',
     // };
     useEffect(async () => {
@@ -74,24 +74,24 @@ export function App() {
                             resultArr.length &&
                             resultArr[0].placement === 'TASK_VIEW_TAB'
                         ) {
-                            BX24.installFinish();
+                            // BX24.installFinish();
                             setReady(true);
                         } else {
                             // For the release
-                            /* const handlerUrl = `https://${BX24.getDomain()}/marketplace/app/${id}/`; // Release version
+                            const handlerUrl = `https://${BX24.getDomain()}/marketplace/app/${id}/`; // Release version
                             BX24.callMethod(
-                            "placement.bind",
-                            {
-                                PLACEMENT: "TASK_VIEW_TAB",
-                                HANDLER: handlerUrl,
-                            },
-                            function (res) {
-                                console.log('placed status', res);
-                                BX24.installFinish();
-                                setReady(true);
-                            },
-                            ); */
-                            BX24.installFinish();
+                                'placement.bind',
+                                {
+                                    PLACEMENT: 'TASK_VIEW_TAB',
+                                    HANDLER: handlerUrl,
+                                },
+                                function (res) {
+                                    console.log('placed status', res);
+                                    // BX24.installFinish();
+                                    setReady(true);
+                                },
+                            );
+                            // BX24.installFinish();
                             setReady(true);
                         }
                     });

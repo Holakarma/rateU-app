@@ -13,6 +13,10 @@ function findRate(where, what) {
 export const getRates = (function (savedRates = []) {
     return function (rates, taskId) {
         return new Promise(async (resolve) => {
+            if (!rates && !taskId && savedRates.length) {
+                resolve(savedRates)
+                return;
+            }
             const sectionId = (await getSectionId()).ratesSection;
             let resultArray = [];
             BX24.callMethod(
@@ -43,13 +47,12 @@ export const getRates = (function (savedRates = []) {
                         );
                     }
                     if (!rates) {
+                        savedRates = resultArray;
                         resolve(resultArray);
                         return;
                     }
                     if (rates && taskId) {
-                        rates = rates.filter(
-                            (r) => r.task == taskId,
-                        );
+                        rates = rates.filter((r) => r.task == taskId);
                     }
 
                     let addBatch = [];

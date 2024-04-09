@@ -3,7 +3,6 @@ import { Form, FormGroup, FormLabel } from "react-bootstrap";
 import cls from '../userSection.module.css'
 
 export function FormCheck({ criterion, setActivetedCriteria }) {
-    console.log(criterion)
     const [checkedCriterion, setCheckedCriterion] = React.useState(true);
     function handleChangeCriterion() {
         setCheckedCriterion(!checkedCriterion);
