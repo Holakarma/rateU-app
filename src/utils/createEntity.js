@@ -55,9 +55,9 @@ export const getSectionId = (function createEntity(
                                     DESCRIPTION:
                                         'Критерии для оценки сотрудников',
                                 },
-                                (res) => {
+                                (resCriteriaSection) => {
                                     savedSectionsId.criteriaSection =
-                                        res.data();
+                                        resCriteriaSection.data();
                                     BX24.callMethod(
                                         'entity.section.add',
                                         {
@@ -65,7 +65,7 @@ export const getSectionId = (function createEntity(
                                             NAME: 'userRates',
                                             DESCRIPTION: 'Оценки сотрудников',
                                         },
-                                        (res) => {
+                                        (resRatesSection) => {
                                             BX24.callBatch(
                                                 [
                                                     [
@@ -117,7 +117,7 @@ export const getSectionId = (function createEntity(
                                                 ],
                                                 (res) => {
                                                     savedSectionsId.ratesSection =
-                                                        res.data();
+                                                        resRatesSection.data(); // Вот тут ошибка при первом встраивании
                                                     resolve(savedSectionsId); // section id
                                                 },
                                             );
@@ -132,43 +132,3 @@ export const getSectionId = (function createEntity(
         });
     };
 })();
-
-/* BX24.callMethod('entity.add', {ENTITY: "rates", NAME:"rateU-app"}, res => {
-    console.log(res)
-}) */
-/* BX24.callMethod('entity.get', {}, res => {
-    console.log(res)
-}) */
-
-/* BX24.callMethod('entity.delete', {ENTITY: "rates"}, res => {
-    console.log(res)
-}) */
-
-/*
-BX24.callMethod('entity.section.add', {ENTITY: "rates", NAME:"creteria", DESCRIPTION: "Созданные критерии для оценки сотрудников"}, res => {
-    console.log(res)
-})
-*/
-
-/* BX24.callMethod('entity.section.get', {ENTITY: "rates"}, res => {
-    console.log(res)
-}) */
-
-/* BX24.callMethod('entity.item.property.add', {ENTITY: "rates", PROPERTY: "CRITERION_NAME", NAME:"name of criterion", TYPE: "S"}, res => {
-    console.log(res)
-}) */
-/* BX24.callMethod('entity.item.property.delete', {ENTITY: "rates", PROPERTY: "CRITERION_NAME"}, res => {
-    console.log(res)
-}) */
-
-/* BX24.callMethod('entity.item.add', {
-    ENTITY: 'rates',
-    NAME: 'Пунктуальность',
-    SECTION: 134
-}, res => {
-    console.log(res)
-}); */
-// BX24.callMethod('entity.item.get', {
-// 	ENTITY: 'rates', SECTION:134}, res => {
-//     console.log(res)
-// });

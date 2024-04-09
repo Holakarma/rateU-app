@@ -20,7 +20,7 @@ export function Responsibles() {
 
     useEffect(async () => {
         const placementTask = await getTask(placementInfo.options.taskId);
-        const allowed = await isAllowed(placementTask.task, userInfo);
+        const allowed = await isAllowed(placementTask.task, undefined, userInfo);
         if (allowed) {
             setRights(allowed);
             const fetchedCriteria = await getCriteria();

@@ -6,6 +6,7 @@ import { ChooseCriteria } from './ChooseCriteria/ChooseCriteria';
 import { getRates } from '../../../utils/getRates';
 import { saveEmployees, savePeriod } from '../../../utils/saveToLS';
 import { PeriodPicker } from './PeriodPicker/PeriodPicker';
+import { isAllowed } from '../../../utils/isAllowed';
 
 export function UserSection() {
     let savedEmployees = saveEmployees();
@@ -18,9 +19,11 @@ export function UserSection() {
     const [fetchedRates, setFetchedRates] = React.useState([]);
     const [isLoaded, setLoaded] = React.useState(false);
     const [period, setPeriod] = React.useState(savedPeriod);
+    const [rights, setRights] = React.useState(undefined);
 
     useEffect(async () => {
         const listAllCriteria = await getCriteria();
+        setRights(await isAllowed(undefined, employees.map(e => e.id)));
         setCriteria(listAllCriteria);
         setSelectedCriteria(listAllCriteria);
         setLoaded(true);
@@ -28,9 +31,12 @@ export function UserSection() {
 
     useEffect(async () => {
         savePeriod(true, period);
-        const allRates = await getRates();
-        const ratesCriteria = allRates.filter(rateValue => selectedCriteria.find(sc => rateValue.PROPERTY_VALUES.CRITERION_ID === sc.ID)
-        )
+        const allRates = await getRates(true, period);
+        const ratesCriteria = allRates.filter((rateValue) =>
+            selectedCriteria.find(
+                (sc) => rateValue.PROPERTY_VALUES.CRITERION_ID === sc.ID,
+            ),
+        );
         setFetchedRates(ratesCriteria);
     }, [period, selectedCriteria]);
 
@@ -58,6 +64,7 @@ export function UserSection() {
                             employee={employee}
                             selectedCriteria={selectedCriteria}
                             fetchedRates={fetchedRates}
+                            rights={rights}
                         />
                     ))
                 ) : (
