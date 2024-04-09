@@ -1,14 +1,31 @@
+import { getUserInfo } from './getUserInfo';
+
 export function isAllowed(task, userInfo) {
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
         if (BX24.isAdmin()) {
-            resolve(true);
+            resolve('isAdmin');
         } else {
-            if (userInfo) {
-                resolve(userInfo === task?.createdBy);
+            if (task) {
+                if (!userInfo) {
+                    userInfo = await getUserInfo();
+                }
+                if (userInfo?.ID === task?.createdBy) {
+                    resolve('isCreator');
+                } else {
+                    const usersList = task.accomplices.concat(
+                        task.responsibleId,
+                    );
+                    let sub = userInfo.SUBORDINATES.find((sub) =>
+                        usersList.includes(sub.ID),
+                    );
+                    if (sub) {
+                        resolve('haveSub');
+                    } else {
+                        resolve(undefined);
+                    }
+                }
             } else {
-                BX24.callMethod('user.current', {}, (res) => {
-                    resolve(res.data().ID === task?.createdBy);
-                });
+                resolve(undefined);
             }
         }
     });
