@@ -13,31 +13,7 @@ import { getUserInfo } from './utils/getUserInfo';
 //     console.log(res.data())
 // })
 
-function getSubordinates() {
-    return new Promise(resolve => {
-        BX24.callMethod('user.get', {}, res => {
-            console.log(res.data())
-        })
-    })
-}
-
-// async function getUserInfo() {
-//     return new Promise((resolve) => {
-//         BX24.callMethod('user.current', {}, (res) => {
-//             BX24.callMethod('department.get', {}, (result) => {
-//                 console.log(result.data())
-//                 const departments = result.data();
-//                 const headedDepartment = departments.find(d => d.UF_HEAD === res.data().ID)
-//                 if (!headedDepartment) {
-//                     resolve({ ...res.data(), SUBORDINATES: [] });
-//                 } else {
-//                     getSubordinates();
-//                     resolve(res.data());
-//                 }
-//             });
-//         });
-//     });
-// }
+console.log(window.location.origin + window.location.pathname)
 
 export function App() {
     addLocale('ru', locale);
@@ -78,21 +54,22 @@ export function App() {
                             setReady(true);
                         } else {
                             // For the release
-                            const handlerUrl = `https://${BX24.getDomain()}/marketplace/app/${id}/`; // Release version
-                            // BX24.callMethod(
-                            //     'placement.bind',
-                            //     {
-                            //         PLACEMENT: 'TASK_VIEW_TAB',
-                            //         HANDLER: handlerUrl,
-                            //     },
-                            //     function (res) {
-                            //         console.log('placed status', res);
-                            //         // BX24.installFinish();
-                            //         setReady(true);
-                            //     },
-                            // );
+                            // const handlerUrl = `https://${BX24.getDomain()}/marketplace/app/${id}/`; // Release version
+                            const handlerUrl = window.location.origin + window.location.pathname; // Release version
+                            BX24.callMethod(
+                                'placement.bind',
+                                {
+                                    PLACEMENT: 'TASK_VIEW_TAB',
+                                    HANDLER: handlerUrl,
+                                },
+                                function (res) {
+                                    console.log('placed status', res);
+                                    // BX24.installFinish();
+                                    setReady(true);
+                                },
+                            );
                             // BX24.installFinish();
-                            setReady(true);
+                            // setReady(true);
                         }
                     });
                 });

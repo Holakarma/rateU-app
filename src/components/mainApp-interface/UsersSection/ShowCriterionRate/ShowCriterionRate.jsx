@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 export function ShowCriterionRate({
     criterion,
     employeeRates,
-    employeeId,
+    access,
     getRate,
 }) {
     const [rate, setRate] = React.useState(-1);
     useEffect(() => {
-        setRate(-1)
+        setRate(-1);
         const criterionRates = employeeRates.filter(
             (fetchedRate) =>
                 fetchedRate.PROPERTY_VALUES.CRITERION_ID === criterion.ID,
@@ -25,7 +25,7 @@ export function ShowCriterionRate({
         }
     }, [employeeRates]);
 
-    return (
+    return access ? (
         <li className="list-group-item">
             {criterion.NAME}:
             {rate === -1 ? (
@@ -33,8 +33,9 @@ export function ShowCriterionRate({
             ) : (
                 <span className="ms-1">
                     <span
-                        className={`${rate < 2 ? 'text-danger' : ''} ${rate > 7 ? 'text-success' : ''
-                            }`}
+                        className={`${rate < 2 ? 'text-danger' : ''} ${
+                            rate > 7 ? 'text-success' : ''
+                        }`}
                     >
                         {Math.round(rate * 100) / 100}
                     </span>
@@ -42,5 +43,5 @@ export function ShowCriterionRate({
                 </span>
             )}
         </li>
-    );
+    ) : null;
 }

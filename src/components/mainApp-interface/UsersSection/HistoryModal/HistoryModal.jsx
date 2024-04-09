@@ -15,23 +15,31 @@ export function HistoryModal({
     const [ratesList, setRatesList] = React.useState([]);
 
     useEffect(async () => {
-        setUser(await getCurrentUser());
-        setRatesList([]);
-        const uniqueTasks = Array.from(
-            new Set(employeeRates.map((rate) => rate.PROPERTY_VALUES.TASK_ID)),
-        );
-        uniqueTasks.forEach((task) => {
-            let ratesForTheTask = [];
-            for (let rate of employeeRates) {
-                if (rate.PROPERTY_VALUES.TASK_ID === task) {
-                    ratesForTheTask.push(rate);
+        let isMounted = true;
+        if (isMounted) {
+            setUser(await getCurrentUser());
+            setRatesList([]);
+            const uniqueTasks = Array.from(
+                new Set(
+                    employeeRates.map((rate) => rate.PROPERTY_VALUES.TASK_ID),
+                ),
+            );
+            uniqueTasks.forEach((task) => {
+                let ratesForTheTask = [];
+                for (let rate of employeeRates) {
+                    if (rate.PROPERTY_VALUES.TASK_ID === task) {
+                        ratesForTheTask.push(rate);
+                    }
                 }
-            }
-            setRatesList((prestate) => [
-                ...prestate,
-                { taskId: task, rates: ratesForTheTask },
-            ]);
-        });
+                setRatesList((prestate) => [
+                    ...prestate,
+                    { taskId: task, rates: ratesForTheTask },
+                ]);
+            });
+        }
+        return () => {
+            isMounted = false;
+        };
     }, [employeeRates]);
     return (
         <Modal
@@ -48,20 +56,20 @@ export function HistoryModal({
             </Modal.Header>
             <Modal.Body>
                 <div className="">
-                    {user ? (
-                        ratesList.map((rates) => (
-                            <RateInfo
-                                key={rates.taskId}
-                                rates={rates}
-                                employee={employee}
-                                user={user}
-                                criteria={criteria}
-                            />
-                        ))
-                    ) : (
-                        null
-                    )}
-                    {ratesList.length === 0 ? <i className='text-secondary'>Нет оценок</i> : null}
+                    {user
+                        ? ratesList.map((rates) => (
+                              <RateInfo
+                                  key={rates.taskId}
+                                  rates={rates}
+                                  employee={employee}
+                                  user={user}
+                                  criteria={criteria}
+                              />
+                          ))
+                        : null}
+                    {ratesList.length === 0 ? (
+                        <i className="text-secondary">Нет оценок</i>
+                    ) : null}
                 </div>
             </Modal.Body>
         </Modal>
