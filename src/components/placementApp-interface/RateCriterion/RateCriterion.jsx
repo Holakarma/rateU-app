@@ -108,9 +108,8 @@ export function RateCriterion({ criterion, userData, changeRated }) {
     return (
         <li className="list-group-item">
             <div
-                className={`row align-items-center ${
-                    isEnabled ? '' : 'opacity-50'
-                }`}
+                className={`row align-items-center ${isEnabled ? '' : 'opacity-50'
+                    }`}
             >
                 <label
                     htmlFor={`rate${rateCriterion.user}${rateCriterion.criterion}Range`}
@@ -158,14 +157,14 @@ export function RateCriterion({ criterion, userData, changeRated }) {
                 <div className="form-floating my-2">
                     <textarea
                         className="form-control"
-                        placeholder="Leave a comment here"
+                        placeholder=""
                         id="floatingTextarea"
                         onInput={(e) => {
                             inputComm(e.target.value);
                         }}
                         value={comm}
                     ></textarea>
-                    <label htmlFor="floatingTextarea">Комментарий</label>
+                    <label htmlFor="floatingTextarea" className='opacity-50'>Комментарий</label>
                 </div>
             ) : null}
         </li>
