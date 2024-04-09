@@ -21,34 +21,34 @@ function getSubordinates() {
     })
 }
 
-async function getUserInfo() {
-    return new Promise((resolve) => {
-        BX24.callMethod('user.current', {}, (res) => {
-            BX24.callMethod('department.get', {}, (result) => {
-                console.log(result.data())
-                const departments = result.data();
-                const headedDepartment = departments.find(d => d.UF_HEAD === res.data().ID)
-                if (!headedDepartment) {
-                    resolve({ ...res.data(), SUBORDINATES: [] });
-                } else {
-                    getSubordinates();
-                    resolve(res.data());
-                }
-            });
-        });
-    });
-}
+// async function getUserInfo() {
+//     return new Promise((resolve) => {
+//         BX24.callMethod('user.current', {}, (res) => {
+//             BX24.callMethod('department.get', {}, (result) => {
+//                 console.log(result.data())
+//                 const departments = result.data();
+//                 const headedDepartment = departments.find(d => d.UF_HEAD === res.data().ID)
+//                 if (!headedDepartment) {
+//                     resolve({ ...res.data(), SUBORDINATES: [] });
+//                 } else {
+//                     getSubordinates();
+//                     resolve(res.data());
+//                 }
+//             });
+//         });
+//     });
+// }
 
 export function App() {
     addLocale('ru', locale);
     const lang = 'ru';
     const [isReady, setReady] = React.useState(false);
     let [userInfo, setUserInfo] = React.useState();
-    const placementInfo = BX24.placement.info(); // Release version
-    // const placementInfo = {
-    //     options: { taskId: '549' },
-    //     placement: 'TASK_VIEW_TAB',
-    // };
+    // const placementInfo = BX24.placement.info(); // Release version
+    const placementInfo = {
+        options: { taskId: '549' },
+        placement: 'TASK_VIEW_TAB',
+    };
     useEffect(async () => {
         setUserInfo(await getUserInfo());
         getSectionId().then((result) => {
@@ -79,18 +79,18 @@ export function App() {
                         } else {
                             // For the release
                             const handlerUrl = `https://${BX24.getDomain()}/marketplace/app/${id}/`; // Release version
-                            BX24.callMethod(
-                                'placement.bind',
-                                {
-                                    PLACEMENT: 'TASK_VIEW_TAB',
-                                    HANDLER: handlerUrl,
-                                },
-                                function (res) {
-                                    console.log('placed status', res);
-                                    // BX24.installFinish();
-                                    setReady(true);
-                                },
-                            );
+                            // BX24.callMethod(
+                            //     'placement.bind',
+                            //     {
+                            //         PLACEMENT: 'TASK_VIEW_TAB',
+                            //         HANDLER: handlerUrl,
+                            //     },
+                            //     function (res) {
+                            //         console.log('placed status', res);
+                            //         // BX24.installFinish();
+                            //         setReady(true);
+                            //     },
+                            // );
                             // BX24.installFinish();
                             setReady(true);
                         }
