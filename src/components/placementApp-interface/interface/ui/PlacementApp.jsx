@@ -23,7 +23,7 @@ const PlacementApp = () => {
         setRatesLoaded(true);
     });
     return (
-        <div className="container position-relative">
+        <div className="container position-relative py-3">
             <h1>Оценка сотрудников</h1>
             {isRatesLoaded ? (
                 <Responsibles />

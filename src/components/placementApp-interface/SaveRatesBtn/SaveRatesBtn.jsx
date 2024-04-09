@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { RatesContext } from '../../../utils/ratesContext';
 import { getRates } from '../../../utils/saveRatesToEntity';
 import { PlacementContext } from '../../../utils/placementContext';
+import cls from '../../mainApp-interface/UsersSection/userSection.module.css'
 
 export function SaveRatesBtn() {
     const placementInfo = useContext(PlacementContext);
@@ -25,14 +26,8 @@ export function SaveRatesBtn() {
         }
     }
     return (
-        <div className="row g-0 align-items-center">
-            <button
-                className="btn btn-success col-3"
-                onClick={save}
-            >
-                {isSaved ? 'Сохранено' : 'Сохранить оценки'}
-            </button>
-            <div className="ms-2 col-2">
+        <div className="d-flex g-0 justify-content-end align-items-center">
+            <div className="ms-2">
                 {isLoading ? (
                     <div
                         className="spinner-grow"
@@ -42,6 +37,12 @@ export function SaveRatesBtn() {
                     </div>
                 ) : null}
             </div>
+            <button
+                className={`${cls.btnSave} btn text-light`}
+                onClick={save}
+            >
+                {isSaved ? 'Сохранено' : 'Сохранить оценки'}
+            </button>
         </div>
     );
 }

@@ -54,7 +54,7 @@ export function Responsibles() {
             <RatesContext.Provider value={{ rates, setRates }}>
                 {isCriteriaAdded && rights ? (
                     <>
-                        <h5>Ответственный</h5>
+                        <h5>Исполнитель</h5>
                         <RateUser
                             userData={task.responsible}
                             criteria={criteria}
