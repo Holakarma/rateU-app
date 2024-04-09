@@ -17,8 +17,6 @@ export function SettingsSection() {
         setAccess(accessValue)
     }, []);
 
-    console.log(access)
-
     return (
         <div>
             <h3>Настройка критериев</h3>
