@@ -3,7 +3,6 @@ import { sectionNames } from '../../../../utils/aliases';
 import { SettingsButton } from '../../SettingsSection/SettingsButton/SettingsButton';
 import { SettingsSection } from '../../SettingsSection/SettingsSection';
 import { UserSection } from '../../UsersSection/UserSection';
-import cls from '../../UsersSection/ChooseCriteria/renderCriteria.module.css'
 
 const MainApp = () => {
     const [openedSection, setSection] = React.useState({
@@ -20,7 +19,7 @@ const MainApp = () => {
 
     return (
         <div className="container position-relative">
-            <h1>Статистика</h1>
+            <h1 className='text-center mt-2'>Статистика</h1>
             <SettingsButton
                 setSection={setSection}
                 openedSection={openedSection}

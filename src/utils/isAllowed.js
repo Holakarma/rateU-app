@@ -3,13 +3,17 @@ export function isAllowed(task, userInfo) {
         if (BX24.isAdmin()) {
             resolve(true);
         } else {
-            if (userInfo) {
-                resolve(userInfo === task?.createdBy);
+            if (task) {
+                if (userInfo) {
+                    resolve(userInfo === task?.createdBy);
+                } else {
+                    BX24.callMethod('user.current', {}, (res) => {
+                        resolve(res.data().ID === task?.createdBy);
+                    });
+                }
             } else {
-                BX24.callMethod('user.current', {}, (res) => {
-                    resolve(res.data().ID === task?.createdBy);
-                });
+                resolve(false);
             }
         }
-    });
+    })
 }

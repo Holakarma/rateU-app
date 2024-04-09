@@ -9,7 +9,7 @@ import { updateCriterion } from '../../../../utils/updateCriterion';
     console.log(res)
 }) */
 
-export function CriterionInput({ criterion, refreshHandler }) {
+export function CriterionInput({ criterion, refreshHandler, access }) {
     const [criterionName, setCriterionName] = React.useState(
         criterion ? criterion.NAME : '',
     );
@@ -52,6 +52,7 @@ export function CriterionInput({ criterion, refreshHandler }) {
                         <input
                             className="form-check-input mt-0"
                             type="checkbox"
+                            disabled={!access}
                             checked={isCriterionActive}
                             onChange={() => {
                                 criterionHandler();
@@ -62,9 +63,9 @@ export function CriterionInput({ criterion, refreshHandler }) {
                 ) : null}
                 <input
                     type="text"
-                    className={`form-control ${
-                        isCorrect ? '' : 'border-danger border-2'
-                    }`}
+                    disabled={!access}
+                    className={`form-control ${isCorrect ? '' : 'border-danger border-2'
+                        }`}
                     placeholder="Новый критерий"
                     aria-describedby="basic-addon1"
                     onInput={(e) => {
@@ -85,9 +86,9 @@ export function CriterionInput({ criterion, refreshHandler }) {
                     <button
                         onClick={criterionHandler}
                         type="button"
-                        className={`btn btn-${
-                            isCorrect ? 'success' : 'danger'
-                        }`}
+                        disabled={!access}
+                        className={`btn btn-${isCorrect ? 'success' : 'danger'
+                            }`}
                     >
                         {isCorrect
                             ? criterion
@@ -103,6 +104,7 @@ export function CriterionInput({ criterion, refreshHandler }) {
                         setApprove(!showApprove);
                     }}
                     type="button"
+                    disabled={!access}
                     className="btn btn-danger col-1"
                 >
                     <Delete size={24} />

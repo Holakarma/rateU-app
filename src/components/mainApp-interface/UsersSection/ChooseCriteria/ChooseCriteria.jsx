@@ -1,7 +1,7 @@
 import React from 'react';
 import { RenderCriteria } from './RenderCriteria';
 import { Dropdown } from 'react-bootstrap';
-import cls from './renderCriteria.module.css'
+import cls from '../userSection.module.css'
 
 export function ChooseCriteria({ criteria, setSelectedCriteria }) {
     return (
