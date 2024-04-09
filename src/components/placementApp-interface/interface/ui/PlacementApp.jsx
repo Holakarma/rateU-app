@@ -9,17 +9,17 @@ const PlacementApp = () => {
     const placementInfo = useContext(PlacementContext);
     useEffect(async () => {
         const rates = await getRates(undefined, placementInfo.options.taskId);
-        if (rates.length) {
-            saveRates(
-                rates.map((rate) => ({
-                    task: rate.PROPERTY_VALUES.TASK_ID,
-                    user: rate.PROPERTY_VALUES.USER_ID,
-                    criterion: rate.PROPERTY_VALUES.CRITERION_ID,
-                    comm: rate.PROPERTY_VALUES.COMMENT,
-                    rate: rate.PROPERTY_VALUES.RATE,
-                })),
-            );
-        }
+        // if (rates.length) {
+        //     saveRates(
+        //         rates.map((rate) => ({
+        //             task: rate.PROPERTY_VALUES.TASK_ID,
+        //             user: rate.PROPERTY_VALUES.USER_ID,
+        //             criterion: rate.PROPERTY_VALUES.CRITERION_ID,
+        //             comm: rate.PROPERTY_VALUES.COMMENT,
+        //             rate: rate.PROPERTY_VALUES.RATE,
+        //         })),
+        //     );
+        // }
         setRatesLoaded(true);
     });
     return (

@@ -5,10 +5,9 @@ import { RatesContext } from '../../../utils/ratesContext';
 import { getTask } from '../../../utils/getTask';
 import { RateUser } from '../RateUser/RateUser';
 import { getCriteria } from '../../../utils/getCriteria';
-import { saveRates } from '../../../utils/saveToLS';
+import { getRates } from '../../../utils/getRates';
 import { SaveRatesBtn } from '../SaveRatesBtn/SaveRatesBtn';
 import { isAllowed } from '../../../utils/isAllowed';
-
 
 export function Responsibles() {
     const [task, setTask] = React.useState();
@@ -17,13 +16,13 @@ export function Responsibles() {
     const [criteria, setCriteria] = React.useState([]);
     const [rates, setRates] = React.useState([]);
     const [isCriteriaAdded, setCriteriaAdded] = React.useState(true);
-    const [isAllow, setAllow] = React.useState(false);
+    const [rights, setRights] = React.useState(undefined);
 
     useEffect(async () => {
         const placementTask = await getTask(placementInfo.options.taskId);
-        console.log(userInfo)
-        if (await isAllowed(placementTask.task, userInfo?.ID)) {
-            setAllow(true);
+        const allowed = await isAllowed(placementTask.task, userInfo);
+        if (allowed) {
+            setRights(allowed);
             const fetchedCriteria = await getCriteria();
             if (fetchedCriteria.length) {
                 setCriteria(fetchedCriteria);
@@ -37,8 +36,15 @@ export function Responsibles() {
                         accomplice != placementTask.task.responsibleId,
                 );
             }
-            let loadedRates = saveRates();
-            if (loadedRates) setRates(loadedRates);
+            setRates(
+                (await getRates()).map((rate) => ({
+                    task: rate.PROPERTY_VALUES.TASK_ID,
+                    user: rate.PROPERTY_VALUES.USER_ID,
+                    criterion: rate.PROPERTY_VALUES.CRITERION_ID,
+                    comm: rate.PROPERTY_VALUES.COMMENT,
+                    rate: rate.PROPERTY_VALUES.RATE,
+                })),
+            );
         }
         setTask(placementTask.task);
     }, [task, criteria]);
@@ -46,12 +52,13 @@ export function Responsibles() {
     return task ? (
         <div>
             <RatesContext.Provider value={{ rates, setRates }}>
-                {isCriteriaAdded && isAllow ? (
+                {isCriteriaAdded && rights ? (
                     <>
                         <h5>Ответственный</h5>
                         <RateUser
                             userData={task.responsible}
                             criteria={criteria}
+                            rights={rights}
                         />
                         {task.accomplices.length > 0 ? (
                             <>
@@ -64,6 +71,7 @@ export function Responsibles() {
                                                 task.accomplicesData[accomplice]
                                             }
                                             criteria={criteria}
+                                            rights={rights}
                                         />
                                     ))}
                                 </div>
@@ -73,7 +81,7 @@ export function Responsibles() {
                     </>
                 ) : (
                     <div>
-                        {isAllow
+                        {rights
                             ? 'Пожалуйста, добавьте критерии для оценки в приложении RateU'
                             : 'У вас нет необходимых прав для оценки в этой задаче.'}
                     </div>

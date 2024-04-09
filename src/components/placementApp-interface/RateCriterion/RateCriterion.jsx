@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { RatesContext } from '../../../utils/ratesContext';
 import { PlacementContext } from '../../../utils/placementContext';
-import { saveRates } from '../../../utils/saveToLS';
 
 export function RateCriterion({ criterion, userData, changeRated }) {
     useEffect(() => {
@@ -63,7 +62,6 @@ export function RateCriterion({ criterion, userData, changeRated }) {
             newRates.push(rateCriterion);
         }
         setRates(newRates);
-        saveRates(newRates);
         changeRated(newRates);
     }
 
@@ -89,13 +87,12 @@ export function RateCriterion({ criterion, userData, changeRated }) {
             newRates.splice(rateId, 1);
             setRates(newRates);
         }
-        saveRates(newRates);
         changeRated(newRates);
     }
     function inputComm(value) {
         setComm(value);
         rateCriterion.comm = value.trim();
-        changeHandler(rate, comm);
+        changeHandler(rate, value.trim());
     }
 
     function toggleComm() {
