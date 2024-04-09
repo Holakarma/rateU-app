@@ -20,7 +20,6 @@ export function RateUser({ userData, criteria, rights }) {
             setGenderUser(res[0].PERSONAL_GENDER)
         })
     }, []);
-    console.log(genderUser)
 
     useEffect(() => {
         if (changeRated(rates)) setRateOn(true);

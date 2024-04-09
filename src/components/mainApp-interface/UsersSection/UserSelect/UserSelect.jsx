@@ -6,7 +6,6 @@ export function UserSelect({ setEmployees }) {
     function selectHandler() {
         setEmployees([]);
         BX24.selectUsers((res) => {
-            console.log(res);
             saveEmployees(res);
             setEmployees(res);
         });
