@@ -19,6 +19,8 @@ export function ShowEmployee({
     const [access, setAccess] = React.useState(false);
 
     useEffect(async () => {
+        // setTimeout(BX24.fitWindow, 20);
+
         switch (rights) {
             case 'isAdmin':
                 setAccess(true);
