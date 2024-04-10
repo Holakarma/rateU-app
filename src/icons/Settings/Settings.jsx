@@ -1,7 +1,7 @@
 import React from "react";
 import cls from "./settings.module.css";
 
-export function Settings({size, width, height}) {
+export function Settings({ size, width, height }) {
     return (
         <svg
             className={cls.Settings}

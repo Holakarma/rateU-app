@@ -3,6 +3,7 @@ import { ShowCriterionRate } from '../ShowCriterionRate/ShowCriterionRate';
 import { RatesHistoryButton } from '../RatesHistoryButton/RatesHistoryButton';
 import { getUserInfo } from '../../../../utils/getUserInfo';
 import cls from '../userSection.module.css';
+import { User } from '../../../../icons/User/User';
 
 export function ShowEmployee({
     employee,
@@ -10,6 +11,7 @@ export function ShowEmployee({
     fetchedRates,
     rights,
 }) {
+
     const [countRates, setCountRates] = React.useState(0);
     const sum = React.useRef(0);
     const count = React.useRef(0);
@@ -43,15 +45,29 @@ export function ShowEmployee({
             ),
         );
     }, [fetchedRates, selectedCriteria]);
+
+    const [isImg, setIsImg] = React.useState(false)
+    useEffect(() => {
+        if (employee.photo) {
+            setIsImg(true)
+        }
+        console.log(employee)
+    })
+
     return (
         <div className="col-6">
             <div className={`${cls.card} card position-relative h-100`}>
                 <div className="card-body row">
                     <div className="col-2">
-                        <img
-                            className="rounded-circle w-100"
-                            src={`https://${BX24.getDomain()}${employee.photo}`}
-                        />
+                        {isImg ? (
+                            <img
+                                className="rounded-circle w-100"
+                                src={`https://${BX24.getDomain()}${employee.photo}`}
+                                alt={employee.name}
+                            />
+                        ) : (
+                            <User className="rounded-circle w-100" />
+                        )}
                     </div>
                     <div className="col-7 ps-0">
                         <h4>{employee.name}</h4>

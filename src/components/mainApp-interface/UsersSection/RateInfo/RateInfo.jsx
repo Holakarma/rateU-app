@@ -28,10 +28,10 @@ export function RateInfo({ rates, employee, user, criteria }) {
                     </ul>
                 </div>
                 <div className="card-footer text-end opacity-75">
+                    <span>Задача: </span>
                     <a
-                        href={`https://${BX24.getDomain()}/company/personal/user/${
-                            user.ID
-                        }/tasks/task/view/${task.id}/`}
+                        href={`https://${BX24.getDomain()}/company/personal/user/${user.ID
+                            }/tasks/task/view/${task.id}/`}
                         className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
                         target="_blank"
                     >
