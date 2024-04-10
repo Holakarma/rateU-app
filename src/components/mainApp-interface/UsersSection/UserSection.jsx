@@ -27,7 +27,6 @@ export function UserSection() {
         setCriteria(listAllCriteria);
         setSelectedCriteria(listAllCriteria);
         setLoaded(true);
-        setTimeout(BX24.fitWindow, 20);
     }, []);
 
     useEffect(async () => {
