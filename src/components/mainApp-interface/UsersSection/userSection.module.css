@@ -15,46 +15,70 @@
     background-color: white !important;
 }
 
+@property --r {
+	syntax: '<length-percentage>';
+	initial-value: 0px;
+	inherits: false
+}
+
 .bgBtn {
-    background-color: #7568c5 !important;
+	place-self: center;
     border: none;
-    cursor: auto;
+	box-shadow: inset 1px 3px 1px #fff4;
+	background: 
+		radial-gradient(circle at var(--x, 0%) var(--y, 0%), 
+        #6443c7 calc(var(--r) - 1px), #7568c5 var(--r)) 
+			border-box;
+	color: white;
+	transition: --r .35s;
 }
 
 .bgBtn:hover {
-    background: linear-gradient(205deg, #6154b3 33%, #a188ed 66%, #7568c5);
+    &:hover { --r: 100% }
 }
 
 .bgBtn:active {
-    background: linear-gradient(35deg, #6154b3 33%, #a188ed 66%, #6154b3);
+    transform: scale(1.03);
 }
 
 .btnSave {
-    background-color: #3f937b !important;
+    place-self: center;
     border: none;
-    cursor: auto;
+	box-shadow: inset 1px 3px 1px #fff4;
+	background: 
+		radial-gradient(circle at var(--x, 0%) var(--y, 0%), 
+        #2f816a calc(var(--r) - 1px), #3f937b var(--r)) 
+			border-box;
+	color: white;
+	transition: --r .35s;
 }
 
 .btnSave:hover {
-    background: linear-gradient(205deg, #266855 33%, #37967b 66%, #266855);
+    &:hover { --r: 100% }
 }
 
 .btnSave:active {
-    background: linear-gradient(35deg, #266855 33%, #37967b 66%, #266855);
+    transform: scale(1.03);
 }
 
 .btnReset {
-    background-color: #d35959 !important;
+    place-self: center;
     border: none;
-    cursor: auto;
+	box-shadow: inset 1px 3px 1px rgba(255, 255, 255, 0.489);
+	background: 
+		radial-gradient(circle at var(--x, 0%) var(--y, 0%), 
+        #cb3232 calc(var(--r) - 1px), #d35959 var(--r)) 
+			border-box;
+	color: white;
+	transition: --r .35s;
 }
 
 .btnReset:hover {
-    background: linear-gradient(205deg, #c32121 33%, #da6a6a 66%, #c32121);
+    &:hover { --r: 100% }
 }
 
 .btnReset:active {
-    background: linear-gradient(35deg, #c32121 33%, #da6a6a 66%, #c32121);
+    transform: scale(1.03);
 }
 
 .card {
