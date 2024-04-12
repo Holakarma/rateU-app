@@ -1,0 +1,17 @@
+.href {
+    display: inline-block; 
+}
+
+.href:after {
+    display: block; 
+    content: ""; 
+    height: 1px; 
+    width: 0%; 
+    background-color: #000; 
+    transition: width 0.4s ease-in-out;
+}
+
+.href:hover:after {
+    width: 100%;
+}
+

@@ -46,7 +46,7 @@ export function ShowEmployee({
             ),
         );
     }, [fetchedRates, selectedCriteria]);
-
+  
     const isImg = employee.photo ? true : false;
 
     return (

@@ -25,6 +25,8 @@ export const getUsers = (function createSavedUsers(savedUsers = []) {
                             arResult.push(res.data()?.at(0));
                         });
                         resolve(arResult);
+                        // }).catch(function (error) {
+                        //     reject(error);
                     });
                 } else {
                     resolve(arResult);
