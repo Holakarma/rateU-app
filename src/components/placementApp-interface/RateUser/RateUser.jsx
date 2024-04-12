@@ -15,16 +15,17 @@ export function RateUser({ userData, criteria, rights, setSaved }) {
     const placementInfo = useContext(PlacementContext);
     const userInfo = useContext(UserContext);
     const [access, setAccess] = React.useState(false);
-    const [genderUser, setGenderUser] = React.useState('M');
+    const [genderUser, setGenderUser] = React.useState('M')
+    const setError = useContext(ErrorContext);
 
-    useEffect(() => {
-        try {
-            getUsers([userData.id]).then((res) => {
-                setGenderUser(res[0].PERSONAL_GENDER);
-            });
-        } catch (e) {
-            setError(e);
-        }
+    useEffect(async () => {
+        const listIdUsers = await getUsers([userData.id])
+        // .catch(e => {
+        //     setError(e);
+        // });
+        listIdUsers.map((res) => {
+            setGenderUser(res.PERSONAL_GENDER)
+        })
     }, []);
 
     useEffect(() => {

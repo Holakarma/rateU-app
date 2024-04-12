@@ -32,9 +32,9 @@ function bindPlacemenet(handlerUrl) {
                 HANDLER: handlerUrl,
             },
             function (res) {
-                if (res.error()) {
-                    reject(new Error(res.error().ex.error_description));
-                }
+                // if (res.error()) {
+                //     reject(new Error(res.error().ex.error_description));
+                // }
                 resolve(true);
             },
         );
@@ -66,11 +66,11 @@ export function Providers() {
     const lang = 'ru';
     const [isReady, setReady] = React.useState(false);
     let [userInfo, setUserInfo] = React.useState();
-    const placementInfo = BX24.placement.info(); // Release version
-    // const placementInfo = {
-    //     options: { taskId: '549' },
-    //     placement: 'TASK_VIEW_TAB',
-    // };
+    // const placementInfo = BX24.placement.info(); // Release version
+    const placementInfo = {
+        options: { taskId: '549' },
+        placement: 'TASK_VIEW_TAB',
+    };
 
     const setError = useContext(ErrorContext);
 
@@ -107,10 +107,8 @@ export function Providers() {
             </PlacementContext.Provider>
         </PrimeReactProvider>
     ) : (
-        <div className="d-flex justify-content-center">
-            <div className="spinner-grow">
-                <span className="visually-hidden">Loading...</span>
-            </div>
+        <div className='containerLoader'>
+            <div className='loader'></div>
         </div>
     );
 }
