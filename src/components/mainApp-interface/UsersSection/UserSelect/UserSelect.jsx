@@ -1,14 +1,21 @@
 import React from 'react';
 import { saveEmployees } from '../../../../utils/saveToLS';
-import cls from '../userSection.module.css'
+import cls from '../userSection.module.css';
+
+function usersModal() {
+    return new Promise((resolve, reject) => {
+        BX24.selectUsers((res) => {
+            resolve(res);
+        });
+    });
+}
 
 export function UserSelect({ setEmployees }) {
-    function selectHandler() {
+    async function selectHandler() {
         setEmployees([]);
-        BX24.selectUsers((res) => {
-            saveEmployees(res);
-            setEmployees(res);
-        });
+        const selectedEmployees = await usersModal();
+        saveEmployees(selectedEmployees);
+        setEmployees(selectedEmployees);
     }
     return (
         <div className="col">

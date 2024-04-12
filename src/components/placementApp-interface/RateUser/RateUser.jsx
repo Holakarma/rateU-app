@@ -7,9 +7,9 @@ import { ArrowDropDown } from '../../../icons/ArrowDropDown/ArrowDropDown';
 import { getUsers } from '../../../utils/createSavedUsers';
 import { ErrorContext } from '../../../utils/errorContext';
 
-
-export function RateUser({ userData, criteria, rights }) {
+export function RateUser({ userData, criteria, rights, setSaved }) {
     const { rates, setRates } = useContext(RatesContext);
+    const setError = useContext(ErrorContext);
     const [rated, setRated] = React.useState(false);
     const [isRateOn, setRateOn] = React.useState(false);
     const placementInfo = useContext(PlacementContext);
@@ -73,7 +73,9 @@ export function RateUser({ userData, criteria, rights }) {
                                 {rated ? (
                                     <span className="opacity-50">
                                         {' '}
-                                        {genderUser === 'F' ? '- оценена' : '- оценён'}
+                                        {genderUser === 'F'
+                                            ? '- оценена'
+                                            : '- оценён'}
                                     </span>
                                 ) : null}
                             </div>
@@ -104,6 +106,7 @@ export function RateUser({ userData, criteria, rights }) {
                                 userData={userData}
                                 criterion={criterion}
                                 changeRated={changeRated}
+                                setSaved={setSaved}
                             />
                         ))}
                     </ul>

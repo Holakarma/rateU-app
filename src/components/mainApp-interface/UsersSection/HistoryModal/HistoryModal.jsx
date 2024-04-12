@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { RateInfo } from '../RateInfo/RateInfo';
 import { getCurrentUser } from '/src/utils/getCurrentUser';
+import { ErrorContext } from '../../../../utils/errorContext';
 import getTask from '/src/utils/getTask';
 
 export function HistoryModal({
@@ -14,10 +15,12 @@ export function HistoryModal({
     const [user, setUser] = React.useState(undefined);
     const [ratesList, setRatesList] = React.useState([]);
 
+    const setError = React.useContext(ErrorContext);
+
     useEffect(async () => {
         let isMounted = true;
         if (isMounted) {
-            setUser(await getCurrentUser());
+            setUser(await getCurrentUser().catch((e) => setError(e)));
             setRatesList([]);
             const uniqueTasks = Array.from(
                 new Set(

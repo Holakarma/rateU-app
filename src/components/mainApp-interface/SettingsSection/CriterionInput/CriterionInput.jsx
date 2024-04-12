@@ -4,12 +4,15 @@ import addCriterion from '../../../../utils/addCriterion';
 import { getCriteria } from '../../../../utils/getCriteria';
 import deleteCriterion from '../../../../utils/deleteCriterion';
 import { updateCriterion } from '../../../../utils/updateCriterion';
+import { ErrorContext } from '../../../../utils/errorContext';
 
 /* BX24.callMethod('entity.delete', {ENTITY: "rates"}, res => {
     console.log(res)
 }) */
 
 export function CriterionInput({ criterion, refreshHandler, access }) {
+    const setError = React.useContext(ErrorContext);
+
     const [criterionName, setCriterionName] = React.useState(
         criterion ? criterion.NAME : '',
     );
@@ -24,7 +27,7 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
             return;
         }
         if (!criterion) {
-            await addCriterion(criterionName);
+            await addCriterion(criterionName).catch((e) => setError(e));
             setCriterionName('');
         } else {
             await updateCriterion(
@@ -33,14 +36,18 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                 !isCriterionActive,
             );
         }
-        const result = await getCriteria(true, true);
+        const result = await getCriteria(true, true).catch((e) => setError(e));
         refreshHandler(result);
     }
     async function deleteHandler() {
-        if (criterion) {
-            await deleteCriterion(criterion.ID);
-            const result = await getCriteria(true, true);
-            refreshHandler(result);
+        try {
+            if (criterion) {
+                await deleteCriterion(criterion.ID);
+                const result = await getCriteria(true, true);
+                refreshHandler(result);
+            }
+        } catch (e) {
+            setError(e);
         }
     }
 
@@ -64,8 +71,9 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                 <input
                     type="text"
                     disabled={!access}
-                    className={`form-control ${isCorrect ? '' : 'border-danger border-2'
-                        }`}
+                    className={`form-control ${
+                        isCorrect ? '' : 'border-danger border-2'
+                    }`}
                     placeholder="Новый критерий"
                     aria-describedby="basic-addon1"
                     onInput={(e) => {
@@ -87,8 +95,9 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                         onClick={criterionHandler}
                         type="button"
                         disabled={!access}
-                        className={`btn btn-${isCorrect ? 'success' : 'danger'
-                            }`}
+                        className={`btn btn-${
+                            isCorrect ? 'success' : 'danger'
+                        }`}
                     >
                         {isCorrect
                             ? criterion

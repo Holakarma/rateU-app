@@ -11,7 +11,6 @@ export function ShowEmployee({
     fetchedRates,
     rights,
 }) {
-
     const [countRates, setCountRates] = React.useState(0);
     const sum = React.useRef(0);
     const count = React.useRef(0);
@@ -47,13 +46,8 @@ export function ShowEmployee({
             ),
         );
     }, [fetchedRates, selectedCriteria]);
-
-    const [isImg, setIsImg] = React.useState(false)
-    useEffect(() => {
-        if (employee.photo) {
-            setIsImg(true)
-        }
-    })
+  
+    const isImg = employee.photo ? true : false;
 
     return (
         <div className="col-6">
@@ -63,7 +57,9 @@ export function ShowEmployee({
                         {isImg ? (
                             <img
                                 className="rounded-circle w-100"
-                                src={`https://${BX24.getDomain()}${employee.photo}`}
+                                src={`https://${BX24.getDomain()}${
+                                    employee.photo
+                                }`}
                                 alt={employee.name}
                             />
                         ) : (
