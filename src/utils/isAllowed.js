@@ -1,12 +1,12 @@
 import { getUserInfo } from './getUserInfo';
 
 export function isAllowed(task, usersList, userInfo) {
-    return new Promise(async (resolve) => {
+    return new Promise(async (resolve, reject) => {
         if (BX24.isAdmin()) {
             resolve('isAdmin');
         } else {
             if (!userInfo) {
-                userInfo = await getUserInfo();
+                userInfo = await getUserInfo().catch((e) => reject(e));
             }
             if (task) {
                 if (userInfo?.ID === task?.createdBy) {

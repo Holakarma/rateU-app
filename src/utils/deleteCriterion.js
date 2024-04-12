@@ -1,7 +1,7 @@
 import { getSectionId } from './createEntity';
 import { getRates } from './getRates';
 
-function callDeleteMethod(id, resolve) {
+function callDeleteMethod(id, resolve, reject) {
     BX24.callMethod(
         'entity.item.delete',
         {
@@ -9,6 +9,10 @@ function callDeleteMethod(id, resolve) {
             ID: id,
         },
         (res) => {
+            if (res?.error()) {
+                reject(new Error(res.error().ex.error_description));
+                return;
+            }
             resolve(res);
         },
     );
@@ -16,9 +20,10 @@ function callDeleteMethod(id, resolve) {
 
 export default function deleteCriterion(id) {
     if (!id) return;
-    return new Promise(async (resolve) => {
-        const sectionId = (await getSectionId()).ratesSection;
-        let resultArray = await getRates(true);
+    return new Promise(async (resolve, reject) => {
+        const sectionId = (await getSectionId().catch((e) => reject(e)))
+            .ratesSection;
+        let resultArray = await getRates(true).catch((e) => reject(e));
         let deleteRatesBatch = resultArray.filter(
             (resultRate) => resultRate.PROPERTY_VALUES.CRITERION_ID === id,
         );
@@ -29,38 +34,14 @@ export default function deleteCriterion(id) {
             ]);
             console.log(deleteRatesBatch);
             BX24.callBatch(deleteRatesBatch, (res) => {
-                callDeleteMethod(id, resolve);
+                if (res?.error()) {
+                    reject(new Error(res.error().ex.error_description));
+                    return;
+                }
+                callDeleteMethod(id, resolve, reject);
             });
         } else {
-            callDeleteMethod(id, resolve);
+            callDeleteMethod(id, resolve, reject);
         }
-
-        // BX24.callMethod(
-        //     'entity.item.get',
-        //     { ENTITY: 'rates', FILTER: { SECTION: sectionId } },
-        //     (res) => {
-        //         resultArray = resultArray.concat(res.data());
-        //         if (res.more()) {
-        //             res.next();
-        //             return;
-        //         }
-        //         let deleteRatesBatch = resultArray
-        //             .filter(
-        //                 (resultRate) =>
-        //                     resultRate.PROPERTY_VALUES.CRITERION_ID === id,
-        //             );
-        //         if (deleteRatesBatch.length) {
-        //             deleteRatesBatch = deleteRatesBatch.map((deleteRate) => [
-        //                 'entity.item.delete',
-        //                 { ENTITY: 'rates', ID: deleteRate.ID },
-        //             ]);
-        //             BX24.callBatch(deleteRatesBatch, (res) => {
-        //                 callDeleteMethod(id, resolve);
-        //             });
-        //         } else {
-        //             callDeleteMethod(id, resolve);
-        //         }
-        //     },
-        // );
     });
 }

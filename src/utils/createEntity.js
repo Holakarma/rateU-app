@@ -2,7 +2,7 @@ export const getSectionId = (function createEntity(
     savedSectionsId = { criteriaSection: undefined, ratesSection: undefined },
 ) {
     return function () {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             if (
                 savedSectionsId.criteriaSection &&
                 savedSectionsId.ratesSection
@@ -11,6 +11,10 @@ export const getSectionId = (function createEntity(
                 return;
             }
             BX24.callMethod('entity.get', {}, (res) => {
+                if (res.error()) {
+                    reject(new Error(res.error().ex.error_description));
+                    return;
+                }
                 const createdEntities = res.data();
                 const entity = createdEntities.find(
                     (createdEntity) => createdEntity.ENTITY == 'rates',
@@ -25,6 +29,12 @@ export const getSectionId = (function createEntity(
                             },
                         },
                         (res) => {
+                            if (res.error()) {
+                                reject(
+                                    new Error(res.error().ex.error_description),
+                                );
+                                return;
+                            }
                             savedSectionsId.criteriaSection = res.data()[0]?.ID;
                             BX24.callMethod(
                                 'entity.section.get',
@@ -35,6 +45,14 @@ export const getSectionId = (function createEntity(
                                     },
                                 },
                                 (res) => {
+                                    if (res.error()) {
+                                        reject(
+                                            new Error(
+                                                res.error().ex.error_description,
+                                            ),
+                                        );
+                                        return;
+                                    }
                                     savedSectionsId.ratesSection =
                                         res.data()[0]?.ID;
                                     resolve(savedSectionsId); // sections id
@@ -47,6 +65,12 @@ export const getSectionId = (function createEntity(
                         'entity.add',
                         { ENTITY: 'rates', NAME: 'rateU-app' },
                         (res) => {
+                            if (res.error()) {
+                                reject(
+                                    new Error(res.error().ex.error_description),
+                                );
+                                return;
+                            }
                             BX24.callMethod(
                                 'entity.section.add',
                                 {
@@ -56,8 +80,79 @@ export const getSectionId = (function createEntity(
                                         'Критерии для оценки сотрудников',
                                 },
                                 (resCriteriaSection) => {
+                                    if (resCriteriaSection.error()) {
+                                        reject(
+                                            new Error(
+                                                resCriteriaSection.error().ex.error_description,
+                                            ),
+                                        );
+                                        return;
+                                    }
                                     savedSectionsId.criteriaSection =
                                         resCriteriaSection.data();
+
+                                    BX24.callBatch(
+                                        [
+                                            [
+                                                'entity.item.add',
+                                                {
+                                                    ENTITY: 'rates',
+                                                    NAME: 'Пунктуальность',
+                                                    SECTION:
+                                                        savedSectionsId.criteriaSection,
+                                                },
+                                            ],
+                                            [
+                                                'entity.item.add',
+                                                {
+                                                    ENTITY: 'rates',
+                                                    NAME: 'Ответственность',
+                                                    SECTION:
+                                                        savedSectionsId.criteriaSection,
+                                                },
+                                            ],
+                                            [
+                                                'entity.item.add',
+                                                {
+                                                    ENTITY: 'rates',
+                                                    NAME: 'Отзывчивость',
+                                                    SECTION:
+                                                        savedSectionsId.criteriaSection,
+                                                },
+                                            ],
+                                            [
+                                                'entity.item.add',
+                                                {
+                                                    ENTITY: 'rates',
+                                                    NAME: 'Результативность',
+                                                    SECTION:
+                                                        savedSectionsId.criteriaSection,
+                                                },
+                                            ],
+                                            [
+                                                'entity.item.add',
+                                                {
+                                                    ENTITY: 'rates',
+                                                    NAME: 'Командная работа',
+                                                    SECTION:
+                                                        savedSectionsId.criteriaSection,
+                                                },
+                                            ],
+                                        ],
+                                        (res) => {
+                                            res.forEach((r) => {
+                                                if (r.error()) {
+                                                    reject(
+                                                        new Error(
+                                                            res.error().ex.error_description,
+                                                        ),
+                                                    );
+                                                    return;
+                                                }
+                                            });
+                                        },
+                                    );
+
                                     BX24.callMethod(
                                         'entity.section.add',
                                         {
@@ -66,6 +161,14 @@ export const getSectionId = (function createEntity(
                                             DESCRIPTION: 'Оценки сотрудников',
                                         },
                                         (resRatesSection) => {
+                                            if (resRatesSection.error()) {
+                                                reject(
+                                                    new Error(
+                                                        resRatesSection.error().ex.error_description,
+                                                    ),
+                                                );
+                                                return;
+                                            }
                                             BX24.callBatch(
                                                 [
                                                     [
@@ -116,9 +219,17 @@ export const getSectionId = (function createEntity(
                                                     ],
                                                 ],
                                                 (res) => {
+                                                    if (res.error()) {
+                                                        reject(
+                                                            new Error(
+                                                                res.error().ex.error_description,
+                                                            ),
+                                                        );
+                                                        return;
+                                                    }
                                                     savedSectionsId.ratesSection =
-                                                        resRatesSection.data(); // Вот тут ошибка при первом встраивании
-                                                    resolve(savedSectionsId); // section id
+                                                        resRatesSection.data();
+                                                    resolve(savedSectionsId);
                                                 },
                                             );
                                         },

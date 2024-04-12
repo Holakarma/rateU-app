@@ -5,20 +5,26 @@ import { PlacementContext } from '../../../utils/placementContext';
 import { UserContext } from '../../../utils/userContext';
 import { ArrowDropDown } from '../../../icons/ArrowDropDown/ArrowDropDown';
 import { getUsers } from '../../../utils/createSavedUsers';
+import { ErrorContext } from '../../../utils/errorContext';
 
-export function RateUser({ userData, criteria, rights }) {
+export function RateUser({ userData, criteria, rights, setSaved }) {
     const { rates, setRates } = useContext(RatesContext);
+    const setError = useContext(ErrorContext);
     const [rated, setRated] = React.useState(false);
     const [isRateOn, setRateOn] = React.useState(false);
     const placementInfo = useContext(PlacementContext);
     const userInfo = useContext(UserContext);
     const [access, setAccess] = React.useState(false);
-    const [genderUser, setGenderUser] = React.useState('M')
+    const [genderUser, setGenderUser] = React.useState('M');
 
     useEffect(() => {
-        getUsers([userData.id]).then((res) => {
-            setGenderUser(res[0].PERSONAL_GENDER)
-        })
+        try {
+            getUsers([userData.id]).then((res) => {
+                setGenderUser(res[0].PERSONAL_GENDER);
+            });
+        } catch (e) {
+            setError(e);
+        }
     }, []);
 
     useEffect(() => {
@@ -66,7 +72,9 @@ export function RateUser({ userData, criteria, rights }) {
                                 {rated ? (
                                     <span className="opacity-50">
                                         {' '}
-                                        {genderUser === 'F' ? '- оценена' : '- оценён'}
+                                        {genderUser === 'F'
+                                            ? '- оценена'
+                                            : '- оценён'}
                                     </span>
                                 ) : null}
                             </div>
@@ -97,6 +105,7 @@ export function RateUser({ userData, criteria, rights }) {
                                 userData={userData}
                                 criterion={criterion}
                                 changeRated={changeRated}
+                                setSaved={setSaved}
                             />
                         ))}
                     </ul>
