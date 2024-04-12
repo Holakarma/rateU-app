@@ -3,42 +3,47 @@ import { UserSelect } from './UserSelect/UserSelect';
 import { ShowEmployee } from './/ShowEmployee/ShowEmployee';
 import { getCriteria } from '../../../utils/getCriteria';
 import { ChooseCriteria } from './ChooseCriteria/ChooseCriteria';
-import { getRates } from '../../../utils/getRates';
 import { saveEmployees, savePeriod } from '../../../utils/saveToLS';
 import { PeriodPicker } from './PeriodPicker/PeriodPicker';
 import { isAllowed } from '../../../utils/isAllowed';
+import { ErrorContext } from '../../../utils/errorContext';
 
-export function UserSection() {
+export function UserSection({
+    setSelectedCriteria,
+    setPeriod,
+    period,
+    selectedCriteria,
+    fetchedRates,
+}) {
     let savedEmployees = saveEmployees();
-    let savedPeriod = savePeriod();
     const [employees, setEmployees] = React.useState(
         savedEmployees ? savedEmployees : [],
     );
     const [criteria, setCriteria] = React.useState([]);
-    const [selectedCriteria, setSelectedCriteria] = React.useState([]);
-    const [fetchedRates, setFetchedRates] = React.useState([]);
     const [isLoaded, setLoaded] = React.useState(false);
-    const [period, setPeriod] = React.useState(savedPeriod);
     const [rights, setRights] = React.useState(undefined);
 
-    useEffect(async () => {
-        const listAllCriteria = await getCriteria();
-        setRights(await isAllowed(undefined, employees.map(e => e.id)));
-        setCriteria(listAllCriteria);
-        setSelectedCriteria(listAllCriteria);
-        setLoaded(true);
-    }, []);
+    const setError = React.useContext(ErrorContext);
 
     useEffect(async () => {
-        savePeriod(true, period);
-        const allRates = await getRates(true, period);
-        const ratesCriteria = allRates.filter((rateValue) =>
-            selectedCriteria.find(
-                (sc) => rateValue.PROPERTY_VALUES.CRITERION_ID === sc.ID,
-            ),
-        );
-        setFetchedRates(ratesCriteria);
-    }, [period, selectedCriteria]);
+        const isMounted = true;
+        try {
+            const listAllCriteria = await getCriteria();
+            const fetchedRights = await isAllowed(
+                undefined,
+                employees.map((e) => e.id),
+            );
+            if (isMounted) {
+                setRights(fetchedRights);
+                setCriteria(listAllCriteria);
+                setSelectedCriteria(listAllCriteria);
+                setLoaded(true);
+            }
+        } catch (e) {
+            setError(e);
+        }
+        return () => (isMounted = false);
+    }, []);
 
     return (
         <div>

@@ -3,23 +3,19 @@ import { Responsibles } from '../../Responsibles/Responsibles';
 import { getRates } from '../../../../utils/saveRatesToEntity';
 import { saveRates } from '../../../../utils/saveToLS';
 import { PlacementContext } from '../../../../utils/placementContext';
+import { ErrorContext } from '../../../../utils/errorContext';
 
 const PlacementApp = () => {
     const [isRatesLoaded, setRatesLoaded] = React.useState(false);
     const placementInfo = useContext(PlacementContext);
+
+    const setError = React.useContext(ErrorContext);
+
     useEffect(async () => {
-        const rates = await getRates(undefined, placementInfo.options.taskId);
-        // if (rates.length) {
-        //     saveRates(
-        //         rates.map((rate) => ({
-        //             task: rate.PROPERTY_VALUES.TASK_ID,
-        //             user: rate.PROPERTY_VALUES.USER_ID,
-        //             criterion: rate.PROPERTY_VALUES.CRITERION_ID,
-        //             comm: rate.PROPERTY_VALUES.COMMENT,
-        //             rate: rate.PROPERTY_VALUES.RATE,
-        //         })),
-        //     );
-        // }
+        const rates = await getRates(
+            undefined,
+            placementInfo.options.taskId,
+        ).catch((e) => setError(e));
         setRatesLoaded(true);
     });
     return (

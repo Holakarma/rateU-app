@@ -19,6 +19,10 @@ import { ErrorContext } from '../../utils/errorContext';
 //     },
 // );
 
+BX24.callMethod('entity.item.get', { ENTITY: 'rates' }, (res) => {
+    console.log('Items: ', res.data());
+});
+
 function bindPlacemenet(handlerUrl) {
     return new Promise((resolve, reject) => {
         BX24.callMethod(
@@ -37,6 +41,26 @@ function bindPlacemenet(handlerUrl) {
     });
 }
 
+function getAppId() {
+    return new Promise((resolve, reject) => {
+        BX24.callMethod('app.info', {}, (res) => {
+            if (res.error()) {
+                reject(new Error(res.error().ex.error_description));
+            } else resolve(res.data().ID);
+        });
+    });
+}
+
+function getPlacement() {
+    return new Promise((resolve, reject) => {
+        BX24.callMethod('placement.get', {}, async (res) => {
+            if (res.error()) {
+                reject(new Error(res.error().ex.error_description));
+            } else resolve(res.data());
+        });
+    });
+}
+
 export function Providers() {
     addLocale('ru', locale);
     const lang = 'ru';
@@ -51,35 +75,28 @@ export function Providers() {
     const setError = useContext(ErrorContext);
 
     useEffect(async () => {
-        setUserInfo(await getUserInfo());
-        getSectionId().then((result) => {
+        try {
+            setUserInfo(await getUserInfo());
+            await getSectionId();
             if (placementInfo.placement === 'DEFAULT') {
-                BX24.callMethod('app.info', {}, (res) => {
-                    let id = res.data().ID;
-
-                    BX24.callMethod('placement.get', {}, async (res) => {
-                        const resultArr = res.data();
-                        if (
-                            resultArr.length &&
-                            resultArr[0].placement === 'TASK_VIEW_TAB'
-                        ) {
-                            setReady(true);
-                        } else {
-                            const handlerUrl =
-                                window.location.origin +
-                                window.location.pathname; // Release version
-                            try {
-                                setReady(await bindPlacemenet(handlerUrl));
-                            } catch (e) {
-                                setError(e);
-                            }
-                        }
-                    });
-                });
+                const resultArr = await getPlacement();
+                if (
+                    resultArr.length &&
+                    resultArr[0].placement === 'TASK_VIEW_TAB'
+                ) {
+                    setReady(true);
+                } else {
+                    const handlerUrl =
+                        window.location.origin + window.location.pathname; // Release version
+                    setReady(await bindPlacemenet(handlerUrl)); // Release version
+                    // setReady(true);
+                }
             } else {
                 setReady(true);
             }
-        });
+        } catch (e) {
+            setError(e);
+        }
     }, []);
     return isReady ? (
         <PrimeReactProvider value={lang}>

@@ -12,12 +12,13 @@ function findRate(where, what) {
 
 export const getRates = (function (savedRates = []) {
     return function (rates, taskId) {
-        return new Promise(async (resolve) => {
+        return new Promise(async (resolve, reject) => {
             if (!rates && !taskId && savedRates.length) {
-                resolve(savedRates)
+                resolve(savedRates);
                 return;
             }
-            const sectionId = (await getSectionId()).ratesSection;
+            const sectionId = (await getSectionId().catch((e) => reject(e)))
+                .ratesSection;
             let resultArray = [];
             BX24.callMethod(
                 'entity.item.get',
@@ -28,12 +29,18 @@ export const getRates = (function (savedRates = []) {
                     },
                 },
                 async (res) => {
+                    if (res?.error()) {
+                        reject(new Error(res?.error().ex.error_description));
+                        return;
+                    }
                     resultArray = resultArray.concat(res.data());
                     if (res.more()) {
                         res.next();
                         return;
                     }
-                    let activeCriteriaList = await getCriteria();
+                    let activeCriteriaList = await getCriteria().catch((e) =>
+                        reject(e),
+                    );
                     activeCriteriaList = activeCriteriaList.map(
                         (activeCriterion) => activeCriterion.ID,
                     );
@@ -115,7 +122,16 @@ export const getRates = (function (savedRates = []) {
                     });
                     if (addBatch.length) {
                         BX24.callBatch(addBatch, (res) => {
-                            console.log('saved succesfully');
+                            res.forEach((r) => {
+                                if (r?.error()) {
+                                    reject(
+                                        new Error(
+                                            r?.error().ex.error_description,
+                                        ),
+                                    );
+                                    return;
+                                }
+                            });
                             resolve(res);
                         });
                     } else {

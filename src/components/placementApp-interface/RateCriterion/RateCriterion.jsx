@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { RatesContext } from '../../../utils/ratesContext';
 import { PlacementContext } from '../../../utils/placementContext';
 
-export function RateCriterion({ criterion, userData, changeRated }) {
+export function RateCriterion({ criterion, userData, changeRated, setSaved }) {
     useEffect(() => {
         setTimeout(BX24.fitWindow, 20);
     }, []);
@@ -61,6 +61,7 @@ export function RateCriterion({ criterion, userData, changeRated }) {
         } else {
             newRates.push(rateCriterion);
         }
+        setSaved(false)
         setRates(newRates);
         changeRated(newRates);
     }
@@ -108,8 +109,9 @@ export function RateCriterion({ criterion, userData, changeRated }) {
     return (
         <li className="list-group-item">
             <div
-                className={`row align-items-center ${isEnabled ? '' : 'opacity-50'
-                    }`}
+                className={`row align-items-center ${
+                    isEnabled ? '' : 'opacity-50'
+                }`}
             >
                 <label
                     htmlFor={`rate${rateCriterion.user}${rateCriterion.criterion}Range`}
@@ -164,7 +166,12 @@ export function RateCriterion({ criterion, userData, changeRated }) {
                         }}
                         value={comm}
                     ></textarea>
-                    <label htmlFor="floatingTextarea" className='opacity-50'>Комментарий</label>
+                    <label
+                        htmlFor="floatingTextarea"
+                        className="opacity-50"
+                    >
+                        Комментарий
+                    </label>
                 </div>
             ) : null}
         </li>

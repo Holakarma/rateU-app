@@ -1,11 +1,15 @@
 import React, { useEffect } from 'react';
 import { getTask } from '/src/utils/getTask';
 import { ShowDetailedRate } from '../ShowDetailedRate/ShowDetailedRate';
+import { ErrorContext } from '../../../../utils/errorContext';
 
 export function RateInfo({ rates, employee, user, criteria }) {
     const [task, setTask] = React.useState(undefined);
+
+    const setError = React.useContext(ErrorContext);
+
     useEffect(async () => {
-        setTask((await getTask(rates.taskId)).task);
+        setTask((await getTask(rates.taskId).catch((e) => setError(e)))?.task);
     });
     return task ? (
         <div className="">
@@ -30,8 +34,9 @@ export function RateInfo({ rates, employee, user, criteria }) {
                 <div className="card-footer text-end opacity-75">
                     <span>Задача: </span>
                     <a
-                        href={`https://${BX24.getDomain()}/company/personal/user/${user.ID
-                            }/tasks/task/view/${task.id}/`}
+                        href={`https://${BX24.getDomain()}/company/personal/user/${
+                            user.ID
+                        }/tasks/task/view/${task.id}/`}
                         className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
                         target="_blank"
                     >
