@@ -19,10 +19,6 @@ import { ErrorContext } from '../../utils/errorContext';
 //     },
 // );
 
-BX24.callMethod('entity.item.get', { ENTITY: 'rates' }, (res) => {
-    console.log('Items: ', res.data());
-});
-
 function bindPlacemenet(handlerUrl) {
     return new Promise((resolve, reject) => {
         BX24.callMethod(
@@ -66,11 +62,11 @@ export function Providers() {
     const lang = 'ru';
     const [isReady, setReady] = React.useState(false);
     let [userInfo, setUserInfo] = React.useState();
-    // const placementInfo = BX24.placement.info(); // Release version
-    const placementInfo = {
-        options: { taskId: '549' },
-        placement: 'TASK_VIEW_TAB',
-    };
+    const placementInfo = BX24.placement.info(); // Release version
+    // const placementInfo = {
+    //     options: { taskId: '549' },
+    //     placement: 'TASK_VIEW_TAB',
+    // };
 
     const setError = useContext(ErrorContext);
 
@@ -107,8 +103,8 @@ export function Providers() {
             </PlacementContext.Provider>
         </PrimeReactProvider>
     ) : (
-        <div className='containerLoader'>
-            <div className='loader'></div>
+        <div className="containerLoader">
+            <div className="loader"></div>
         </div>
     );
 }
