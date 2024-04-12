@@ -9,7 +9,6 @@ import { ErrorContext } from '../../../utils/errorContext';
 
 export function RateUser({ userData, criteria, rights, setSaved }) {
     const { rates, setRates } = useContext(RatesContext);
-    const setError = useContext(ErrorContext);
     const [rated, setRated] = React.useState(false);
     const [isRateOn, setRateOn] = React.useState(false);
     const placementInfo = useContext(PlacementContext);
