@@ -53,7 +53,6 @@ export function ShowEmployee({
         if (employee.photo) {
             setIsImg(true)
         }
-        console.log(employee)
     })
 
     return (

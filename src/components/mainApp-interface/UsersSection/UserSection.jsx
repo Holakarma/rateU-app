@@ -68,10 +68,9 @@ export function UserSection() {
                         />
                     ))
                 ) : (
-                    <div
-                        className="spinner-grow"
-                        role="status"
-                    ></div>
+                    <div className='containerLoader align-baseline justify-content-start h-auto'>
+                        <div className='loader'></div>
+                    </div>
                 )}
             </div>
         </div>

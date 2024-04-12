@@ -5,6 +5,8 @@ import { PlacementContext } from '../../../utils/placementContext';
 import { UserContext } from '../../../utils/userContext';
 import { ArrowDropDown } from '../../../icons/ArrowDropDown/ArrowDropDown';
 import { getUsers } from '../../../utils/createSavedUsers';
+import { ErrorContext } from '../../../utils/errorContext';
+
 
 export function RateUser({ userData, criteria, rights }) {
     const { rates, setRates } = useContext(RatesContext);
@@ -14,10 +16,15 @@ export function RateUser({ userData, criteria, rights }) {
     const userInfo = useContext(UserContext);
     const [access, setAccess] = React.useState(false);
     const [genderUser, setGenderUser] = React.useState('M')
+    const setError = useContext(ErrorContext);
 
-    useEffect(() => {
-        getUsers([userData.id]).then((res) => {
-            setGenderUser(res[0].PERSONAL_GENDER)
+    useEffect(async () => {
+        const listIdUsers = await getUsers([userData.id])
+        // .catch(e => {
+        //     setError(e);
+        // });
+        listIdUsers.map((res) => {
+            setGenderUser(res.PERSONAL_GENDER)
         })
     }, []);
 
