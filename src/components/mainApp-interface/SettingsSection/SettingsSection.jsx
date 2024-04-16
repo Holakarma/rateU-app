@@ -15,7 +15,7 @@ export function SettingsSection() {
         const answer = await getCriteria(false, true).catch((e) => setError(e));
         if (isMounted) setCriteriaList(answer);
         return () => (isMounted = false);
-    });
+    }, []);
 
     const [access, setAccess] = React.useState(false);
     useEffect(async () => {

@@ -3,7 +3,7 @@ import { UserSelect } from './UserSelect/UserSelect';
 import { ShowEmployee } from './/ShowEmployee/ShowEmployee';
 import { getCriteria } from '../../../utils/getCriteria';
 import { ChooseCriteria } from './ChooseCriteria/ChooseCriteria';
-import { saveEmployees, savePeriod } from '../../../utils/saveToLS';
+import { saveEmployees } from '../../../utils/saveToLS';
 import { PeriodPicker } from './PeriodPicker/PeriodPicker';
 import { isAllowed } from '../../../utils/isAllowed';
 import { ErrorContext } from '../../../utils/errorContext';
@@ -73,11 +73,18 @@ export function UserSection({
                         />
                     ))
                 ) : (
-                    <div className='containerLoader align-baseline justify-content-start h-auto'>
-                        <div className='loader'></div>
+                    <div className="containerLoader align-baseline justify-content-start h-auto">
+                        <div className="loader"></div>
                     </div>
                 )}
             </div>
+            {fetchedRates.length ? (
+                <div className="text-end">
+                    <i className="opacity-50">
+                        Общее количество оценок: {fetchedRates.length}
+                    </i>
+                </div>
+            ) : null}
         </div>
     );
 }

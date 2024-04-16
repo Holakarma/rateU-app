@@ -219,14 +219,16 @@ export const getSectionId = (function createEntity(
                                                     ],
                                                 ],
                                                 (res) => {
-                                                    if (res.error()) {
-                                                        reject(
-                                                            new Error(
-                                                                res.error().ex.error_description,
-                                                            ),
-                                                        );
-                                                        return;
-                                                    }
+                                                    res.forEach((r) => {
+                                                        if (r.error()) {
+                                                            reject(
+                                                                new Error(
+                                                                    r.error().ex.error_description,
+                                                                ),
+                                                            );
+                                                            return;
+                                                        }
+                                                    });
                                                     savedSectionsId.ratesSection =
                                                         resRatesSection.data();
                                                     resolve(savedSectionsId);

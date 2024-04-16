@@ -26,7 +26,6 @@ export const getRates = (function createSavedCriteria(savedRates = []) {
                     },
                 },
                 (res) => {
-                    console.log('fetching...');
                     if (res.error()) {
                         reject(new Error(res.error().ex.error_description));
                         return;
