@@ -29,7 +29,7 @@ const MainApp = () => {
     const allRates = React.useRef([]);
 
     useEffect(async () => {
-        allRates.current = await getRates(true, period);
+        allRates.current = await getRates(true);
     }, []);
 
     useEffect(async () => {
@@ -37,6 +37,7 @@ const MainApp = () => {
         allRates.current = await getRates(false, period).catch((e) =>
             setError(e),
         );
+
         setFetchedRates(allRates.current);
     }, [period]);
 

@@ -1,31 +1,38 @@
-export async function getUserInfo() {
-    return new Promise((resolve, reject) => {
-        BX24.callMethod('user.current', {}, (res) => {
-            if (res.error()) {
-                reject(new Error(res.error().ex.error_description));
+export const getUserInfo = function getUserInfo(savedUser) {
+    return async function () {
+        return new Promise((resolve, reject) => {
+            if (savedUser) {
+                resolve(savedUser);
                 return;
             }
-            const user = res.data();
-            let departmentsArray = [];
-            BX24.callMethod('department.get', {}, async (result) => {
+            BX24.callMethod('user.current', {}, (res) => {
                 if (res.error()) {
                     reject(new Error(res.error().ex.error_description));
                     return;
                 }
-                departmentsArray = departmentsArray.concat(result.data());
-                if (result.more()) {
-                    result.next();
-                    return;
-                }
-                const subordinates = await getSubordinates(
-                    user,
-                    departmentsArray,
-                ).catch((e) => reject(e));
-                resolve({ ...user, SUBORDINATES: subordinates });
+                const user = res.data();
+                let departmentsArray = [];
+                BX24.callMethod('department.get', {}, async (result) => {
+                    if (res.error()) {
+                        reject(new Error(res.error().ex.error_description));
+                        return;
+                    }
+                    departmentsArray = departmentsArray.concat(result.data());
+                    if (result.more()) {
+                        result.next();
+                        return;
+                    }
+                    const subordinates = await getSubordinates(
+                        user,
+                        departmentsArray,
+                    ).catch((e) => reject(e));
+                    savedUser = { ...user, SUBORDINATES: subordinates };
+                    resolve(savedUser);
+                });
             });
         });
-    });
-}
+    };
+};
 
 function isSubordinate(department, headedDepartment, departments) {
     let currentDepartment = departments.find((d) => d.ID == department);

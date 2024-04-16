@@ -9,6 +9,10 @@ import { locale } from '../../utils/localePR';
 import { getUserInfo } from '../../utils/getUserInfo';
 import { ErrorContext } from '../../utils/errorContext';
 
+// BX24.callMethod('entity.delete', {ENTITY: 'rates'}, res => {
+//     console.log(res)
+// })
+
 // BX24.callMethod(
 //     'placement.unbind',
 //     {
@@ -28,9 +32,9 @@ function bindPlacemenet(handlerUrl) {
                 HANDLER: handlerUrl,
             },
             function (res) {
-                // if (res.error()) {
-                //     reject(new Error(res.error().ex.error_description));
-                // }
+                if (res.error()) {
+                    reject(new Error(res.error().ex.error_description));
+                }
                 resolve(true);
             },
         );
