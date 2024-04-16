@@ -12,7 +12,6 @@ import { ErrorContext } from '../../../../utils/errorContext';
 
 export function CriterionInput({ criterion, refreshHandler, access }) {
     const setError = React.useContext(ErrorContext);
-
     const [criterionName, setCriterionName] = React.useState(
         criterion ? criterion.NAME : '',
     );
@@ -65,6 +64,7 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                                 criterionHandler();
                                 setCriterionActive(!isCriterionActive);
                             }}
+                            id={criterion ? `check-${criterion.ID}` : 'check-newCriterion'}
                         />
                     </div>
                 ) : null}
@@ -89,6 +89,7 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                         }
                     }}
                     value={criterionName}
+                    id={criterion ? `name-${criterion.ID}` : 'name-newCriterion'}
                 />
                 {criterionName.length && criterionName != criterion?.NAME ? (
                     <button
