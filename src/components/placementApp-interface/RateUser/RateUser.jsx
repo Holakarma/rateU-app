@@ -28,9 +28,10 @@ export function RateUser({ userData, criteria, rights, setSaved }) {
         }
     }, []);
 
-    useEffect(() => {
+    useEffect(async () => {
         if (changeRated(rates)) setRateOn(true);
-        if (userData.id !== userInfo.ID) {
+        const currentUSer = await userInfo;
+        if (userData.id !== currentUSer.ID) {
             if (rights === 'haveSub') {
                 setAccess(
                     userInfo.SUBORDINATES.find((sub) => userData.id == sub.ID),
