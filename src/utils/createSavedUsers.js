@@ -21,13 +21,16 @@ export const getUsers = (function createSavedUsers(savedUsers = []) {
                     });
                     BX24.callBatch(fetchBatch, function (result) {
                         result.forEach((res) => {
-                            savedUsers.push(res.data()?.at(0));
-                            arResult.push(res.data()?.at(0));
+                            if (res.error()) {
+                                reject(new Error(res.error().ex.error_description));
+                                return;
+                            } else {
+                                savedUsers.push(res.data()?.at(0));
+                                arResult.push(res.data()?.at(0));
+                            }
                         });
                         resolve(arResult);
-                        // }).catch(function (error) {
-                        //     reject(error);
-                    });
+                    })
                 } else {
                     resolve(arResult);
                 }
