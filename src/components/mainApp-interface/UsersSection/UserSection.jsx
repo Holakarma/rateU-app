@@ -78,13 +78,6 @@ export function UserSection({
                     </div>
                 )}
             </div>
-            {fetchedRates.length ? (
-                <div className="text-end">
-                    <i className="opacity-50">
-                        Общее количество оценок: {fetchedRates.length}
-                    </i>
-                </div>
-            ) : null}
         </div>
     );
 }
