@@ -18,13 +18,14 @@ export function RateUser({ userData, criteria, rights, setSaved }) {
     const setError = useContext(ErrorContext);
 
     useEffect(async () => {
-        const listIdUsers = await getUsers([userData.id])
-        // .catch(e => {
-        //     setError(e);
-        // });
-        listIdUsers.map((res) => {
-            setGenderUser(res.PERSONAL_GENDER)
-        })
+        try {
+            const listIdUsers = await getUsers([userData.id]);
+            listIdUsers.map((res) => {
+                setGenderUser(res.PERSONAL_GENDER)
+            })
+        } catch (e) {
+            setError(e)
+        }
     }, []);
 
     useEffect(async () => {
