@@ -88,8 +88,8 @@ export function Providers() {
                 } else {
                     const handlerUrl =
                         window.location.origin + window.location.pathname; // Release version
-                    setReady(await bindPlacemenet(handlerUrl)); // Release version
-                    // setReady(true);
+                    // setReady(await bindPlacemenet(handlerUrl)); // Release version
+                    setReady(true);
                 }
             } else {
                 setReady(true);
