@@ -85,12 +85,33 @@ export function Providers() {
                     resultArr[0].placement === 'TASK_VIEW_TAB'
                 ) {
                     setReady(true);
+
                 } else {
                     const handlerUrl =
                         window.location.origin + window.location.pathname; // Release version
                     // setReady(await bindPlacemenet(handlerUrl)); // Release version
                     setReady(true);
                 }
+
+                BX24.callMethod('user.option.get', {},
+                    res => {
+                        if (res.data().length !== 0) {
+                            console.log(res, 'Не выводим');
+                        } else {
+                            console.log(res, 'Выводим руководство');
+                            BX24.callMethod('user.option.set', {
+                                options: {
+                                    visited: true
+                                }
+                            },
+                                res => {
+                                    console.log(res)
+                                }
+                            )
+                        }
+                    }
+                )
+
             } else {
                 setReady(true);
             }
