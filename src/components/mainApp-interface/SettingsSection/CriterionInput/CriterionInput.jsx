@@ -38,12 +38,15 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
         const result = await getCriteria(true, true).catch((e) => setError(e));
         refreshHandler(result);
     }
+    const [deletePending, setDeletePending] = React.useState(false);
     async function deleteHandler() {
         try {
             if (criterion) {
+                setDeletePending(true);
                 await deleteCriterion(criterion.ID);
                 const result = await getCriteria(true, true);
                 refreshHandler(result);
+                setDeletePending(false);
             }
         } catch (e) {
             setError(e);
@@ -64,7 +67,11 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                                 criterionHandler();
                                 setCriterionActive(!isCriterionActive);
                             }}
-                            id={criterion ? `check-${criterion.ID}` : 'check-newCriterion'}
+                            id={
+                                criterion
+                                    ? `check-${criterion.ID}`
+                                    : 'check-newCriterion'
+                            }
                         />
                     </div>
                 ) : null}
@@ -89,7 +96,9 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                         }
                     }}
                     value={criterionName}
-                    id={criterion ? `name-${criterion.ID}` : 'name-newCriterion'}
+                    id={
+                        criterion ? `name-${criterion.ID}` : 'name-newCriterion'
+                    }
                 />
                 {criterionName.length && criterionName != criterion?.NAME ? (
                     <button
@@ -130,8 +139,9 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                     <button
                         className="btn btn-secondary col-2"
                         onClick={deleteHandler}
+                        disabled={deletePending}
                     >
-                        Удалить
+                        {deletePending ? 'Удаление...' : 'Удалить'}
                     </button>
                 </div>
             ) : null}
