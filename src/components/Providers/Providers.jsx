@@ -96,7 +96,7 @@ export function Providers() {
                         const handlerUrl =
                             window.location.origin + window.location.pathname; // Release version
                         // setReady(await bindPlacemenet(handlerUrl)); // Release version
-                        setReady(true);
+                        setReady(true); // Release version
                     } else {
                         setReady(true);
                     }
