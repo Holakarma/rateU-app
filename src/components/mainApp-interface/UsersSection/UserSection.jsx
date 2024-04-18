@@ -7,6 +7,7 @@ import { saveEmployees } from '../../../utils/saveToLS';
 import { PeriodPicker } from './PeriodPicker/PeriodPicker';
 import { isAllowed } from '../../../utils/isAllowed';
 import { ErrorContext } from '../../../utils/errorContext';
+import { getAllUsers } from '../../../utils/getAllUsers';
 
 export function UserSection({
     setSelectedCriteria,
@@ -28,15 +29,16 @@ export function UserSection({
     useEffect(async () => {
         const isMounted = true;
         try {
-            const listAllCriteria = await getCriteria();
+            const allUsers = await getAllUsers();
             const fetchedRights = await isAllowed(
                 undefined,
-                employees.map((e) => e.id),
+                allUsers.map((e) => e.ID),
             );
+            const listAllCriteria = await getCriteria();
             if (isMounted) {
-                setRights(fetchedRights);
                 setCriteria(listAllCriteria);
                 setSelectedCriteria(listAllCriteria);
+                setRights(fetchedRights);
                 setLoaded(true);
             }
         } catch (e) {
