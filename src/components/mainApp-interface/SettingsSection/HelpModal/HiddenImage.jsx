@@ -3,7 +3,7 @@ import React from 'react';
 export function HiddenImage({ src, alt }) {
     const [show, setShow] = React.useState(false);
     return (
-        <div>
+        <span className='d-block w-100'>
             <abbr
                 className="text-primary"
                 title="attribute"
@@ -18,6 +18,6 @@ export function HiddenImage({ src, alt }) {
                     alt={alt}
                 />
             ) : null}
-        </div>
+        </span>
     );
 }
