@@ -91,26 +91,20 @@ export function RateCriterion({ criterion, userData, changeRated, setSaved }) {
         changeRated(newRates);
     }
 
-    // function inputComm(value) {
-    //     setComm(value);
-    //     rateCriterion.comm = value.trim();
-    //     changeHandler(rate, value.trim());
-    // }
-
-    const [charsLeft, setCharsLeft] = React.useState(1000); // Установите максимальное количество символов
+    const [charsLeft, setCharsLeft] = React.useState(1000);
 
     function inputComm(value) {
-        const trimmedValue = value.trim();
         setComm(value);
-        rateCriterion.comm = trimmedValue;
-        changeHandler(rate, trimmedValue);
-        setCharsLeft(1000 - trimmedValue.length);
+        rateCriterion.comm = value.trim();
+        changeHandler(rate, value.trim());
+        setCharsLeft(1000 - value.trim().length);
     }
 
     function toggleComm() {
         if (isCommEnabled) {
             rateCriterion.comm = '';
             setComm('');
+            setCharsLeft(1000);
         }
         setCommEnabled(!isCommEnabled);
         updateRate();
