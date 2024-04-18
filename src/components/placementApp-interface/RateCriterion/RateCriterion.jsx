@@ -90,16 +90,21 @@ export function RateCriterion({ criterion, userData, changeRated, setSaved }) {
         }
         changeRated(newRates);
     }
+
+    const [charsLeft, setCharsLeft] = React.useState(1000);
+
     function inputComm(value) {
         setComm(value);
         rateCriterion.comm = value.trim();
         changeHandler(rate, value.trim());
+        setCharsLeft(1000 - value.trim().length);
     }
 
     function toggleComm() {
         if (isCommEnabled) {
             rateCriterion.comm = '';
             setComm('');
+            setCharsLeft(1000);
         }
         setCommEnabled(!isCommEnabled);
         updateRate();
@@ -109,9 +114,8 @@ export function RateCriterion({ criterion, userData, changeRated, setSaved }) {
     return (
         <li className="list-group-item">
             <div
-                className={`row align-items-center ${
-                    isEnabled ? '' : 'opacity-50'
-                }`}
+                className={`row align-items-center ${isEnabled ? '' : 'opacity-50'
+                    }`}
             >
                 <label
                     htmlFor={`rate${rateCriterion.user}${rateCriterion.criterion}Range`}
@@ -158,6 +162,7 @@ export function RateCriterion({ criterion, userData, changeRated, setSaved }) {
             {isEnabled && isCommEnabled ? (
                 <div className="form-floating my-2">
                     <textarea
+                        maxLength={1000}
                         className="form-control"
                         placeholder=""
                         id="floatingTextarea"
@@ -166,11 +171,8 @@ export function RateCriterion({ criterion, userData, changeRated, setSaved }) {
                         }}
                         value={comm}
                     ></textarea>
-                    <label
-                        htmlFor="floatingTextarea"
-                        className="opacity-50"
-                    >
-                        Комментарий
+                    <label htmlFor="floatingTextarea" className="opacity-50">
+                        Комментарий ({charsLeft}/1000)
                     </label>
                 </div>
             ) : null}
