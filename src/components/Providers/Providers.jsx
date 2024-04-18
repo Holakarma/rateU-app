@@ -8,6 +8,7 @@ import { addLocale } from 'primereact/api';
 import { locale } from '../../utils/localePR';
 import { getUserInfo } from '../../utils/getUserInfo';
 import { ErrorContext } from '../../utils/errorContext';
+import { HelpModal } from '../mainApp-interface/SettingsSection/HelpModal/HelpModal';
 
 // BX24.callMethod('entity.delete', {ENTITY: 'rates'}, res => {
 //     console.log(res)
@@ -74,44 +75,48 @@ export function Providers() {
 
     const setError = useContext(ErrorContext);
 
+    const [showHelp, setShowHelp] = React.useState(false);
+
     useEffect(async () => {
         try {
             setUserInfo(await getUserInfo());
             await getSectionId();
             if (placementInfo.placement === 'DEFAULT') {
-                const resultArr = await getPlacement();
+                let resultArr;
+                if (BX24.isAdmin()) {
+                    resultArr = await getPlacement();
+                }
                 if (
-                    resultArr.length &&
+                    resultArr?.length &&
                     resultArr[0].placement === 'TASK_VIEW_TAB'
                 ) {
                     setReady(true);
-
                 } else {
-                    const handlerUrl =
-                        window.location.origin + window.location.pathname; // Release version
-                    // setReady(await bindPlacemenet(handlerUrl)); // Release version
-                    setReady(true);
+                    if (BX24.isAdmin()) {
+                        const handlerUrl =
+                            window.location.origin + window.location.pathname; // Release version
+                        setReady(await bindPlacemenet(handlerUrl)); // Release version
+                    } else {
+                        setReady(true);
+                    }
                 }
 
-                BX24.callMethod('user.option.get', {},
-                    res => {
-                        if (res.data().length !== 0) {
-                            console.log(res, 'Не выводим');
-                        } else {
-                            console.log(res, 'Выводим руководство');
-                            BX24.callMethod('user.option.set', {
+                BX24.callMethod('user.option.get', {}, (res) => {
+                    if (res.data().length === 0) {
+                        setShowHelp(true);
+                        BX24.callMethod(
+                            'user.option.set',
+                            {
                                 options: {
-                                    visited: true
-                                }
+                                    visited: true,
+                                },
                             },
-                                res => {
-                                    console.log(res)
-                                }
-                            )
-                        }
+                            (res) => {
+                                console.log(res);
+                            },
+                        );
                     }
-                )
-
+                });
             } else {
                 setReady(true);
             }
@@ -119,17 +124,25 @@ export function Providers() {
             setError(e);
         }
     }, []);
-    return isReady ? (
-        <PrimeReactProvider value={lang}>
-            <PlacementContext.Provider value={placementInfo}>
-                <UserContext.Provider value={userInfo}>
-                    <Workspace />
-                </UserContext.Provider>
-            </PlacementContext.Provider>
-        </PrimeReactProvider>
-    ) : (
-        <div className="containerLoader">
-            <div className="loader"></div>
-        </div>
+    return (
+        <>
+            {isReady ? (
+                <PrimeReactProvider value={lang}>
+                    <PlacementContext.Provider value={placementInfo}>
+                        <UserContext.Provider value={userInfo}>
+                            <Workspace />
+                        </UserContext.Provider>
+                    </PlacementContext.Provider>
+                </PrimeReactProvider>
+            ) : (
+                <div className="containerLoader">
+                    <div className="loader"></div>
+                </div>
+            )}
+            <HelpModal
+                showHelp={showHelp}
+                setShowHelp={setShowHelp}
+            />
+        </>
     );
 }

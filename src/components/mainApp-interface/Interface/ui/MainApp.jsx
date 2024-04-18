@@ -3,6 +3,8 @@ import { sectionNames } from '../../../../utils/aliases';
 import { SettingsButton } from '../../SettingsSection/SettingsButton/SettingsButton';
 import { SettingsSection } from '../../SettingsSection/SettingsSection';
 import { UserSection } from '../../UsersSection/UserSection';
+import { HelpModal } from '../../SettingsSection/HelpModal/HelpModal';
+import { Help } from '../../../../icons/Help/Help';
 
 import { savePeriod } from '../../../../utils/saveToLS';
 import { getRates } from '../../../../utils/getRates';
@@ -29,7 +31,7 @@ const MainApp = () => {
     const allRates = React.useRef([]);
 
     useEffect(async () => {
-        allRates.current = await getRates(true);
+        allRates.current = await getRates(true).catch((e) => setError(e));
     }, []);
 
     useEffect(async () => {
@@ -50,13 +52,23 @@ const MainApp = () => {
         setFetchedRates(ratesCriteria);
     }, [selectedCriteria]);
 
+    const [showHelp, setShowHelp] = React.useState(false);
+
     return (
         <div className="container position-relative">
             <h1 className="text-center mt-2">Статистика</h1>
-            <SettingsButton
-                setSection={setSection}
-                openedSection={openedSection}
-            />
+            <div className="position-absolute top-0 end-0">
+                <SettingsButton
+                    setSection={setSection}
+                    openedSection={openedSection}
+                />
+                <button
+                    className="btn opacity-50"
+                    onClick={() => setShowHelp(true)}
+                >
+                    <Help size={25} />
+                </button>
+            </div>
             {openedSection.isSettings ? (
                 <SettingsSection />
             ) : (
@@ -68,6 +80,10 @@ const MainApp = () => {
                     fetchedRates,
                 })
             )}
+            <HelpModal
+                showHelp={showHelp}
+                setShowHelp={setShowHelp}
+            />
         </div>
     );
 };
