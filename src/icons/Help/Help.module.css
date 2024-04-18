@@ -1,3 +1,8 @@
 .Help {
-    fill: var(--bs-btn-color);
+    fill: #000000;
+    transition: all ease .3s;
+}
+
+.Help:hover {
+    fill: #676767;
 }
