@@ -1,7 +1,11 @@
+/* имя сотрудника */
+
 .EmployeeName {
 	text-decoration: none;
 	color: var(--bs-card-color);
 }
+
+/* дропдаун Выбор критериев */
 
 .criteriaDropdown:active {
 	background-color: #d4d1fd !important;
@@ -19,6 +23,8 @@
 .criteriaDropdownBtn:hover {
 	background-color: white !important;
 }
+
+/* кнопки */
 
 @property --r {
 	syntax: '<length-percentage>';
@@ -47,6 +53,8 @@
 	transform: scale(1.03);
 }
 
+/* кнопка Сохранить */
+
 .btnSave {
 	place-self: center;
 	border: none;
@@ -68,6 +76,8 @@
 	transform: scale(1.03);
 }
 
+/* кнопка Очистить */
+
 .btnReset {
 	place-self: center;
 	border: none;
@@ -88,6 +98,8 @@
 .btnReset:active {
 	transform: scale(1.03);
 }
+
+/* карточки */
 
 .card {
 	box-shadow: 5px 4.5px 7px -3px #938f9f;
