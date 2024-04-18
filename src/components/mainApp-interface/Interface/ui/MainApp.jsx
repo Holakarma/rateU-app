@@ -5,7 +5,7 @@ import { SettingsSection } from '../../SettingsSection/SettingsSection';
 import { UserSection } from '../../UsersSection/UserSection';
 import { HelpModal } from '../../SettingsSection/HelpModal/HelpModal';
 import { Help } from '../../../../icons/Help/Help';
-
+import cls from './mainApp.module.css'
 import { savePeriod } from '../../../../utils/saveToLS';
 import { getRates } from '../../../../utils/getRates';
 import { ErrorContext } from '../../../../utils/errorContext';
@@ -57,13 +57,13 @@ const MainApp = () => {
     return (
         <div className="container position-relative">
             <h1 className="text-center mt-2">Статистика</h1>
-            <div className="position-absolute top-0 end-0">
+            <div className={`position-absolute top-0 end-0 d-flex gap-4 ${cls.paddingContainer}`}>
                 <SettingsButton
                     setSection={setSection}
                     openedSection={openedSection}
                 />
                 <button
-                    className="btn opacity-50"
+                    className="btn p-0 opacity-75"
                     onClick={() => setShowHelp(true)}
                 >
                     <Help size={25} />
