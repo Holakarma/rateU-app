@@ -20,7 +20,11 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
     );
     const [isCorrect, setCorrect] = React.useState(true);
     const [showApprove, setApprove] = React.useState(false);
+
+    const [refreshPending, setRefreshPending] = React.useState(false);
+
     async function criterionHandler() {
+        setRefreshPending(true);
         if (!criterionName.length) {
             setCorrect(false);
             return;
@@ -37,16 +41,16 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
         }
         const result = await getCriteria(true, true).catch((e) => setError(e));
         refreshHandler(result);
+        setRefreshPending(false);
     }
-    const [deletePending, setDeletePending] = React.useState(false);
     async function deleteHandler() {
         try {
             if (criterion) {
-                setDeletePending(true);
+                setRefreshPending(true);
                 await deleteCriterion(criterion.ID);
                 const result = await getCriteria(true, true);
                 refreshHandler(result);
-                setDeletePending(false);
+                setRefreshPending(false);
             }
         } catch (e) {
             setError(e);
@@ -54,14 +58,14 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
     }
 
     return (
-        <div className="row mb-2 align-items-center justify-content-end">
+        <div className="row mb-2 align-items-center justify-content-end position-relative">
             <div className="input-group col">
                 {criterion ? (
                     <div className="input-group-text">
                         <input
                             className="form-check-input mt-0"
                             type="checkbox"
-                            disabled={!access}
+                            disabled={!access || refreshPending}
                             checked={isCriterionActive}
                             onChange={() => {
                                 criterionHandler();
@@ -104,7 +108,7 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                     <button
                         onClick={criterionHandler}
                         type="button"
-                        disabled={!access}
+                        disabled={!access || refreshPending}
                         className={`btn btn-${
                             isCorrect ? 'success' : 'danger'
                         }`}
@@ -123,7 +127,7 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                         setApprove(!showApprove);
                     }}
                     type="button"
-                    disabled={!access}
+                    disabled={!access || refreshPending}
                     className="btn btn-danger col-1"
                 >
                     <Delete size={24} />
@@ -131,7 +135,7 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
             ) : (
                 <div className="col-1"></div>
             )}
-            {showApprove ? (
+            {showApprove && !refreshPending ? (
                 <div className="col-12 py-2 text-end row align-items-center justify-content-end">
                     <p className="col mb-0">
                         Будут утеряны все оценки этого критерия. Вы уверены?
@@ -139,10 +143,17 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                     <button
                         className="btn btn-secondary col-2"
                         onClick={deleteHandler}
-                        disabled={deletePending}
+                        disabled={refreshPending}
                     >
-                        {deletePending ? 'Удаление...' : 'Удалить'}
+                        {refreshPending ? 'Удаление...' : 'Удалить'}
                     </button>
+                </div>
+            ) : null}
+            {refreshPending ? (
+                <div className="position-absolute start-100">
+                    <div className="spinner-border text-secondary">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
                 </div>
             ) : null}
         </div>

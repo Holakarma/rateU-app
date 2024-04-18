@@ -46,8 +46,12 @@ export function ShowEmployee({
             ),
         );
     }, [fetchedRates, selectedCriteria]);
-  
+
     const isImg = employee.photo ? true : false;
+
+    const personalUrl = `https://${BX24.getDomain()}/company/personal/user/${
+        employee.id
+    }/`;
 
     return (
         <div className="col-6">
@@ -67,7 +71,9 @@ export function ShowEmployee({
                         )}
                     </div>
                     <div className="col-7 ps-0">
-                        <h4>{employee.name}</h4>
+                        <h4>
+                            <a className={cls.EmployeeName} href={personalUrl} target='_blank'>{employee.name}</a>
+                        </h4>
                         <span>
                             Средний балл:
                             {countRates ? (

@@ -95,7 +95,8 @@ export function Providers() {
                     if (BX24.isAdmin()) {
                         const handlerUrl =
                             window.location.origin + window.location.pathname; // Release version
-                        setReady(await bindPlacemenet(handlerUrl)); // Release version
+                        // setReady(await bindPlacemenet(handlerUrl)); // Release version
+                        setReady(true); // Release version
                     } else {
                         setReady(true);
                     }
