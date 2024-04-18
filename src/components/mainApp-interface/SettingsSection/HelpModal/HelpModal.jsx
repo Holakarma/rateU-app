@@ -27,7 +27,7 @@ export function HelpModal({ showHelp, setShowHelp }) {
                         добавится <b>новая вкладка</b> &laquo;Оценка сотрудников&raquo; в
                         интерфейс задач.
                         <HiddenImage
-                            src={'./assets/img/tutorial-1.png'}
+                            src={'./assets/img/tutorial-1.webp'}
                             alt={'Место встройки'}
                         />
                     </p>
@@ -44,7 +44,7 @@ export function HelpModal({ showHelp, setShowHelp }) {
                         забудьте <b>сохранить оценки</b> и&nbsp;дождаться
                         окончания загрузки.
                         <HiddenImage
-                            src={'./assets/img/tutorial-3.png'}
+                            src={'./assets/img/tutorial-3.webp'}
                             alt={'Место встройки'}
                         />
                     </p>
@@ -92,7 +92,7 @@ export function HelpModal({ showHelp, setShowHelp }) {
                         В&nbsp;правой верхней части интерфейса находится
                         значок <b>настроек приложения</b>.
                         <HiddenImage
-                            src={'./assets/img/tutorial-2.png'}
+                            src={'./assets/img/tutorial-2.webp'}
                             alt={'Место встройки'}
                         />
                     </p>
