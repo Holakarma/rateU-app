@@ -42,8 +42,9 @@ export const getRates = (function (savedRates = []) {
                         reject(e),
                     );
                     activeCriteriaList = activeCriteriaList.map(
-                        (activeCriterion) => activeCriterion.ID,
+                        (activeCriterion) => activeCriterion?.ID,
                     );
+
                     if (taskId) {
                         resultArray = resultArray.filter(
                             (r) =>

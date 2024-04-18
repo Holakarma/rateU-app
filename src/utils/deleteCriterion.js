@@ -34,10 +34,12 @@ export default function deleteCriterion(id) {
             ]);
             console.log(deleteRatesBatch);
             BX24.callBatch(deleteRatesBatch, (res) => {
-                if (res?.error()) {
-                    reject(new Error(res.error().ex.error_description));
-                    return;
-                }
+                res.forEach((r) => {
+                    if (r?.error()) {
+                        reject(new Error(r.error().ex.error_description));
+                        return;
+                    }
+                });
                 callDeleteMethod(id, resolve, reject);
             });
         } else {

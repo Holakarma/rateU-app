@@ -45,13 +45,17 @@ export function Responsibles() {
                             accomplice != placementTask.task.responsibleId,
                     );
                 }
-
                 /* Массив существующих оценок для данной задачи */
-                const oldRates = (await getRates().catch((e) => setError(e)))
+                let oldRates = (await getRates().catch((e) => setError(e)))
                     .filter(
                         (rate) =>
                             rate.PROPERTY_VALUES.TASK_ID ==
-                            placementTask.task.id,
+                                placementTask.task.id &&
+                            fetchedCriteria.find(
+                                (criterion) =>
+                                    criterion.ID ==
+                                    rate.PROPERTY_VALUES.CRITERION_ID,
+                            ),
                     )
                     .map((rate) => ({
                         task: rate.PROPERTY_VALUES.TASK_ID,

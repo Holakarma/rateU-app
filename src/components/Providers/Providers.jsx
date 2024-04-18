@@ -69,7 +69,7 @@ export function Providers() {
     let [userInfo, setUserInfo] = React.useState();
     // const placementInfo = BX24.placement.info(); // Release version
     const placementInfo = {
-        options: { taskId: '795' },
+        options: { taskId: '549' },
         placement: 'TASK_VIEW_TAB',
     };
 
@@ -95,8 +95,8 @@ export function Providers() {
                     if (BX24.isAdmin()) {
                         const handlerUrl =
                             window.location.origin + window.location.pathname; // Release version
-                        setReady(await bindPlacemenet(handlerUrl)); // Release version
-                        // setReady(true); // Release version
+                        // setReady(await bindPlacemenet(handlerUrl)); // Release version
+                        setReady(true);
                     } else {
                         setReady(true);
                     }
