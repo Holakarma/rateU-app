@@ -1,4 +1,4 @@
-export const getUserInfo = function getUserInfo(savedUser) {
+export const getUserInfo = (function saveUserInfo(savedUser) {
     return async function () {
         return new Promise((resolve, reject) => {
             if (savedUser) {
@@ -25,14 +25,17 @@ export const getUserInfo = function getUserInfo(savedUser) {
                     const subordinates = await getSubordinates(
                         user,
                         departmentsArray,
-                    ).catch((e) => reject(e));
+                    ).catch((e) => {
+                        reject(e);
+                        return;
+                    });
                     savedUser = { ...user, SUBORDINATES: subordinates };
                     resolve(savedUser);
                 });
             });
         });
     };
-};
+})();
 
 function isSubordinate(department, headedDepartment, departments) {
     let currentDepartment = departments.find((d) => d.ID == department);

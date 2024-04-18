@@ -6,7 +6,7 @@ export function SettingsButton({setSection, openedSection}) {
         setSection({...openedSection, isSettings: !openedSection.isSettings})
     }
     return (
-        <button className="btn position-absolute top-0 end-0" onClick={clickHandler}>
+        <button className="btn" onClick={clickHandler}>
             <Settings size={30}/>
         </button>
     );

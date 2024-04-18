@@ -12,7 +12,12 @@ export const getCriteria = (function createSavedCriteria(savedCriteria = []) {
                 } else resolve(filterInactive(savedCriteria));
                 return;
             }
-            const sectionId = (await getSectionId()).criteriaSection;
+            const sectionId = (
+                await getSectionId().catch((e) => {
+                    reject(e);
+                    return;
+                })
+            ).criteriaSection;
             let resultArray = [];
             BX24.callMethod(
                 'entity.item.get',
