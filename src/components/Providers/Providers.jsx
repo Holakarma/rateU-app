@@ -113,7 +113,11 @@ export function Providers() {
                                 },
                             },
                             (res) => {
-                                // console.log(res);
+                                if (res.error()) {
+                                    throw new Error(
+                                        res.error().ex.error_description,
+                                    )
+                                }
                             },
                         );
                     }
