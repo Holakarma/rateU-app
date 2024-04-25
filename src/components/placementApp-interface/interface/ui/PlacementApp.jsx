@@ -42,7 +42,7 @@ const PlacementApp = () => {
                 <h1>Оценка сотрудников</h1>
                 {id ? (
                     <a
-                        href={`https://avtorit24.ru/marketplace/app/${id}/`}
+                        href={`https://${BX24.getDomain()}/marketplace/app/${id}/`}
                         target="_blank"
                         className={`${cls.href} text-dark fs-6 text-decoration-none`}
                     >

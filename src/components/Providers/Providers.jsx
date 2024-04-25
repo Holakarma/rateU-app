@@ -67,11 +67,11 @@ export function Providers() {
     const lang = 'ru';
     const [isReady, setReady] = React.useState(false);
     let [userInfo, setUserInfo] = React.useState();
-    // const placementInfo = BX24.placement.info(); // Release version
-    const placementInfo = {
-        options: { taskId: '549' },
-        placement: 'TASK_VIEW_TAB',
-    };
+    const placementInfo = BX24.placement.info(); // Release version
+    // const placementInfo = {
+    //     options: { taskId: '549' },
+    //     placement: 'TASK_VIEW_TAB',
+    // };
 
     const setError = useContext(ErrorContext);
 
@@ -95,8 +95,8 @@ export function Providers() {
                     if (BX24.isAdmin()) {
                         const handlerUrl =
                             window.location.origin + window.location.pathname; // Release version
-                        // setReady(await bindPlacemenet(handlerUrl)); // Release version
-                        setReady(true);
+                        setReady(await bindPlacemenet(handlerUrl)); // Release version
+                        // setReady(true);
                     } else {
                         setReady(true);
                     }
@@ -113,7 +113,11 @@ export function Providers() {
                                 },
                             },
                             (res) => {
-                                // console.log(res);
+                                if (res.error()) {
+                                    throw new Error(
+                                        res.error().ex.error_description,
+                                    )
+                                }
                             },
                         );
                     }

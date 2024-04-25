@@ -49,9 +49,8 @@ export function ShowEmployee({
 
     const isImg = employee.photo ? true : false;
 
-    const personalUrl = `https://${BX24.getDomain()}/company/personal/user/${
-        employee.id
-    }/`;
+    const personalUrl = `https://${BX24.getDomain()}/company/personal/user/${employee.id
+        }/`;
 
     return (
         <div className="col-6">
@@ -61,9 +60,8 @@ export function ShowEmployee({
                         {isImg ? (
                             <img
                                 className="rounded-circle w-100"
-                                src={`https://${BX24.getDomain()}${
-                                    employee.photo
-                                }`}
+                                src={`${window.location.protocol}//${BX24.getDomain()}${employee.photo
+                                    }`}
                                 alt={employee.name}
                             />
                         ) : (
