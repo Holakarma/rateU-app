@@ -4,6 +4,7 @@ import { RatesHistoryButton } from '../RatesHistoryButton/RatesHistoryButton';
 import { getUserInfo } from '../../../../utils/getUserInfo';
 import cls from '../userSection.module.css';
 import { User } from '../../../../icons/User/User';
+import { getUsers } from '../../../../utils/createSavedUsers';
 
 export function ShowEmployee({
     employee,
@@ -19,9 +20,13 @@ export function ShowEmployee({
 
     const [access, setAccess] = React.useState(false);
 
-    useEffect(async () => {
-        // setTimeout(BX24.fitWindow, 20);
+    const [img, setImg] = React.useState(null);
 
+    useEffect(async () => {
+        const userInfo = await getUsers([employee.id]);
+        console.log(userInfo);
+        setImg(userInfo[0]?.PERSONAL_PHOTO);
+        // setTimeout(BX24.fitWindow, 20);
         switch (rights) {
             case 'isAdmin':
                 setAccess(true);
@@ -49,19 +54,22 @@ export function ShowEmployee({
 
     const isImg = employee.photo ? true : false;
 
-    const personalUrl = `https://${BX24.getDomain()}/company/personal/user/${employee.id
-        }/`;
+    const personalUrl = `https://${BX24.getDomain()}/company/personal/user/${
+        employee.id
+    }/`;
 
     return (
         <div className="col-6">
             <div className={`${cls.card} card position-relative h-100`}>
                 <div className="card-body row">
                     <div className="col-2">
-                        {isImg ? (
+                        {img && img?.length ? (
                             <img
                                 className="rounded-circle w-100"
-                                src={`${window.location.protocol}//${BX24.getDomain()}${employee.photo
-                                    }`}
+                                /* src={`${
+                                    window.location.protocol
+                                }//${BX24.getDomain()}${employee.photo}`} */
+                                src={img}
                                 alt={employee.name}
                             />
                         ) : (
@@ -70,7 +78,13 @@ export function ShowEmployee({
                     </div>
                     <div className="col-7 ps-0">
                         <h4>
-                            <a className={cls.EmployeeName} href={personalUrl} target='_blank'>{employee.name}</a>
+                            <a
+                                className={cls.EmployeeName}
+                                href={personalUrl}
+                                target="_blank"
+                            >
+                                {employee.name}
+                            </a>
                         </h4>
                         <span>
                             Средний балл:
