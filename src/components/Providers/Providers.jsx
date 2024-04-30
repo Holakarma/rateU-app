@@ -116,7 +116,7 @@ export function Providers() {
                                 if (res.error()) {
                                     throw new Error(
                                         res.error().ex.error_description,
-                                    )
+                                    );
                                 }
                             },
                         );
