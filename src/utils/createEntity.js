@@ -63,7 +63,11 @@ export const getSectionId = (function createEntity(
                 } else {
                     BX24.callMethod(
                         'entity.add',
-                        { ENTITY: 'rates', NAME: 'rateU-app' },
+                        {
+                            ENTITY: 'rates',
+                            NAME: 'rateU-app',
+                            ACCESS: { AU: 'X' },
+                        },
                         (res) => {
                             if (res.error()) {
                                 reject(
@@ -78,6 +82,7 @@ export const getSectionId = (function createEntity(
                                     NAME: 'creteria',
                                     DESCRIPTION:
                                         'Критерии для оценки сотрудников',
+                                    ACCESS: { AU: 'X' },
                                 },
                                 (resCriteriaSection) => {
                                     if (resCriteriaSection.error()) {
@@ -100,6 +105,7 @@ export const getSectionId = (function createEntity(
                                                     NAME: 'Пунктуальность',
                                                     SECTION:
                                                         savedSectionsId.criteriaSection,
+                                                    ACCESS: { AU: 'X' },
                                                 },
                                             ],
                                             [
@@ -109,6 +115,7 @@ export const getSectionId = (function createEntity(
                                                     NAME: 'Ответственность',
                                                     SECTION:
                                                         savedSectionsId.criteriaSection,
+                                                    ACCESS: { AU: 'X' },
                                                 },
                                             ],
                                             [
@@ -118,6 +125,7 @@ export const getSectionId = (function createEntity(
                                                     NAME: 'Отзывчивость',
                                                     SECTION:
                                                         savedSectionsId.criteriaSection,
+                                                    ACCESS: { AU: 'X' },
                                                 },
                                             ],
                                             [
@@ -127,6 +135,7 @@ export const getSectionId = (function createEntity(
                                                     NAME: 'Результативность',
                                                     SECTION:
                                                         savedSectionsId.criteriaSection,
+                                                    ACCESS: { AU: 'X' },
                                                 },
                                             ],
                                             [
@@ -136,6 +145,7 @@ export const getSectionId = (function createEntity(
                                                     NAME: 'Командная работа',
                                                     SECTION:
                                                         savedSectionsId.criteriaSection,
+                                                    ACCESS: { AU: 'X' },
                                                 },
                                             ],
                                         ],
@@ -159,6 +169,7 @@ export const getSectionId = (function createEntity(
                                             ENTITY: 'rates',
                                             NAME: 'userRates',
                                             DESCRIPTION: 'Оценки сотрудников',
+                                            ACCESS: { AU: 'X' },
                                         },
                                         (resRatesSection) => {
                                             if (resRatesSection.error()) {
@@ -169,6 +180,8 @@ export const getSectionId = (function createEntity(
                                                 );
                                                 return;
                                             }
+                                            savedSectionsId.ratesSection =
+                                                resRatesSection.data();
                                             BX24.callBatch(
                                                 [
                                                     [
@@ -229,8 +242,7 @@ export const getSectionId = (function createEntity(
                                                             return;
                                                         }
                                                     });
-                                                    savedSectionsId.ratesSection =
-                                                        resRatesSection.data();
+
                                                     resolve(savedSectionsId);
                                                 },
                                             );
