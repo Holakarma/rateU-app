@@ -5,6 +5,7 @@ import { getUserInfo } from '../../../../utils/getUserInfo';
 import cls from '../userSection.module.css';
 import { User } from '../../../../icons/User/User';
 import { getUsers } from '../../../../utils/createSavedUsers';
+import { MatrixButton } from '../MatrixButton/MatrixButton';
 
 export function ShowEmployee({
     employee,
@@ -52,9 +53,8 @@ export function ShowEmployee({
 
     const isImg = employee.photo ? true : false;
 
-    const personalUrl = `https://${BX24.getDomain()}/company/personal/user/${
-        employee.id
-    }/`;
+    const personalUrl = `https://${BX24.getDomain()}/company/personal/user/${employee.id
+        }/`;
 
     return (
         <div className="col-6">
@@ -98,15 +98,6 @@ export function ShowEmployee({
                             )}
                         </span>
                     </div>
-                    <div className="col-3">
-                        {employeeRates.length === 0 || !access ? null : (
-                            <RatesHistoryButton
-                                criteria={selectedCriteria}
-                                employee={employee}
-                                employeeRates={employeeRates}
-                            />
-                        )}
-                    </div>
                     <div className="px-2 m-0 mt-2">
                         <div className="border rounded border-secondary-subtle">
                             <ul className="list-group list-group-flush gy-1">
@@ -132,6 +123,26 @@ export function ShowEmployee({
                                     </li>
                                 )}
                             </ul>
+                        </div>
+                    </div>
+                    <div className='d-flex gap-2 justify-content-end'>
+                        <div className="mt-2">
+                            {employeeRates.length === 0 || !access ? null : (
+                                <RatesHistoryButton
+                                    criteria={selectedCriteria}
+                                    employee={employee}
+                                    employeeRates={employeeRates}
+                                />
+                            )}
+                        </div>
+                        <div className="mt-2">
+                            {employeeRates.length === 0 || !access ? null : (
+                                <MatrixButton
+                                    criteria={selectedCriteria}
+                                    employee={employee}
+                                    employeeRates={employeeRates}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>
