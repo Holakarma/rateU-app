@@ -1,24 +1,25 @@
-import React, {useEffect} from 'react';
-import {UserSelect} from './UserSelect/UserSelect';
-import {ShowEmployee} from './ShowEmployee/ShowEmployee';
-import {getCriteria} from '../../../utils/getCriteria';
-import {ChooseCriteria} from './ChooseCriteria/ChooseCriteria';
-import {saveEmployees} from '../../../utils/saveToLS';
-import {PeriodPicker} from './PeriodPicker/PeriodPicker';
-import {isAllowed} from '../../../utils/isAllowed';
-import {ErrorContext} from '../../../utils/errorContext';
-import {getAllUsers} from '../../../utils/getAllUsers';
+import React, { useEffect } from 'react';
+import { UserSelect } from './UserSelect/UserSelect';
+import { ShowEmployee } from './ShowEmployee/ShowEmployee';
+import { getCriteria } from '../../../utils/getCriteria';
+import { ChooseCriteria } from './ChooseCriteria/ChooseCriteria';
+import { saveEmployees } from '../../../utils/saveToLS';
+import { PeriodPicker } from './PeriodPicker/PeriodPicker';
+import { isAllowed } from '../../../utils/isAllowed';
+import { ErrorContext } from '../../../utils/errorContext';
+import { getAllUsers } from '../../../utils/getAllUsers';
 import RatesTable from "./RatesTable/RatesTable";
 import cls from './userSection.module.css';
+import { MatrixTemp } from './Matrix/MatrixTemp';
 
 
 export function UserSection({
-                                setSelectedCriteria,
-                                setPeriod,
-                                period,
-                                selectedCriteria,
-                                fetchedRates,
-                            }) {
+    setSelectedCriteria,
+    setPeriod,
+    period,
+    selectedCriteria,
+    fetchedRates,
+}) {
     let savedEmployees = saveEmployees();
     const [employees, setEmployees] = React.useState(
         savedEmployees ? savedEmployees : [],
@@ -61,7 +62,7 @@ export function UserSection({
             <div className="d-flex justify-content-between mt-4 mb-2">
                 <h3>Оценка сотрудников</h3>
                 <div className="g-3 d-flex row justify-content-end">
-                    <UserSelect setEmployees={setEmployees}/>
+                    <UserSelect setEmployees={setEmployees} />
                     <ChooseCriteria
                         criteria={criteria}
                         setSelectedCriteria={setSelectedCriteria}
@@ -91,6 +92,9 @@ export function UserSection({
             </div>
             <div className={`${cls.card} overflow-x-auto card mb-4`}>
                 <RatesTable employees={employees} selectedCriteria={selectedCriteria} />
+            </div>
+            <div className="overflow-x-auto mb-4">
+                <MatrixTemp employees={employees} selectedCriteria={selectedCriteria} />
             </div>
         </div>
     );
