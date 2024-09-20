@@ -16,6 +16,7 @@ function openSection(name, props) {
             return <UserSection {...props} />;
     }
 }
+
 const MainApp = () => {
     const [openedSection, setSection] = React.useState({
         isSettings: false,
@@ -72,7 +73,8 @@ const MainApp = () => {
             {openedSection.isSettings ? (
                 <SettingsSection />
             ) : (
-                openSection(openedSection.section, {
+                openSection(
+                    openedSection.section, {
                     setSelectedCriteria,
                     setPeriod,
                     period,

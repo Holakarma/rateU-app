@@ -9,9 +9,17 @@ export function RateInfo({ rates, employee, user, criteria }) {
     const setError = React.useContext(ErrorContext);
 
     useEffect(async () => {
-        setTask((await getTask(rates.taskId).catch((e) => setError(e)))?.task);
-    });
-    return task ? (
+        const task = await getTask(rates.taskId);
+
+        if (task?.task) {
+            setTask(task)
+        }
+
+    }, []);
+
+    if (!task) return  null;
+
+    return  (
         <div className="">
             <div className="card my-2">
                 <div className="card-body">
@@ -45,5 +53,5 @@ export function RateInfo({ rates, employee, user, criteria }) {
                 </div>
             </div>
         </div>
-    ) : null;
+    );
 }

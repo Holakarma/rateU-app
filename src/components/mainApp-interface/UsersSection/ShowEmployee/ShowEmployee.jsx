@@ -24,9 +24,7 @@ export function ShowEmployee({
 
     useEffect(async () => {
         const userInfo = await getUsers([employee.id]);
-        console.log(userInfo);
         setImg(userInfo[0]?.PERSONAL_PHOTO);
-        // setTimeout(BX24.fitWindow, 20);
         switch (rights) {
             case 'isAdmin':
                 setAccess(true);

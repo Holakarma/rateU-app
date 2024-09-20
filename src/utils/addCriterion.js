@@ -13,6 +13,7 @@ export default function addCriterion(name) {
                 ENTITY: 'rates',
                 NAME: name,
                 SECTION: sectionId,
+                ACCESS: { AU: 'R' },
             },
             (res) => {
                 if (res.error()) {
