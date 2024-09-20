@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
-import { UserSelect } from './UserSelect/UserSelect';
-import { ShowEmployee } from './/ShowEmployee/ShowEmployee';
-import { getCriteria } from '../../../utils/getCriteria';
-import { ChooseCriteria } from './ChooseCriteria/ChooseCriteria';
-import { saveEmployees } from '../../../utils/saveToLS';
-import { PeriodPicker } from './PeriodPicker/PeriodPicker';
-import { isAllowed } from '../../../utils/isAllowed';
-import { ErrorContext } from '../../../utils/errorContext';
-import { getAllUsers } from '../../../utils/getAllUsers';
+import React, {useEffect} from 'react';
+import {UserSelect} from './UserSelect/UserSelect';
+import {ShowEmployee} from './ShowEmployee/ShowEmployee';
+import {getCriteria} from '../../../utils/getCriteria';
+import {ChooseCriteria} from './ChooseCriteria/ChooseCriteria';
+import {saveEmployees} from '../../../utils/saveToLS';
+import {PeriodPicker} from './PeriodPicker/PeriodPicker';
+import {isAllowed} from '../../../utils/isAllowed';
+import {ErrorContext} from '../../../utils/errorContext';
+import {getAllUsers} from '../../../utils/getAllUsers';
 
 export function UserSection({
-    setSelectedCriteria,
-    setPeriod,
-    period,
-    selectedCriteria,
-    fetchedRates,
-}) {
+                                setSelectedCriteria,
+                                setPeriod,
+                                period,
+                                selectedCriteria,
+                                fetchedRates,
+                            }) {
     let savedEmployees = saveEmployees();
     const [employees, setEmployees] = React.useState(
         savedEmployees ? savedEmployees : [],
@@ -27,7 +27,7 @@ export function UserSection({
     const setError = React.useContext(ErrorContext);
 
     useEffect(async () => {
-        const isMounted = true;
+        let isMounted = true;
         try {
             const allUsers = await getAllUsers();
             const fetchedRights = await isAllowed(
@@ -52,7 +52,7 @@ export function UserSection({
             <div className="d-flex justify-content-between mt-4 mb-2">
                 <h3>Оценка сотрудников</h3>
                 <div className="g-3 d-flex row justify-content-end">
-                    <UserSelect setEmployees={setEmployees} />
+                    <UserSelect setEmployees={setEmployees}/>
                     <ChooseCriteria
                         criteria={criteria}
                         setSelectedCriteria={setSelectedCriteria}

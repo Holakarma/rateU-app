@@ -29,7 +29,7 @@ export const getUserInfo = (function saveUserInfo(savedUser) {
                         reject(e);
                         return;
                     });
-                    savedUser = { ...user, SUBORDINATES: subordinates };
+                    savedUser = {...user, SUBORDINATES: subordinates};
                     resolve(savedUser);
                 });
             });
@@ -47,18 +47,19 @@ function isSubordinate(department, headedDepartment, departments) {
             (d) => d.ID == currentDepartment.PARENT,
         );
     }
+    return false;
 }
 
 function getSubordinates(user, departments) {
     return new Promise((resolve, reject) => {
-        const headedDepartment = departments.find((d) => d.UF_HEAD === user.ID);
+        const headedDepartment = departments.find((d) => d?.UF_HEAD === user.ID);
         if (!headedDepartment) {
             resolve([]);
             return;
         }
         let usersArray = [];
         let subordinatesArray = [];
-        BX24.callMethod('user.get', { FILTER: { ACTIVE: true } }, (res) => {
+        BX24.callMethod('user.get', {FILTER: {ACTIVE: true}}, (res) => {
             if (res.error()) {
                 reject(new Error(res.error().ex.error_description));
                 return;

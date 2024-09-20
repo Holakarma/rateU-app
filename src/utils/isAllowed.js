@@ -4,7 +4,8 @@ export function isAllowed(task, usersList, userInfo) {
     return new Promise(async (resolve, reject) => {
         if (BX24.isAdmin()) {
             resolve('isAdmin');
-        } else {
+            return;
+        }
             userInfo = await getUserInfo().catch((e) => {
                 reject(e);
                 return;
@@ -26,6 +27,6 @@ export function isAllowed(task, usersList, userInfo) {
             } else {
                 resolve(undefined);
             }
-        }
+        // }
     });
 }

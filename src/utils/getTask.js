@@ -22,8 +22,11 @@ export const getTask = (function createSavedTask(savedTasks = []) {
                             reject(new Error(res.error().ex.error_description));
                             return;
                         }
+
                         savedTask = res.data();
-                        savedTasks.push(savedTask);
+                        if (savedTask && savedTask.length) {
+                            savedTasks.push(savedTask);
+                        }
                         resolve(savedTask);
                     },
                 );

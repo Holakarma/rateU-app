@@ -98,6 +98,7 @@ export const getRates = (function (savedRates = []) {
                                         RATE: parseInt(rate.rate),
                                     },
                                     SECTION: sectionId,
+                                    ACCESS: { AU: 'X' },
                                 },
                             ]);
                         }
