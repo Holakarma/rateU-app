@@ -6,49 +6,31 @@ export function Matrix() {
         {
             subject: 'HTML',
             A: 120,
-            B: 110,
-            C: 100,
-            D: 80,
             fullMark: 150,
         },
         {
             subject: 'CSS',
             A: 98,
-            B: 130,
-            C: 30,
-            D: 50,
             fullMark: 150,
         },
         {
             subject: 'Ответственность',
             A: 86,
-            B: 130,
-            C: 60,
-            D: 100,
             fullMark: 150,
         },
         {
             subject: 'Пунктуальность',
             A: 99,
-            B: 100,
-            C: 150,
-            D: 70,
             fullMark: 150,
         },
         {
             subject: 'JavaScript',
             A: 85,
-            B: 90,
-            C: 99,
-            D: 80,
             fullMark: 150,
         },
         {
             subject: 'React',
             A: 65,
-            B: 85,
-            C: 150,
-            D: 95,
             fullMark: 150,
         },
     ];
@@ -61,9 +43,6 @@ export function Matrix() {
                 <PolarAngleAxis dataKey="subject" />
                 <PolarRadiusAxis angle={30} domain={[0, 150]} />
                 <Radar name="Анастасия Манаева" dataKey="A" stroke="#8884d8" fill="transparent" fillOpacity={0.6} />
-                <Radar name="Кирилл Перетятько" dataKey="B" stroke="#82ca9d" fill="transparent" fillOpacity={0.6} />
-                <Radar name="Ксения Бойко" dataKey="C" stroke="#4a90e2" fill="transparent" fillOpacity={0.6} />
-                <Radar name="Елизавета Цап" dataKey="D" stroke="#f7b733" fill="transparent" fillOpacity={0.6} />
                 <Legend />
             </RadarChart>
         </ResponsiveContainer>
