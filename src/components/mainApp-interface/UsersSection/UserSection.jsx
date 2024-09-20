@@ -8,6 +8,9 @@ import {PeriodPicker} from './PeriodPicker/PeriodPicker';
 import {isAllowed} from '../../../utils/isAllowed';
 import {ErrorContext} from '../../../utils/errorContext';
 import {getAllUsers} from '../../../utils/getAllUsers';
+import RatesTable from "./RatesTable/RatesTable";
+import cls from './userSection.module.css';
+
 
 export function UserSection({
                                 setSelectedCriteria,
@@ -47,6 +50,12 @@ export function UserSection({
         return () => (isMounted = false);
     }, []);
 
+    useEffect(() => {
+        setTimeout(() => {
+            BX24.fitWindow()
+        })
+    }, [isLoaded]);
+
     return (
         <div>
             <div className="d-flex justify-content-between mt-4 mb-2">
@@ -79,6 +88,9 @@ export function UserSection({
                         <div className="loader"></div>
                     </div>
                 )}
+            </div>
+            <div className={`${cls.card} overflow-x-auto card mb-4`}>
+                <RatesTable employees={employees} selectedCriteria={selectedCriteria} />
             </div>
         </div>
     );

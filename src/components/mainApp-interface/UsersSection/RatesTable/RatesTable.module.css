@@ -1,0 +1,15 @@
+.table {
+    white-space: nowrap; /* Отключить перенос строк */
+
+    & thead {
+        & th:not(:first-child) {
+            text-align: center;
+        }
+    }
+
+    & tbody {
+        & td {
+            text-align: center;
+        }
+    }
+}
