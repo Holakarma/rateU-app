@@ -6,51 +6,51 @@ export function MatrixTemp({ employees, selectedCriteria }) {
     const data = [
         {
             subject: 'HTML',
-            A: 120,
-            B: 110,
-            C: 100,
-            D: 80,
-            fullMark: 150,
+            A: 10,
+            B: 10,
+            C: 10,
+            D: 8,
+            fullMark: 10,
         },
         {
             subject: 'CSS',
-            A: 98,
-            B: 130,
-            C: 30,
-            D: 50,
-            fullMark: 150,
+            A: 9,
+            B: 1,
+            C: 3,
+            D: 5,
+            fullMark: 10,
         },
         {
             subject: 'Ответственность',
-            A: 86,
-            B: 130,
-            C: 60,
-            D: 100,
-            fullMark: 150,
+            A: 8,
+            B: 1,
+            C: 6,
+            D: 10,
+            fullMark: 10,
         },
         {
             subject: 'Пунктуальность',
-            A: 99,
-            B: 100,
-            C: 150,
-            D: 70,
-            fullMark: 150,
+            A: 9,
+            B: 10,
+            C: 10,
+            D: 7,
+            fullMark: 10,
         },
         {
             subject: 'JavaScript',
-            A: 85,
-            B: 90,
-            C: 99,
-            D: 80,
-            fullMark: 150,
+            A: 8,
+            B: 9,
+            C: 9,
+            D: 8,
+            fullMark: 10,
         },
         {
             subject: 'React',
-            A: 65,
-            B: 85,
-            C: 150,
-            D: 95,
-            fullMark: 150,
+            A: 6,
+            B: 8,
+            C: 1,
+            D: 9,
+            fullMark: 10,
         },
     ];
     if (!employees.length || !selectedCriteria.length) return null;
@@ -61,7 +61,7 @@ export function MatrixTemp({ employees, selectedCriteria }) {
                     <PolarGrid />
                     <Tooltip />
                     <PolarAngleAxis dataKey="subject" />
-                    <PolarRadiusAxis angle={30} domain={[0, 150]} />
+                    <PolarRadiusAxis angle={30} domain={[0, 10]} />
                     <Radar name="Анастасия Манаева" dataKey="A" stroke="#8884d8" fill="transparent" fillOpacity={0.6} />
                     <Radar name="Кирилл Перетятько" dataKey="B" stroke="#82ca9d" fill="transparent" fillOpacity={0.6} />
                     <Radar name="Ксения Бойко" dataKey="C" stroke="#4a90e2" fill="transparent" fillOpacity={0.6} />

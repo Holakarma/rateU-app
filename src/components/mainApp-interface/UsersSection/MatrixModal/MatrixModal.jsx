@@ -44,6 +44,7 @@ export function MatrixModal({
             isMounted = false;
         };
     }, [employeeRates]);
+
     return (
         <Modal
             show={show}
@@ -54,12 +55,16 @@ export function MatrixModal({
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Матрица компетенций
+                    Матрица критериев
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className='d-flex justify-content-center' style={{ paddingBottom: '40px', }}>
                 <div style={{ width: '100%', height: '400px' }}>
-                    <Matrix />
+                    <Matrix
+                        employee={employee}
+                        employeeRates={employeeRates}
+                        criteria={criteria}
+                    />
                 </div>
             </Modal.Body>
         </Modal>
