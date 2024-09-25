@@ -11,6 +11,8 @@ import { getAllUsers } from '../../../utils/getAllUsers';
 import RatesTable from "./RatesTable/RatesTable";
 import cls from './userSection.module.css';
 import { MatrixTemp } from './Matrix/MatrixTemp';
+import History from "../../../icons/History/History";
+import AllHistoryModalBtn from "./AllHistoryModal/AllHistoryModalBtn";
 
 
 export function UserSection({
@@ -20,9 +22,8 @@ export function UserSection({
     selectedCriteria,
     fetchedRates,
 }) {
-    let savedEmployees = saveEmployees();
     const [employees, setEmployees] = React.useState(
-        savedEmployees ? savedEmployees : [],
+        saveEmployees() || [],
     );
     const [criteria, setCriteria] = React.useState([]);
     const [isLoaded, setLoaded] = React.useState(false);
@@ -52,15 +53,13 @@ export function UserSection({
     }, []);
 
     useEffect(() => {
-        setTimeout(() => {
-            BX24.fitWindow()
-        })
-    }, [isLoaded]);
+        setTimeout(BX24.fitWindow, 500)
+    }, [isLoaded, selectedCriteria, employees]);
 
     return (
         <div>
             <div className="d-flex justify-content-between mt-4 mb-2">
-                <h3>Оценка сотрудников</h3>
+                <h3>Оценка сотрудников <AllHistoryModalBtn fetchedRates={fetchedRates}/></h3>
                 <div className="g-3 d-flex row justify-content-end">
                     <UserSelect setEmployees={setEmployees} />
                     <ChooseCriteria
@@ -75,7 +74,7 @@ export function UserSection({
             />
             <div className="mt-2 row g-3 mb-4">
                 {isLoaded ? (
-                    employees.map((employee) => (
+                    employees.map((employee) =>  (
                         <ShowEmployee
                             key={employee.id}
                             employee={employee}
@@ -90,12 +89,17 @@ export function UserSection({
                     </div>
                 )}
             </div>
-            <div className={`${cls.card} overflow-x-auto card mb-4`}>
-                <RatesTable employees={employees} selectedCriteria={selectedCriteria} />
-            </div>
-            <div className="overflow-x-auto mb-4">
-                <MatrixTemp employees={employees} selectedCriteria={selectedCriteria} />
-            </div>
+            {
+                employees.length && selectedCriteria.length ?
+                <>
+                    <div className={`${cls.card} overflow-x-auto card mb-4`}>
+                        <RatesTable employees={employees} selectedCriteria={selectedCriteria}/>
+                    </div>
+                    <div className="overflow-x-auto mb-4">
+                        <MatrixTemp employees={employees} selectedCriteria={selectedCriteria}/>
+                    </div>
+                </> : null
+            }
         </div>
     );
 }

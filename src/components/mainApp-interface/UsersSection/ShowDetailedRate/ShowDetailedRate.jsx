@@ -1,20 +1,13 @@
 import React from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import {dateOptions, timeOptions} from "../../../../config/consts";
 
 export function ShowDetailedRate({ rate, criterion }) {
     const date = new Date(rate.TIMESTAMP_X);
     const dateCreate = new Date(rate.DATE_CREATE);
     const isChanged = date.getTime() !== dateCreate.getTime();
-    const dateOptions = {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-    };
-    const timeOptions = {
-        hour: 'numeric',
-        minute: 'numeric',
-    };
+
 
     return (
         <li className="list-group-item">
