@@ -56,6 +56,24 @@ export function UserSection({
         setTimeout(BX24.fitWindow, 500)
     }, [isLoaded, selectedCriteria, employees]);
 
+    const [userRates, setUserRates] = React.useState(null);
+
+    useEffect(() => {
+        const aliases = {};
+
+        employees.forEach((e) => {
+            const criteria = selectedCriteria.map((c) => [c.ID, -1]);
+
+            Object.assign(aliases, {
+                [e.id]: Object.fromEntries(new Map(criteria))
+            })
+        });
+
+        setUserRates(aliases);
+    }, [employees, selectedCriteria]);
+
+    console.log(userRates);
+
     return (
         <div>
             <div className="d-flex justify-content-between mt-4 mb-2">
@@ -78,6 +96,7 @@ export function UserSection({
                         <ShowEmployee
                             key={employee.id}
                             employee={employee}
+                            setUserRates={setUserRates}
                             selectedCriteria={selectedCriteria}
                             fetchedRates={fetchedRates}
                             rights={rights}
