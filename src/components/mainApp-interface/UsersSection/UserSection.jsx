@@ -110,7 +110,12 @@ export function UserSection({
                 employees.length && selectedCriteria.length ?
                 <>
                     <div className={`${cls.card} overflow-x-auto card mb-4`}>
-                        <RatesTable userRates={userRates} employees={employees} selectedCriteria={selectedCriteria}/>
+                        <RatesTable
+                            userRates={userRates}
+                            employees={employees}
+                            selectedCriteria={selectedCriteria}
+                            rights={rights}
+                        />
                     </div>
                     <div className="overflow-x-auto mb-4">
                         <MatrixTemp employees={employees} selectedCriteria={selectedCriteria}/>

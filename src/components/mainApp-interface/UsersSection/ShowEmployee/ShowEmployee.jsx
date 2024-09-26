@@ -28,6 +28,7 @@ export function ShowEmployee({
     useEffect(async () => {
         const userInfo = await getUsers([employee.id]);
         setImg(userInfo[0]?.PERSONAL_PHOTO);
+
         switch (rights) {
             case 'isAdmin':
                 setAccess(true);

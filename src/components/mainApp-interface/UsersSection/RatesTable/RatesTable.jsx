@@ -1,8 +1,9 @@
 import React from 'react';
 import cls from './RatesTable.module.css'
-import deepEqual from "../../../../utils/deepEqual";
+import {getUserInfo} from "../../../../utils/getUserInfo";
+import RateRow from "./RateRow";
 
-const RatesTable = ({employees, selectedCriteria, userRates} ) => {
+const RatesTable = ({employees, selectedCriteria, userRates, rights} ) => {
 
     if (!employees.length || !selectedCriteria.length) return null;
 
@@ -22,22 +23,12 @@ const RatesTable = ({employees, selectedCriteria, userRates} ) => {
             {employees.map(employee => (
                 <tr key={employee.id}>
                     <th scope="row">{employee.name}</th>
-                    {
-                        selectedCriteria.map(criterion => (
-                                <td
-                                    key={criterion.ID}
-                                >
-                                    {
-                                        userRates[employee.id][criterion.ID] === -1
-                                        ?
-                                        <small className="opacity-50">нет оценок</small>
-                                        :
-                                        userRates[employee.id][criterion.ID]
-                                    }
-                                </td>
-                            )
-                        )
-                    }
+                    <RateRow
+                        rights={rights}
+                        employee={employee}
+                        userRates={userRates}
+                        selectedCriteria={selectedCriteria}
+                    />
                 </tr>
             ))}
             </tbody>
