@@ -1,7 +1,30 @@
-import React, {PureComponent, useEffect} from 'react';
+import React from 'react';
 import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import RadarEmployee from './RadarEmployee';
 
-export function MatrixTemp({ employees, selectedCriteria }) {
+export function MatrixTemp({ userRates, employees, selectedCriteria, rights }) {
+
+    if (!employees.length || !selectedCriteria.length) return null;
+
+    console.log(userRates)
+
+    // const [data, setData] = React.useState([
+    //     {
+    //         subject: '',
+    //         employees.id: 0,
+    //         fullMark: 10,
+    //     }
+    // ]);
+
+    // selectedCriteria.forEach(criterion => (
+    //     employees.forEach(employee => (
+    //         setData(prev => [...prev], {
+    //             subject: criterion.NAME,
+    //             employees.id: employee.id,
+    //             fullMark: 10,
+    //         })
+    //     ))
+    // ))
 
     const data = [
         {
@@ -55,6 +78,7 @@ export function MatrixTemp({ employees, selectedCriteria }) {
     ];
 
     if (!employees.length || !selectedCriteria.length) return null;
+
     return (
         <div style={{ width: '100%', height: '400px' }} className='card'>
             <ResponsiveContainer width="100%" height="100%">
@@ -65,8 +89,9 @@ export function MatrixTemp({ employees, selectedCriteria }) {
                     <PolarRadiusAxis angle={30} domain={[0, 10]} />
                     <Radar name="Анастасия Манаева" dataKey="A" stroke="#8884d8" fill="transparent" fillOpacity={0.6} />
                     <Radar name="Кирилл Перетятько" dataKey="B" stroke="#82ca9d" fill="transparent" fillOpacity={0.6} />
-                    <Radar name="Ксения Бойко" dataKey="C" stroke="#4a90e2" fill="transparent" fillOpacity={0.6} />
-                    <Radar name="Елизавета Цап" dataKey="D" stroke="#f7b733" fill="transparent" fillOpacity={0.6} />
+                    {/* {employees.map(employee => (
+                        <RadarEmployee key={employee.id} rights={rights} employee={employee} dataKey />
+                    ))} */}
                     <Legend />
                 </RadarChart>
             </ResponsiveContainer>
