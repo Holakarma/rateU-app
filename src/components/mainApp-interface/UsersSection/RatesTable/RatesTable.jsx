@@ -1,7 +1,9 @@
 import React from 'react';
 import cls from './RatesTable.module.css'
+import {getUserInfo} from "../../../../utils/getUserInfo";
+import RateRow from "./RateRow";
 
-const RatesTable = ({employees, selectedCriteria}) => {
+const RatesTable = ({employees, selectedCriteria, userRates, rights} ) => {
 
     if (!employees.length || !selectedCriteria.length) return null;
 
@@ -12,21 +14,21 @@ const RatesTable = ({employees, selectedCriteria}) => {
                 <th scope="col">Имя</th>
                 {
                     selectedCriteria.map(criterion => (
-                        <th scope="col">{criterion.NAME}</th>
-
+                        <th scope="col" key={criterion.ID}>{criterion.NAME}</th>
                     ))
                 }
             </tr>
             </thead>
             <tbody>
             {employees.map(employee => (
-                <tr>
+                <tr key={employee.id}>
                     <th scope="row">{employee.name}</th>
-                    {
-                        Array.from({length: selectedCriteria.length}).map(() => (
-                            <td>9.3</td>
-                        ))
-                    }
+                    <RateRow
+                        rights={rights}
+                        employee={employee}
+                        userRates={userRates}
+                        selectedCriteria={selectedCriteria}
+                    />
                 </tr>
             ))}
             </tbody>

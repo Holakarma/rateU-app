@@ -72,8 +72,6 @@ export function UserSection({
         setUserRates(aliases);
     }, [employees, selectedCriteria]);
 
-    console.log(userRates);
-
     return (
         <div>
             <div className="d-flex justify-content-between mt-4 mb-2">
@@ -112,7 +110,12 @@ export function UserSection({
                 employees.length && selectedCriteria.length ?
                 <>
                     <div className={`${cls.card} overflow-x-auto card mb-4`}>
-                        <RatesTable employees={employees} selectedCriteria={selectedCriteria}/>
+                        <RatesTable
+                            userRates={userRates}
+                            employees={employees}
+                            selectedCriteria={selectedCriteria}
+                            rights={rights}
+                        />
                     </div>
                     <div className="overflow-x-auto mb-4">
                         <MatrixTemp employees={employees} selectedCriteria={selectedCriteria}/>
