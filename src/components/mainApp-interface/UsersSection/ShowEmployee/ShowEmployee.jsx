@@ -7,6 +7,7 @@ import { User } from '../../../../icons/User/User';
 import { getUsers } from '../../../../utils/createSavedUsers';
 import { MatrixButton } from '../MatrixButton/MatrixButton';
 import deepCopy from "../../../../utils/deepCopy";
+import useAccessRights from '../../../../utils/useAccessRights';
 
 export function ShowEmployee({
     employee,
@@ -21,26 +22,26 @@ export function ShowEmployee({
 
     const [employeeRates, setEmployeeRates] = React.useState([]);
 
-    const [access, setAccess] = React.useState(false);
-
     const [img, setImg] = React.useState(null);
 
     useEffect(async () => {
         const userInfo = await getUsers([employee.id]);
         setImg(userInfo[0]?.PERSONAL_PHOTO);
-
-        switch (rights) {
-            case 'isAdmin':
-                setAccess(true);
-                break;
-            case 'haveSub':
-                const subordinates = (await getUserInfo()).SUBORDINATES.map(
-                    (sub) => sub.ID,
-                );
-                if (subordinates.includes(employee.id)) setAccess(true);
-                break;
-        }
     }, []);
+
+    const haveAccess = useAccessRights(rights, employee);
+
+    // switch (rights) {
+    //     case 'isAdmin':
+    //         setAccess(true);
+    //         break;
+    //     case 'haveSub':
+    //         const subordinates = (await getUserInfo()).SUBORDINATES.map(
+    //             (sub) => sub.ID,
+    //         );
+    //         if (subordinates.includes(employee.id)) setAccess(true);
+    //         break;
+    // }
 
     useEffect(() => {
         sum.current = 0;
@@ -53,8 +54,6 @@ export function ShowEmployee({
             ),
         );
     }, [fetchedRates, selectedCriteria]);
-
-    const isImg = employee.photo ? true : false;
 
     const personalUrl = `https://${BX24.getDomain()}/company/personal/user/${employee.id}/`;
 
@@ -112,29 +111,29 @@ export function ShowEmployee({
                                         key={selectedCriterion.ID}
                                         employeeRates={employeeRates}
                                         criterion={selectedCriterion}
-                                        access={access}
+                                        access={haveAccess}
                                         getRate={(rate) => {
                                             count.current++;
                                             sum.current += rate;
                                             setCountRates(countRates + 1);
                                             setUserRates(userRates => {
-                                                    const newRates = deepCopy(userRates);
+                                                const newRates = deepCopy(userRates);
 
-                                                    return Object.assign(
-                                                        newRates,
-                                                        {
-                                                            [employee.id]: {
-                                                                ...userRates[employee.id],
-                                                                [selectedCriterion.ID]: rate
-                                                            }
+                                                return Object.assign(
+                                                    newRates,
+                                                    {
+                                                        [employee.id]: {
+                                                            ...userRates[employee.id],
+                                                            [selectedCriterion.ID]: rate
                                                         }
-                                                    )
-                                                }
+                                                    }
+                                                )
+                                            }
                                             )
                                         }}
                                     />
                                 ))}
-                                {!access && (
+                                {!haveAccess && (
                                     <li className="list-group-item opacity-75">
                                         <i>
                                             Недостаточно прав для просмотра
@@ -147,7 +146,7 @@ export function ShowEmployee({
                     </div>
                     <div className='d-flex gap-2 justify-content-end'>
                         <div className="mt-2">
-                            {employeeRates.length === 0 || !access ? null : (
+                            {employeeRates.length === 0 || !haveAccess ? null : (
                                 <RatesHistoryButton
                                     criteria={selectedCriteria}
                                     employee={employee}
@@ -156,7 +155,7 @@ export function ShowEmployee({
                             )}
                         </div>
                         <div className="mt-2">
-                            {employeeRates.length === 0 || !access ? null : (
+                            {employeeRates.length === 0 ? null : (
                                 <MatrixButton
                                     criteria={selectedCriteria}
                                     employee={employee}
