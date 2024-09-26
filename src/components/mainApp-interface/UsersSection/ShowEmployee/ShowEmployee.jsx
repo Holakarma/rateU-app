@@ -6,6 +6,7 @@ import cls from '../userSection.module.css';
 import { User } from '../../../../icons/User/User';
 import { getUsers } from '../../../../utils/createSavedUsers';
 import { MatrixButton } from '../MatrixButton/MatrixButton';
+import deepCopy from "../../../../utils/deepCopy";
 
 export function ShowEmployee({
     employee,
@@ -115,16 +116,19 @@ export function ShowEmployee({
                                             count.current++;
                                             sum.current += rate;
                                             setCountRates(countRates + 1);
-                                            setUserRates(userRates => (
-                                                Object.assign(
-                                                    userRates,
-                                                    {
+                                            setUserRates(userRates => {
+                                                    const newRates = deepCopy(userRates);
+
+                                                    return Object.assign(
+                                                        newRates,
+                                                        {
                                                             [employee.id]: {
-                                                                    ...userRates[employee.id],
-                                                                    [selectedCriterion.ID]: rate
+                                                                ...userRates[employee.id],
+                                                                [selectedCriterion.ID]: rate
                                                             }
-                                                    }
-                                                ))
+                                                        }
+                                                    )
+                                                }
                                             )
                                         }}
                                     />
