@@ -11,7 +11,7 @@ export function MatrixButton({ employee, employeeRates, criteria }) {
                 onClick={() => setModalShow(!isModalShowed)}
                 className={`${cls.bgBtn} text-light rounded px-2 py-1`}
             >
-                Матрица компетенций
+                Матрица критериев
             </button>
             <MatrixModal
                 criteria={criteria}
