@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent, useEffect} from 'react';
 import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
 
 export function MatrixTemp({ employees, selectedCriteria }) {
@@ -53,6 +53,7 @@ export function MatrixTemp({ employees, selectedCriteria }) {
             fullMark: 10,
         },
     ];
+
     if (!employees.length || !selectedCriteria.length) return null;
     return (
         <div style={{ width: '100%', height: '400px' }} className='card'>

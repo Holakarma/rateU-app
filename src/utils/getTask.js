@@ -24,9 +24,13 @@ export const getTask = (function createSavedTask(savedTasks = []) {
                         }
 
                         savedTask = res.data();
-                        if (savedTask && savedTask.length) {
-                            savedTasks.push(savedTask);
+
+                        if (Array.isArray(savedTask) && !savedTask.length) {
+                            resolve(savedTask)
+                            return;
                         }
+
+                        savedTasks.push(savedTask);
                         resolve(savedTask);
                     },
                 );
