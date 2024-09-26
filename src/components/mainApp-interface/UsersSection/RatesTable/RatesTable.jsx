@@ -3,8 +3,6 @@ import cls from './RatesTable.module.css'
 
 const RatesTable = ({employees, selectedCriteria}) => {
 
-    console.log(employees, selectedCriteria);
-
     if (!employees.length || !selectedCriteria.length) return null;
 
     return (

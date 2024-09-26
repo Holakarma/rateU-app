@@ -9,6 +9,7 @@ import { MatrixButton } from '../MatrixButton/MatrixButton';
 
 export function ShowEmployee({
     employee,
+    setUserRates,
     selectedCriteria,
     fetchedRates,
     rights,
@@ -53,8 +54,7 @@ export function ShowEmployee({
 
     const isImg = employee.photo ? true : false;
 
-    const personalUrl = `https://${BX24.getDomain()}/company/personal/user/${employee.id
-        }/`;
+    const personalUrl = `https://${BX24.getDomain()}/company/personal/user/${employee.id}/`;
 
     // console.log(selectedCriteria) // выбранные критерии
     // console.log(employeeRates) // rate - оценка в конкретном критерии, есть таск и юзер
@@ -115,6 +115,17 @@ export function ShowEmployee({
                                             count.current++;
                                             sum.current += rate;
                                             setCountRates(countRates + 1);
+                                            setUserRates(userRates => (
+                                                Object.assign(
+                                                    userRates,
+                                                    {
+                                                            [employee.id]: {
+                                                                    ...userRates[employee.id],
+                                                                    [selectedCriterion.ID]: rate
+                                                            }
+                                                    }
+                                                ))
+                                            )
                                         }}
                                     />
                                 ))}
