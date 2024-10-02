@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { RateInfo } from '../RateInfo/RateInfo';
 import { getCurrentUser } from '/src/utils/getCurrentUser';
 import { ErrorContext } from '../../../../utils/errorContext';
-import { Matrix } from './Matrix';
+import { MatrixEmployee } from './MatrixEmployee';
 
 export function MatrixModal({
     show,
@@ -60,7 +59,7 @@ export function MatrixModal({
             </Modal.Header>
             <Modal.Body className='d-flex justify-content-center' style={{ paddingBottom: '40px', }}>
                 <div style={{ width: '100%', height: '400px' }}>
-                    <Matrix
+                    <MatrixEmployee
                         employee={employee}
                         employeeRates={employeeRates}
                         criteria={criteria}

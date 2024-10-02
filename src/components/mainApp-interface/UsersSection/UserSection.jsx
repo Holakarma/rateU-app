@@ -10,7 +10,7 @@ import { ErrorContext } from '../../../utils/errorContext';
 import { getAllUsers } from '../../../utils/getAllUsers';
 import RatesTable from "./RatesTable/RatesTable";
 import cls from './userSection.module.css';
-import { MatrixTemp } from './Matrix/MatrixTemp';
+import { Matrix } from './Matrix/Matrix';
 import History from "../../../icons/History/History";
 import AllHistoryModalBtn from "./AllHistoryModal/AllHistoryModalBtn";
 
@@ -118,7 +118,7 @@ export function UserSection({
                             />
                         </div>
                         <div className="overflow-x-auto mb-4">
-                            <MatrixTemp
+                            <Matrix
                                 userRates={userRates}
                                 employees={employees}
                                 selectedCriteria={selectedCriteria}

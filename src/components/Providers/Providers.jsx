@@ -1,14 +1,14 @@
-import React, {useContext, useEffect} from 'react';
-import {Workspace} from '../Workspace/Workspace';
-import {PlacementContext} from '../../utils/placementContext';
-import {UserContext} from '../../utils/userContext';
-import {addLocale, PrimeReactProvider} from 'primereact/api';
-import {getSectionId} from '../../utils/createEntity';
-import {locale} from '../../utils/localePR';
-import {getUserInfo} from '../../utils/getUserInfo';
-import {ErrorContext} from '../../utils/errorContext';
-import {HelpModal} from '../mainApp-interface/SettingsSection/HelpModal/HelpModal';
-import {checkMethods} from '../../utils/checkMethods';
+import React, { useContext, useEffect } from 'react';
+import { Workspace } from '../Workspace/Workspace';
+import { PlacementContext } from '../../utils/placementContext';
+import { UserContext } from '../../utils/userContext';
+import { addLocale, PrimeReactProvider } from 'primereact/api';
+import { getSectionId } from '../../utils/createEntity';
+import { locale } from '../../utils/localePR';
+import { getUserInfo } from '../../utils/getUserInfo';
+import { ErrorContext } from '../../utils/errorContext';
+import { HelpModal } from '../mainApp-interface/SettingsSection/HelpModal/HelpModal';
+import { checkMethods } from '../../utils/checkMethods';
 
 // BX24.callMethod('entity.delete', {ENTITY: 'rates'}, res => {
 //     console.log(res)
@@ -69,8 +69,8 @@ export function Providers() {
   let [userInfo, setUserInfo] = React.useState();
   const placementInfo = BX24.placement.info(); // Release version
   // const placementInfo = {
-  //     options: { taskId: '996' },
-  //     placement: 'TASK_VIEW_TAB',
+  //   options: { taskId: '869' },
+  //   placement: 'TASK_VIEW_TAB',
   // };
 
   const setError = useContext(ErrorContext);
@@ -136,7 +136,7 @@ export function Providers() {
         <PrimeReactProvider value={lang}>
           <PlacementContext.Provider value={placementInfo}>
             <UserContext.Provider value={userInfo}>
-              <Workspace/>
+              <Workspace />
             </UserContext.Provider>
           </PlacementContext.Provider>
         </PrimeReactProvider>

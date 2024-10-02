@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
 
-export function Matrix({ employee, employeeRates, criteria, }) {
+export function MatrixEmployee({ employee, employeeRates, criteria, }) {
 
     // const subjects = criteria.map((item) => ({
     //     subject: item.NAME
