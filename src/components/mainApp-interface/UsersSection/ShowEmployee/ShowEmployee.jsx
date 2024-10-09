@@ -156,6 +156,7 @@ export function ShowEmployee({
                         <div className="mt-2">
                             {employeeRates.length === 0 ? null : (
                                 <MatrixButton
+                                    rights={rights}
                                     selectedCriteria={selectedCriteria}
                                     employee={employee}
                                     employeeRates={employeeRates}

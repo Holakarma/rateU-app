@@ -3,6 +3,20 @@ import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, 
 
 export function Matrix({ userRates, employees, selectedCriteria, rights }) {
 
+    // const [employeesHaveAccess, setEmployeesHaveAccess] = React.useState(employees);
+
+    // const haveAccess = useAccessRights(rights, employees);
+
+    // if (haveAccess === null) {
+    //     return <div>Загрузка...</div>
+    // }
+
+    // if (!haveAccess) {
+
+    // }
+
+    // console.log(employees)
+
     // dataRates = { {critertion.NAME: userRates[employee.id][criterion.ID]} }
     const [dataRates, setDataRates] = React.useState(null);
 
