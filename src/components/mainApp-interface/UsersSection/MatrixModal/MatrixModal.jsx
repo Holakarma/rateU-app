@@ -9,7 +9,7 @@ export function MatrixModal({
     onHide,
     employee,
     employeeRates,
-    criteria,
+    selectedCriteria,
 }) {
     const [user, setUser] = React.useState(undefined);
     const [ratesList, setRatesList] = React.useState([]);
@@ -62,7 +62,7 @@ export function MatrixModal({
                     <MatrixEmployee
                         employee={employee}
                         employeeRates={employeeRates}
-                        criteria={criteria}
+                        selectedCriteria={selectedCriteria}
                     />
                 </div>
             </Modal.Body>

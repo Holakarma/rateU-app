@@ -1,56 +1,47 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
 
-export function MatrixEmployee({ employee, employeeRates, criteria, }) {
+export function MatrixEmployee({ employee, employeeRates, selectedCriteria }) {
 
-    // const subjects = criteria.map((item) => ({
-    //     subject: item.NAME
-    // }))
+    const [dataRates, setDataRates] = React.useState(null);
+    useEffect(() => {
+        const aliases = {};
+        const rates = employeeRates.map((rate) => (
+            [
+                [rate.PROPERTY_VALUES.CRITERION_ID], rate.PROPERTY_VALUES.RATE
+            ]
+        ));
 
-    // console.log(subjects)
+        Object.assign(aliases, {
+            [employee.id]: Object.fromEntries(rates)
+        })
 
-    // employeeRates
-    // const [rate, setRate] = React.useState([
-    //     {
-    //         idCrit: 0,
-    //         rate: 0,
+        setDataRates(aliases);
+    }, [employee, employeeRates])
+
+    // console.log(dataRates) -> {criterion.ID: 'mark'}
+
+    console.log(employeeRates)
+
+    // const [formattedData, setFormattedData] = React.useState([]);
+
+    // useEffect(() => {
+    //     if (dataRates) {
+    //         const newFormattedData = [];
+    //         selectedCriteria.forEach((criterion) => {
+    //             const entry = { criterion: criterion.NAME, fullMark: 10 };
+
+    //             employees.forEach((empl) => {
+    //                 entry[empl.id] = dataRates[empl.id][criterion.NAME] || 0;
+    //             });
+
+    //             newFormattedData.push(entry);
+    //         });
+    //         setFormattedData(newFormattedData);
     //     }
-    // ]);
-
-    // // criteria
-    // const [name, setName] = React.useState([
-    //     {
-    //         id: 0,
-    //         name: 0,
-    //     }
-    // ]);
-
-    // employeeRates.forEach((item) => {
-    //     setRate(prev => [...prev,
-    //     {
-    //         idCrit: item.PROPERTY_VALUES.CRITERION_ID,
-    //         rate: item.PROPERTY_VALUES.RATE,
-    //     }
-    //     ])
-    //     criteria.forEach((item) => {
-    //         setName(prev => [...prev,
-    //         {
-    //             id: item.ID,
-    //             name: item.NAME,
-    //         }
-    //         ])
-    //     })
-    // })
-
-    // console.log("rate", rate)
-    // console.log("name", name)
+    // }, [dataRates]);
 
     const data =
-        // criteria.map((item, index) => ({
-        //     subject: criteria.NAME,
-        //     rate: item.RATE,
-        //     fullMark: 10
-        // }));
         [
             {
                 subject: 'HTML',

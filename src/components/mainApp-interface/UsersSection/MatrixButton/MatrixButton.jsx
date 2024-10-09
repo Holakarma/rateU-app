@@ -2,7 +2,7 @@ import React from 'react';
 import cls from '../userSection.module.css'
 import { MatrixModal } from '../MatrixModal/MatrixModal';
 
-export function MatrixButton({ employee, employeeRates, criteria }) {
+export function MatrixButton({ employee, employeeRates, selectedCriteria }) {
     const [isModalShowed, setModalShow] = React.useState(false);
 
     return (
@@ -14,7 +14,7 @@ export function MatrixButton({ employee, employeeRates, criteria }) {
                 Матрица критериев
             </button>
             <MatrixModal
-                criteria={criteria}
+                selectedCriteria={selectedCriteria}
                 show={isModalShowed}
                 onHide={() => setModalShow(false)}
                 employee={employee}
