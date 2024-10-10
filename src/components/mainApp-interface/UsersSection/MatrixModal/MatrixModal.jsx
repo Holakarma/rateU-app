@@ -9,7 +9,8 @@ export function MatrixModal({
     onHide,
     employee,
     employeeRates,
-    criteria,
+    selectedCriteria,
+    rights,
 }) {
     const [user, setUser] = React.useState(undefined);
     const [ratesList, setRatesList] = React.useState([]);
@@ -60,9 +61,10 @@ export function MatrixModal({
             <Modal.Body className='d-flex justify-content-center' style={{ paddingBottom: '40px', }}>
                 <div style={{ width: '100%', height: '400px' }}>
                     <MatrixEmployee
+                        rights={rights}
                         employee={employee}
                         employeeRates={employeeRates}
-                        criteria={criteria}
+                        selectedCriteria={selectedCriteria}
                     />
                 </div>
             </Modal.Body>

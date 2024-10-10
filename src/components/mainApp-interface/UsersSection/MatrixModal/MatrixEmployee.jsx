@@ -1,97 +1,65 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect } from 'react';
 import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import useAccessRights from '../../../../utils/useAccessRights';
 
-export function MatrixEmployee({ employee, employeeRates, criteria, }) {
+export function MatrixEmployee({ employee, employeeRates, selectedCriteria, rights }) {
 
-    // const subjects = criteria.map((item) => ({
-    //     subject: item.NAME
-    // }))
+    const [dataRates, setDataRates] = React.useState(null);
 
-    // console.log(subjects)
+    useEffect(() => {
+        const aliases = {};
+        const rates = employeeRates.map((rate) => (
+            [
+                [rate.PROPERTY_VALUES.CRITERION_ID], rate.PROPERTY_VALUES.RATE
+            ]
+        ));
 
-    // employeeRates
-    // const [rate, setRate] = React.useState([
-    //     {
-    //         idCrit: 0,
-    //         rate: 0,
-    //     }
-    // ]);
+        Object.assign(aliases, {
+            [employee.id]: Object.fromEntries(rates)
+        })
 
-    // // criteria
-    // const [name, setName] = React.useState([
-    //     {
-    //         id: 0,
-    //         name: 0,
-    //     }
-    // ]);
+        setDataRates(aliases);
+    }, [employee, employeeRates])
 
-    // employeeRates.forEach((item) => {
-    //     setRate(prev => [...prev,
-    //     {
-    //         idCrit: item.PROPERTY_VALUES.CRITERION_ID,
-    //         rate: item.PROPERTY_VALUES.RATE,
-    //     }
-    //     ])
-    //     criteria.forEach((item) => {
-    //         setName(prev => [...prev,
-    //         {
-    //             id: item.ID,
-    //             name: item.NAME,
-    //         }
-    //         ])
-    //     })
-    // })
+    // console.log(dataRates) -> {criterion.ID: 'mark'}
 
-    // console.log("rate", rate)
-    // console.log("name", name)
+    const [formattedData, setFormattedData] = React.useState([]);
 
-    const data =
-        // criteria.map((item, index) => ({
-        //     subject: criteria.NAME,
-        //     rate: item.RATE,
-        //     fullMark: 10
-        // }));
-        [
-            {
-                subject: 'HTML',
-                rate: 10,
-                fullMark: 10,
-            },
-            {
-                subject: 'CSS',
-                rate: 9,
-                fullMark: 10,
-            },
-            {
-                subject: 'Ответственность',
-                rate: 8,
-                fullMark: 10,
-            },
-            {
-                subject: 'Пунктуальность',
-                rate: 9,
-                fullMark: 10,
-            },
-            {
-                subject: 'JavaScript',
-                rate: 8,
-                fullMark: 10,
-            },
-            {
-                subject: 'React',
-                rate: 6,
-                fullMark: 10,
-            },
-        ];
+    useEffect(() => {
+        if (dataRates) {
+            const newFormattedData = [];
+            selectedCriteria.forEach((criterion) => {
+
+                const entry = { criterion: criterion.NAME, fullMark: 10 };
+
+                entry[employee.id] = dataRates[employee.id][criterion.ID] || 0;
+
+                newFormattedData.push(entry);
+            });
+            setFormattedData(newFormattedData);
+        }
+    }, [dataRates]);
+
+    // console.log(formattedData) -> [ {employee.id: userRates[employee.id][criterion.ID], criterion: criterion.NAME, fullMark: 10} ]
+
+    const haveAccess = useAccessRights(rights, employee);
+
+    if (haveAccess === null) {
+        return <div>Загрузка...</div>
+    }
+
+    if (!haveAccess) {
+        return <div>Недостаточно прав</div>
+    }
 
     return (
         <ResponsiveContainer width="100%" height="100%">
-            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+            <RadarChart cx="50%" cy="50%" outerRadius="80%" data={formattedData}>
                 <PolarGrid />
                 <Tooltip />
-                <PolarAngleAxis dataKey="subject" />
-                <PolarRadiusAxis angle={30} domain={[0, 10]} />
-                <Radar name={employee.name} dataKey="rate" stroke="#8884d8" fill="transparent" fillOpacity={0.6} dot={true} />
+                <PolarAngleAxis dataKey="criterion" />
+                <PolarRadiusAxis angle={30} domain={[0, formattedData.fullMark]} />
+                <Radar name={employee.name} dataKey={employee.id} stroke="#8884d8" fill="transparent" fillOpacity={0.6} dot={true} />
                 <Legend />
             </RadarChart>
         </ResponsiveContainer>
