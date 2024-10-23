@@ -36,7 +36,10 @@ export function Matrix({ userRates, employees, selectedCriteria, rights }) {
                 const entry = { criterion: criterion.NAME, fullMark: 10 };
 
                 allHaveAccess.forEach((empl) => {
-                    entry[empl.id] = dataRates[empl.id][criterion.NAME] || 0;
+                    entry[empl.id] =
+                        Number.isInteger(dataRates[empl.id][criterion.NAME])
+                            ? dataRates[empl.id][criterion.NAME]
+                            : dataRates[empl.id][criterion.NAME].toFixed(1);
                 });
 
                 newFormattedData.push(entry);
@@ -45,40 +48,51 @@ export function Matrix({ userRates, employees, selectedCriteria, rights }) {
         }
     }, [dataRates]);
 
-    // генератор цветов для сотрудников в матрице
-    const generateUniqueColors = (numColors) => {
-        const colors = [];
-        for (let i = 0; i < numColors; i++) {
-            colors.push('#' + Math.random().toString(16).slice(-6));
+    const predefinedColors = [
+        '#808080', '#FF00FF', '#FF0000', '#808000',
+        '#00FF00', '#008080', '#0000FF'
+    ];
+
+    const getUniqueColors = (count) => {
+        const uniqueColors = [];
+        const colorCount = predefinedColors.length;
+
+        for (let i = 0; i < count; i++) {
+            const colorIndex = i % colorCount;
+            uniqueColors.push(predefinedColors[colorIndex]);
         }
-        return colors;
+
+        return uniqueColors;
     };
-    const colors = generateUniqueColors(allHaveAccess.length);
+
+    const colors = getUniqueColors(allHaveAccess.length);
+
+    const angleOfInclination = Math.abs((360 / selectedCriteria.length) - 90);
 
     if (!allHaveAccess.length || !selectedCriteria.length) return null;
     if (!formattedData) return null;
 
     return (
-        <div style={{ width: '100%', height: '400px' }} className='card'>
-            {/* <div>*-1 - нет оценки</div> */}
+        <div style={{ width: '100%', height: '400px', padding: '10px', paddingBottom: '40px' }} className='card'>
+            <h4>Матрица критериев по выбранным сотрудникам</h4>
+            <div style={{ opacity: 0.5, display: 'flex', justifyContent: 'end' }}>"-1" - нет оценки</div>
             <ResponsiveContainer width="100%" height="100%">
                 <RadarChart cx="50%" cy="50%" outerRadius="80%" data={formattedData}>
                     <PolarGrid />
                     <Tooltip />
                     <PolarAngleAxis dataKey="criterion" />
-                    <PolarRadiusAxis angle={30} domain={[0, 10]} />
+                    <PolarRadiusAxis angle={angleOfInclination} domain={[0, 10]} />
                     {allHaveAccess.map((employee, index) => (
-
                         <Radar
                             key={employee.id}
                             name={employee.name}
                             dataKey={employee.id}
                             stroke={colors[index]}
-                            fill="transparent"
+                            fill='transparent'
                             fillOpacity={0.6}
                         />
                     ))}
-                    <Legend />
+                    <Legend height={20} />
                 </RadarChart>
             </ResponsiveContainer>
         </div>

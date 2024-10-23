@@ -22,7 +22,9 @@ const RateRow = ({ rights, employee, userRates, selectedCriteria }) => {
                     ?
                     <small className="opacity-50">нет оценок</small>
                     :
-                    userRates[employee.id][criterion.ID]
+                    Number.isInteger(userRates[employee.id][criterion.ID])
+                        ? userRates[employee.id][criterion.ID]
+                        : userRates[employee.id][criterion.ID].toFixed(1)
             }
         </td>
     )

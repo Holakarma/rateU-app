@@ -17,9 +17,11 @@ export function RateInfo({ rates, employee, user, criteria }) {
 
     }, []);
 
-    if (!task) return  null;
 
-    return  (
+    if (!task) return null;
+    console.log(task.task.title)
+
+    return (
         <div className="">
             <div className="card my-2">
                 <div className="card-body">
@@ -42,13 +44,12 @@ export function RateInfo({ rates, employee, user, criteria }) {
                 <div className="card-footer text-end opacity-75">
                     <span>Задача: </span>
                     <a
-                        href={`https://${BX24.getDomain()}/company/personal/user/${
-                            user.ID
-                        }/tasks/task/view/${task.id}/`}
+                        href={`https://${BX24.getDomain()}/company/personal/user/${user.ID
+                            }/tasks/task/view/${task.task.id}/`}
                         className="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
                         target="_blank"
                     >
-                        <i className="">{task.title}</i>
+                        <i className="">{task.task.title}</i>
                     </a>
                 </div>
             </div>

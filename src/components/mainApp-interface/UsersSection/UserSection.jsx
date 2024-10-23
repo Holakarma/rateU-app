@@ -109,7 +109,8 @@ export function UserSection({
             {
                 employees.length && selectedCriteria.length ?
                     <>
-                        <div className={`${cls.card} overflow-x-auto card mb-4`}>
+                        <div className={`${cls.card} overflow-x-auto card mb-4`} style={{ padding: '10px' }}>
+                            <h4>Таблица критериев по выбранным сотрудникам</h4>
                             <RatesTable
                                 userRates={userRates}
                                 employees={employees}
