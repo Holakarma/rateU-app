@@ -31,18 +31,6 @@ export function ShowEmployee({
 
     const haveAccess = useAccessRights(rights, employee);
 
-    // switch (rights) {
-    //     case 'isAdmin':
-    //         setAccess(true);
-    //         break;
-    //     case 'haveSub':
-    //         const subordinates = (await getUserInfo()).SUBORDINATES.map(
-    //             (sub) => sub.ID,
-    //         );
-    //         if (subordinates.includes(employee.id)) setAccess(true);
-    //         break;
-    // }
-
     useEffect(() => {
         sum.current = 0;
         count.current = 0;
@@ -68,9 +56,6 @@ export function ShowEmployee({
                         {img && img?.length ? (
                             <img
                                 className="rounded-circle w-100"
-                                /* src={`${
-                                    window.location.protocol
-                                }//${BX24.getDomain()}${employee.photo}`} */
                                 src={img}
                                 alt={employee.name}
                             />

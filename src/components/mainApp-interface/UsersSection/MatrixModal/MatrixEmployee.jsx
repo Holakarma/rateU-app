@@ -58,7 +58,7 @@ export function MatrixEmployee({ employee, employeeRates, selectedCriteria, righ
                 <PolarGrid />
                 <Tooltip />
                 <PolarAngleAxis dataKey="criterion" />
-                <PolarRadiusAxis angle={30} domain={[0, formattedData.fullMark]} />
+                <PolarRadiusAxis angle={30} domain={[0, 10]} />
                 <Radar name={employee.name} dataKey={employee.id} stroke="#8884d8" fill="transparent" fillOpacity={0.6} dot={true} />
                 <Legend />
             </RadarChart>

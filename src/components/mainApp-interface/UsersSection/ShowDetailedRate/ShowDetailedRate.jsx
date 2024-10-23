@@ -1,7 +1,7 @@
 import React from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import {dateOptions, timeOptions} from "../../../../config/consts";
+import { dateOptions, timeOptions } from "../../../../config/consts";
 
 export function ShowDetailedRate({ rate, criterion }) {
     const date = new Date(rate.TIMESTAMP_X);
@@ -16,7 +16,7 @@ export function ShowDetailedRate({ rate, criterion }) {
                     {criterion.NAME}: {rate.PROPERTY_VALUES.RATE}
                     <small className="text-body-secondary">/10</small>
                 </div>
-                <div className="col-6">
+                <div className="col-5">
                     {rate.PROPERTY_VALUES.COMMENT.length ? (
                         <textarea
                             className="w-100"
