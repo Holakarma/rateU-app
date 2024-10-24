@@ -28,7 +28,6 @@ export function UserSection({
     const [criteria, setCriteria] = React.useState([]);
     const [isLoaded, setLoaded] = React.useState(false);
     const [rights, setRights] = React.useState(undefined);
-
     const setError = React.useContext(ErrorContext);
 
     useEffect(async () => {
@@ -59,18 +58,20 @@ export function UserSection({
     const [userRates, setUserRates] = React.useState(null);
 
     useEffect(() => {
+        if (fetchedRates.length === 0) return;
         const aliases = {};
 
         employees.forEach((e) => {
-            const criteria = selectedCriteria.map((c) => [c.ID, -1]);
-
+            const criteria = fetchedRates.map((fetRate) =>
+                [fetRate.PROPERTY_VALUES.CRITERION_ID, -1]
+            );
             Object.assign(aliases, {
                 [e.id]: Object.fromEntries(new Map(criteria))
-            })
+            });
         });
 
         setUserRates(aliases);
-    }, [employees, selectedCriteria]);
+    }, [employees, fetchedRates]);
 
     return (
         <div>
@@ -107,7 +108,7 @@ export function UserSection({
                 )}
             </div>
             {
-                employees.length && selectedCriteria.length ?
+                employees.length && selectedCriteria.length && fetchedRates.length ?
                     <>
                         <div className={`${cls.card} overflow-x-auto card mb-4`} style={{ padding: '10px' }}>
                             <h4>Таблица критериев по выбранным сотрудникам</h4>

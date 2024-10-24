@@ -48,6 +48,8 @@ export function ShowEmployee({
     // console.log(selectedCriteria) // выбранные критерии
     // console.log(employeeRates) // rate - оценка в конкретном критерии, есть таск и юзер
     // console.log(employee) // id, имя фамилия
+
+
     return (
         <div className="col-6">
             <div className={`${cls.card} card position-relative h-100`}>
