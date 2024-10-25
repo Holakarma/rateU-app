@@ -6,9 +6,9 @@ import deleteCriterion from '../../../../utils/deleteCriterion';
 import { updateCriterion } from '../../../../utils/updateCriterion';
 import { ErrorContext } from '../../../../utils/errorContext';
 
-/* BX24.callMethod('entity.delete', {ENTITY: "rates"}, res => {
-    console.log(res)
-}) */
+/* BX24.callMethod('entity.delete', { ENTITY: "rates" }, res => {
+     console.log(res)
+ }) */
 
 export function CriterionInput({ criterion, refreshHandler, access }) {
     const setError = React.useContext(ErrorContext);
@@ -82,9 +82,8 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                 <input
                     type="text"
                     disabled={!access}
-                    className={`form-control ${
-                        isCorrect ? '' : 'border-danger border-2'
-                    }`}
+                    className={`form-control ${isCorrect ? '' : 'border-danger border-2'
+                        }`}
                     placeholder="Новый критерий"
                     aria-describedby="basic-addon1"
                     onInput={(e) => {
@@ -109,9 +108,8 @@ export function CriterionInput({ criterion, refreshHandler, access }) {
                         onClick={criterionHandler}
                         type="button"
                         disabled={!access || refreshPending}
-                        className={`btn btn-${
-                            isCorrect ? 'success' : 'danger'
-                        }`}
+                        className={`btn btn-${isCorrect ? 'success' : 'danger'
+                            }`}
                     >
                         {isCorrect
                             ? criterion
