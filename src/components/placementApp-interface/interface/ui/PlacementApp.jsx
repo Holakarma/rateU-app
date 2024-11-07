@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { Responsibles } from '../../Responsibles/Responsibles';
 import { getRates } from '../../../../utils/saveRatesToEntity';
-import { saveRates } from '../../../../utils/saveToLS';
 import { PlacementContext } from '../../../../utils/placementContext';
 import { ArrowHref } from '../../../../icons/ArrowHref/ArrowHref';
 import cls from './placementApp.module.css';

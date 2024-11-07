@@ -37,9 +37,11 @@ export function Matrix({ userRates, employees, selectedCriteria, rights }) {
 
                 allHaveAccess.forEach((empl) => {
                     entry[empl.id] =
-                        Number.isInteger(dataRates[empl.id][criterion.NAME])
-                            ? dataRates[empl.id][criterion.NAME]
-                            : dataRates[empl.id][criterion.NAME].toFixed(1);
+                        dataRates[empl.id][criterion.NAME] !== undefined
+                            ? Number.isInteger(dataRates[empl.id][criterion.NAME])
+                                ? dataRates[empl.id][criterion.NAME]
+                                : dataRates[empl.id][criterion.NAME].toFixed(1)
+                            : null;
                 });
 
                 newFormattedData.push(entry);
@@ -73,7 +75,7 @@ export function Matrix({ userRates, employees, selectedCriteria, rights }) {
     if (!formattedData) return null;
 
     return (
-        <div style={{ width: '100%', height: '400px', padding: '10px', paddingBottom: '40px' }} className='card'>
+        <div style={{ width: '100%', height: '400px', padding: '18px 10px 40px' }} className='card'>
             <h4>Матрица критериев по выбранным сотрудникам</h4>
             <div style={{ opacity: 0.5, display: 'flex', justifyContent: 'end' }}>"-1" - нет оценки</div>
             <ResponsiveContainer width="100%" height="100%">

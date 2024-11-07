@@ -3,6 +3,24 @@ import useAccessRights from '../../../../utils/useAccessRights';
 
 const RateRow = ({ rights, employee, userRates, selectedCriteria }) => {
 
+    function renderRating(userRate) {
+        if (userRate !== undefined) {
+            return Number.isInteger(userRate)
+                ? userRate
+                : userRate.toFixed(1);
+        } else {
+            return <small className="opacity-50">нет оценок</small>;
+        }
+    }
+
+    function backgroundColor(rate) {
+        if (rate > 7) {
+            return '#d7f1d7';
+        } else if (rate < 3) {
+            return '#f1d7d7';
+        }
+    }
+
     const haveAccess = useAccessRights(rights, employee);
 
     if (haveAccess === null) {
@@ -16,16 +34,9 @@ const RateRow = ({ rights, employee, userRates, selectedCriteria }) => {
     return selectedCriteria.map(criterion => (
         <td
             key={criterion.ID}
+            style={{ backgroundColor: backgroundColor(userRates[employee.id][criterion.ID]) }}
         >
-            {
-                userRates[employee.id][criterion.ID] === -1
-                    ?
-                    <small className="opacity-50">нет оценок</small>
-                    :
-                    Number.isInteger(userRates[employee.id][criterion.ID])
-                        ? userRates[employee.id][criterion.ID]
-                        : userRates[employee.id][criterion.ID].toFixed(1)
-            }
+            {renderRating(userRates[employee.id][criterion.ID])}
         </td>
     )
     );

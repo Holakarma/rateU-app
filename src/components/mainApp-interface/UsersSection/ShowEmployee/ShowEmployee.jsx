@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { ShowCriterionRate } from '../ShowCriterionRate/ShowCriterionRate';
 import { RatesHistoryButton } from '../RatesHistoryButton/RatesHistoryButton';
-import { getUserInfo } from '../../../../utils/getUserInfo';
 import cls from '../userSection.module.css';
 import { User } from '../../../../icons/User/User';
 import { getUsers } from '../../../../utils/createSavedUsers';
@@ -48,7 +47,6 @@ export function ShowEmployee({
     // console.log(selectedCriteria) // выбранные критерии
     // console.log(employeeRates) // rate - оценка в конкретном критерии, есть таск и юзер
     // console.log(employee) // id, имя фамилия
-
 
     return (
         <div className="col-6">

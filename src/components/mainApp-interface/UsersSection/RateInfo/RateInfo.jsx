@@ -19,7 +19,6 @@ export function RateInfo({ rates, employee, user, criteria }) {
 
 
     if (!task) return null;
-    console.log(task.task.title)
 
     return (
         <div className="">

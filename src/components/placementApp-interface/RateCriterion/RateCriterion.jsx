@@ -120,6 +120,7 @@ export function RateCriterion({ criterion, userData, changeRated, setSaved }) {
                 <label
                     htmlFor={`rate${rateCriterion.user}${rateCriterion.criterion}Range`}
                     className="form-label col-4 mb-0"
+                    style={{ cursor: 'pointer' }}
                 >
                     <input
                         className="form-check-input me-2"

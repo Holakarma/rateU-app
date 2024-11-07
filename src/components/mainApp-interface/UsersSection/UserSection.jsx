@@ -11,7 +11,6 @@ import { getAllUsers } from '../../../utils/getAllUsers';
 import RatesTable from "./RatesTable/RatesTable";
 import cls from './userSection.module.css';
 import { Matrix } from './Matrix/Matrix';
-import History from "../../../icons/History/History";
 import AllHistoryModalBtn from "./AllHistoryModal/AllHistoryModalBtn";
 
 
@@ -110,14 +109,16 @@ export function UserSection({
             {
                 employees.length && selectedCriteria.length && fetchedRates.length ?
                     <>
-                        <div className={`${cls.card} overflow-x-auto card mb-4`} style={{ padding: '10px' }}>
-                            <h4>Таблица критериев по выбранным сотрудникам</h4>
-                            <RatesTable
-                                userRates={userRates}
-                                employees={employees}
-                                selectedCriteria={selectedCriteria}
-                                rights={rights}
-                            />
+                        <div className={`${cls.card} card mb-4`} style={{ padding: '10px', paddingTop: '18px' }}>
+                            <div className='overflow-x-auto'>
+                                <h4>Таблица критериев по выбранным сотрудникам</h4>
+                                <RatesTable
+                                    userRates={userRates}
+                                    employees={employees}
+                                    selectedCriteria={selectedCriteria}
+                                    rights={rights}
+                                />
+                            </div>
                         </div>
                         <div className="overflow-x-auto mb-4">
                             <Matrix

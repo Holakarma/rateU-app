@@ -69,7 +69,11 @@ export function Providers() {
   let [userInfo, setUserInfo] = React.useState();
   const placementInfo = BX24.placement.info(); // Release version
   // const placementInfo = {
-  //   options: { taskId: '869' },
+  //   options: { taskId: '973' },
+  //   placement: 'TASK_VIEW_TAB',
+  // };
+  // const placementInfo = {
+  //   options: { taskId: '795' },
   //   placement: 'TASK_VIEW_TAB',
   // };
 

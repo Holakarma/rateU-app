@@ -1,7 +1,7 @@
 import { getSectionId } from './createEntity';
 
-export default function addCriterion(name) {
-    if (!name.length) {
+export default function addCriterion(name, isActive = false) {
+    if (!name.length) { 
         return;
     }
     return new Promise(async (resolve, reject) => {
@@ -14,6 +14,7 @@ export default function addCriterion(name) {
                 NAME: name,
                 SECTION: sectionId,
                 ACCESS: { AU: 'R' },
+                ACTIVE: `${isActive ? 'Y' : 'N'}`,
             },
             (res) => {
                 if (res.error()) {
