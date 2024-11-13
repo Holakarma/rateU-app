@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { RatesContext } from '../../../utils/ratesContext';
 import { getRates } from '../../../utils/saveRatesToEntity';
-import { PlacementContext } from '../../../utils/placementContext';
+import { PlacementContext } from '../../../shared/model/placementContext';
 import { ErrorContext } from '../../../utils/errorContext';
 import cls from '../../mainApp-interface/UsersSection/userSection.module.css';
 

@@ -1,4 +1,4 @@
-import { getUserInfo } from './getUserInfo';
+import { getUserInfo } from '../entities/user/api/getUserInfo';
 
 export function isAllowed(task, usersList, userInfo) {
     return new Promise(async (resolve, reject) => {

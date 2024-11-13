@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { ShowCriterionRate } from '../ShowCriterionRate/ShowCriterionRate';
 import { RatesHistoryButton } from '../RatesHistoryButton/RatesHistoryButton';
-import { getUserInfo } from '../../../../utils/getUserInfo';
+import { getUserInfo } from '../../../../entities/user/api/getUserInfo';
 import cls from '../userSection.module.css';
 import { User } from '../../../../icons/User/User';
 import { getUsers } from '../../../../utils/createSavedUsers';

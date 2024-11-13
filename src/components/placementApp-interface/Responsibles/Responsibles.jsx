@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { PlacementContext } from '../../../utils/placementContext';
-import { UserContext } from '../../../utils/userContext';
+import { PlacementContext } from '../../../shared/model/placementContext';
+import { UserContext } from '../../../shared/model/userContext';
 import { RatesContext } from '../../../utils/ratesContext';
 import { getTask } from '../../../utils/getTask';
 import { RateUser } from '../RateUser/RateUser';

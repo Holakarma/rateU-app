@@ -1,6 +1,6 @@
 import React from 'react';
 import cls from './RatesTable.module.css'
-import {getUserInfo} from "../../../../utils/getUserInfo";
+import {getUserInfo} from "../../../../entities/user/api/getUserInfo";
 import RateRow from "./RateRow";
 
 const RatesTable = ({employees, selectedCriteria, userRates, rights} ) => {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getUserInfo } from "./getUserInfo";
+import { getUserInfo } from "../entities/user/api/getUserInfo";
 
 export default function useAccessRights(rights, employee) {
     

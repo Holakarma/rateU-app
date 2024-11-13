@@ -1,7 +1,7 @@
 import React, { Suspense, useContext } from 'react';
 import { MainApp } from '../mainApp-interface/Interface';
 import { PlacementApp } from '../placementApp-interface/interface';
-import { PlacementContext } from '../../utils/placementContext';
+import { PlacementContext } from '../../shared/model/placementContext';
 
 export function Workspace() {
     const placementInfo = useContext(PlacementContext);

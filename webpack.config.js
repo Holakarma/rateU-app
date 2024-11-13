@@ -1,61 +1,22 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
+const buildOutput = require("./config/buildOutput");
+const buildLoaders = require("./config/buildLoaders");
+const buildResolvers = require("./config/buildResolvers");
+const buildDevServer = require("./config/buildDevServer");
+
+const paths = {
+    output: path.resolve(__dirname, 'dist'),
+    src: path.resolve(__dirname, 'src')
+};
 
 const config = {
-  entry: ['react-hot-loader/patch', './src/index.js'],
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        use: 'babel-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ],
-        exclude: /\.module\.css$/
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: {
-                localIdentName: '[local]__[sha1:hash:hex:7]'
-              }
-            }
-          }
-        ],
-        include: /\.module\.css$/
-      }
-    ],
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx'],
-  },
-  devServer: {
-    port: 5000,
-    https:true,
-    onAfterSetupMiddleware: function (devServer) {
-      devServer.app.post('*', (req, res) => {
-        res.redirect(req.originalUrl);
-      });
-    },
-    static: {
-      directory: './dist',
-    },
-  },
+    entry: paths.src,
+    output: buildOutput(paths),
+    module: buildLoaders(),
+    resolve: buildResolvers(paths),
+    devServer: buildDevServer(paths),
 };
 
 module.exports = config;
