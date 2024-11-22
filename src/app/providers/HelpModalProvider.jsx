@@ -2,32 +2,27 @@ import React, { useEffect } from 'react';
 import {
 	HelpModal
 } from 'components/mainApp-interface/SettingsSection/HelpModal/HelpModal';
+import {
+	getUserOption
+} from 'entities/user/api/getUserOption';
+import {
+	setUserOption
+} from 'entities/user/api/setUserOption';
 
 const HelpModalProvider = ( { children } ) => {
 	const [ showHelp, setShowHelp ] = React.useState(false);
 
 	useEffect(() => {
 		(async () => {
-			BX24.callMethod('user.option.get', {}, ( res ) => {
-				if (res.data().length === 0) {
-					setShowHelp(true);
-					BX24.callMethod(
-						'user.option.set',
-						{
-							options: {
-								visited: true
-							}
-						},
-						( res ) => {
-							if (res.error()) {
-								throw new Error(
-									res.error().ex.error_description
-								);
-							}
-						}
-					);
-				}
-			});
+			const userOptions = await getUserOption();
+
+			if (!userOptions?.visited) {
+				setShowHelp(true);
+				await setUserOption({
+					visited: true
+				});
+			}
+
 		})();
 	}, []);
 

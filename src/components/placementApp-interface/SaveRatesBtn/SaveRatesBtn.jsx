@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { RatesContext } from '../../../utils/ratesContext';
+import { RatesContext } from '../../../shared/model/ratesContext';
 import { getRates } from '../../../utils/saveRatesToEntity';
 import { PlacementContext } from '../../../shared/model/placementContext';
 import { ErrorContext } from '../../../utils/errorContext';
-import cls from '../../mainApp-interface/UsersSection/userSection.module.css';
+import cls from '../../../widgets/userSection/ui/userSection.module.css';
 
 export function SaveRatesBtn({isSaved, setSaved}) {
     const placementInfo = useContext(PlacementContext);

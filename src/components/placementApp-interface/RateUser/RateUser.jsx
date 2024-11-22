@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { RateCriterion } from '../RateCriterion/RateCriterion';
-import { RatesContext } from '../../../utils/ratesContext';
+import { RatesContext } from '../../../shared/model/ratesContext';
 import { PlacementContext } from '../../../shared/model/placementContext';
 import { UserContext } from '../../../shared/model/userContext';
 import { ArrowDropDown } from '../../../icons/ArrowDropDown/ArrowDropDown';

@@ -1,0 +1,106 @@
+/* имя сотрудника */
+
+.EmployeeName {
+	text-decoration: none;
+	color: var(--bs-card-color);
+}
+
+/* дропдаун Выбор критериев */
+
+.criteriaDropdown:active {
+	background-color: #d4d1fd !important;
+}
+
+.criteriaDropdown:hover {
+	background-color: white !important;
+	color: black;
+}
+
+.criteriaDropdownBtn:active {
+	background-color: white !important;
+}
+
+.criteriaDropdownBtn:hover {
+	background-color: white !important;
+}
+
+/* кнопки */
+
+@property --r {
+	syntax: '<length-percentage>';
+	initial-value: 0px;
+	inherits: false
+}
+
+.bgBtn {
+	place-self: center;
+	border: none;
+	box-shadow: inset 1px 3px 1px #fff4;
+	background:
+		radial-gradient(circle at var(--x, 0%) var(--y, 0%),
+			#6443c7 calc(var(--r) - 1px), #7568c5 var(--r)) border-box;
+	color: white;
+	transition: --r .35s;
+}
+
+.bgBtn:hover {
+	&:hover {
+		--r: 100%
+	}
+}
+
+.bgBtn:active {
+	transform: scale(1.03);
+}
+
+/* кнопка Сохранить */
+
+.btnSave {
+	place-self: center;
+	border: none;
+	box-shadow: inset 1px 3px 1px #fff4;
+	background:
+		radial-gradient(circle at var(--x, 0%) var(--y, 0%),
+			#2f816a calc(var(--r) - 1px), #3f937b var(--r)) border-box;
+	color: white;
+	transition: --r .35s;
+}
+
+.btnSave:hover {
+	&:hover {
+		--r: 100%
+	}
+}
+
+.btnSave:active {
+	transform: scale(1.03);
+}
+
+/* кнопка Очистить */
+
+.btnReset {
+	place-self: center;
+	border: none;
+	box-shadow: inset 1px 3px 1px rgba(255, 255, 255, 0.489);
+	background:
+		radial-gradient(circle at var(--x, 0%) var(--y, 0%),
+			#cb3232 calc(var(--r) - 1px), #d35959 var(--r)) border-box;
+	color: white;
+	transition: --r .35s;
+}
+
+.btnReset:hover {
+	&:hover {
+		--r: 100%
+	}
+}
+
+.btnReset:active {
+	transform: scale(1.03);
+}
+
+/* карточки */
+
+.card {
+	box-shadow: 5px 4.5px 7px -3px #938f9f;
+}

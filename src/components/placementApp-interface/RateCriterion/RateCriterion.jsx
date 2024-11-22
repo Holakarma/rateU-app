@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { RatesContext } from '../../../utils/ratesContext';
+import { RatesContext } from '../../../shared/model/ratesContext';
 import { PlacementContext } from '../../../shared/model/placementContext';
 
 export function RateCriterion({ criterion, userData, changeRated, setSaved }) {

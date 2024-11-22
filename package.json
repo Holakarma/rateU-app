@@ -13,28 +13,29 @@
     "start": "SET NODE_OPTIONS=--openssl-legacy-provider && webpack serve --hot --mode development"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.60.2",
     "bootstrap": "^5.3.3",
-    "primereact": "^10.5.3",
-    "react": "^17.0.2",
-    "react-bootstrap": "^2.10.2",
-    "react-dom": "^17.0.2",
-    "react-error-boundary": "^4.0.13",
-    "recharts": "^2.12.7"
+    "primereact": "^10.8.4",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.5",
+    "react-dom": "^18.3.1",
+    "react-error-boundary": "^4.1.2",
+    "recharts": "^2.13.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-transform-runtime": "^7.25.9",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-env": "^7.26.0",
     "@babel/preset-es2015": "^7.0.0-beta.53",
-    "@babel/preset-react": "^7.14.5",
-    "@hot-loader/react-dom": "^17.0.1+4.13.0",
-    "babel-loader": "^8.2.2",
-    "css-loader": "^6.9.0",
-    "react-hot-loader": "^4.13.0",
-    "style-loader": "^3.3.4",
-    "webpack": "^5.55.1",
-    "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.3.0"
+    "@babel/preset-react": "^7.25.9",
+    "@hot-loader/react-dom": "^17.0.2",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^7.1.2",
+    "react-hot-loader": "^4.13.1",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   }
 }

@@ -43,30 +43,33 @@ const PlacementProvider = ( { children } ) => {
 	//   placement: 'TASK_VIEW_TAB',
 	// };
 
-	useEffect(async () => {
-		await checkMethods();
-		await getSectionId();
+	useEffect(() => {
 
-		if (placementInfo.placement === 'DEFAULT') {
-			let resultArr;
-			if (BX24.isAdmin()) {
-				resultArr = await getBoundPlacements();
+		(async () => {
+			await checkMethods();
+			await getSectionId();
 
-				const correctPlacement = resultArr && resultArr.find(
-					( { placement } ) => placement === 'TASK_VIEW_TAB'
-				);
+			if (placementInfo.placement === 'DEFAULT') {
+				let resultArr;
+				if (BX24.isAdmin()) {
+					resultArr = await getBoundPlacements();
 
-				if (!correctPlacement) {
-					const handlerUrl =
-						window.location.origin + window.location.pathname;
+					const correctPlacement = resultArr && resultArr.find(
+						( { placement } ) => placement === 'TASK_VIEW_TAB'
+					);
 
-					// Release
-					// await bindPlacement(handlerUrl);
+					if (!correctPlacement) {
+						const handlerUrl =
+							window.location.origin + window.location.pathname;
+
+						// Не использовать в деве
+						// await bindPlacement(handlerUrl);
+					}
 				}
 			}
-		}
+			setReady(true);
+		})();
 
-		setReady(true);
 	}, []);
 
 

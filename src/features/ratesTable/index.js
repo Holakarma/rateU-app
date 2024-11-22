@@ -1,0 +1,1 @@
+export { default as RatesTable } from './ui/RatesTable';
