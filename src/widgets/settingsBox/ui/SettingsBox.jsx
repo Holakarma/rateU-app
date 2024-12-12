@@ -1,8 +1,8 @@
 import React from 'react';
 import {
 	SettingsButton
-} from 'components/mainApp-interface/SettingsSection/SettingsButton/SettingsButton';
-import { Help } from 'icons/Help/help';
+} from 'widgets/settingsBox/ui/SettingsButton';
+import { Help } from 'shared/icons/Help';
 
 const SettingsBox = ( { setShowSettings, setShowHelp, ...props } ) => {
 	return (

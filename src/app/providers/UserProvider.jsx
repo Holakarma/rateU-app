@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { UserContext } from 'shared/model/userContext';
+import { UserContext } from 'shared/context/userContext/userContext';
 import { getUserInfo } from 'entities/user';
 
 const UserProvider = ( { children } ) => {

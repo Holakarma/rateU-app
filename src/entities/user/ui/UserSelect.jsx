@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import {
 	EmployeesContext
-} from 'shared/model/EmployeesContext';
+} from 'shared/context/employeesContext/EmployeesContext';
 import { saveEmployees } from 'shared/model/saveToLS';
 import cls
 	from 'widgets/userSection/ui/userSection.module.css';

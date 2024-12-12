@@ -1,4 +1,4 @@
-import useAccessAllRights from 'utils/useAccessAllRights';
+import useAccessAllRights from 'shared/model/useAccessAllRights';
 import React, { useEffect } from 'react';
 import {
 	Legend,

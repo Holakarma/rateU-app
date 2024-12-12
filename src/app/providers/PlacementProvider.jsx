@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import {
 	PlacementContext
-} from 'shared/model/placementContext';
-import { checkMethods } from 'utils/checkMethods';
-import { getSectionId } from 'utils/createEntity';
+} from 'shared/context/placementContext/placementContext';
+import { checkMethods } from 'shared/api/checkMethods';
+import { getSectionId } from 'entities/entity';
 
 function bindPlacement( handlerUrl ) {
 	return new Promise(( resolve, reject ) => {
@@ -33,14 +33,17 @@ function getBoundPlacements() {
 	});
 }
 
+const findPlacement = ( { placement } ) => placement === 'TASK_VIEW_TAB';
+
 const PlacementProvider = ( { children } ) => {
 
 	const [ isReady, setReady ] = React.useState(false);
 
-	const placementInfo = BX24.placement.info(); // Release
+	const placementInfo = BX24.placement.info(); //
+	// Release
 	// const placementInfo = {
-	//   options: { taskId: '869' },
-	//   placement: 'TASK_VIEW_TAB',
+	// 	options: { taskId: '869' },
+	// 	placement: 'TASK_VIEW_TAB'
 	// };
 
 	useEffect(() => {
@@ -54,9 +57,7 @@ const PlacementProvider = ( { children } ) => {
 				if (BX24.isAdmin()) {
 					resultArr = await getBoundPlacements();
 
-					const correctPlacement = resultArr && resultArr.find(
-						( { placement } ) => placement === 'TASK_VIEW_TAB'
-					);
+					const correctPlacement = resultArr?.find(findPlacement);
 
 					if (!correctPlacement) {
 						const handlerUrl =

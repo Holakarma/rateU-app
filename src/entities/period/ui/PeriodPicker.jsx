@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import cls
 	from 'widgets/userSection/ui/userSection.module.css';
 import { DatePicker } from 'shared/ui/datePicker';
-import { PeriodContext } from 'shared/model/periodContext';
+import { PeriodContext } from 'shared/context/periodContext/periodContext';
 
 const getTomorrowDate = ( date = new Date() ) => {
 	const tomorrow = date || new Date();

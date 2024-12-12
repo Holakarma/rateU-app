@@ -4,14 +4,14 @@ import {
 } from 'widgets/userSection/ui/ShowCriterionRate';
 import cls
 	from 'widgets/userSection/ui/userSection.module.css';
-import { User } from 'icons/User/User';
-import { getUsers } from 'utils/createSavedUsers';
 import useAccessRights
 	from 'entities/user/hooks/useAccessRights';
 import { useAverageRates } from 'entities/rate';
 import { HistoryRates } from 'features/ratesHistory';
 import round from 'shared/utilities/round';
 import { MatrixButton } from 'features/ratesMatrix';
+import { getUsers } from 'entities/user';
+import { User } from 'shared/icons/User';
 
 export function ShowEmployee( {
 								  employee,

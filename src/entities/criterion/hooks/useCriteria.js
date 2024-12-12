@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCriteria } from 'utils/getCriteria';
+import { getCriteria } from 'entities/criterion/api/getCriteria';
 
 const useCriteria = () => {
 	const [ criteria, setCriteria ] = useState();

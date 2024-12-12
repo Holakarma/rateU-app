@@ -1,11 +1,9 @@
 import React from 'react';
 import cls from './mainPage.module.css';
-import {
-	SettingsSection
-} from 'components/mainApp-interface/SettingsSection/SettingsSection';
 import { SettingsBox } from 'widgets/settingsBox';
 import { UserSection } from 'widgets/userSection';
 import { HelpModal } from 'widgets/helpModal';
+import { SettingsSection } from 'widgets/settings';
 
 const MainPage = () => {
 	const [ showSettings, setShowSettings ] = React.useState(false);

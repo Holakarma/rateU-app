@@ -4,7 +4,7 @@ import { useAverageRates } from 'entities/rate';
 import React, { useContext } from 'react';
 import {
 	CriterionContext
-} from 'shared/model/CriterionContext';
+} from 'shared/context/criterionContext/CriterionContext';
 import round from 'shared/utilities/round';
 
 const RateRow = ( {

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import {
 	CriterionContext
-} from 'shared/model/CriterionContext';
+} from 'shared/context/criterionContext/CriterionContext';
 import {
 	EmployeesContext
-} from 'shared/model/EmployeesContext';
+} from 'shared/context/employeesContext/EmployeesContext';
 import { useRights, UserSelect } from 'entities/user';
 import {
 	ChooseCriteria,

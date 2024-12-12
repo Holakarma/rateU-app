@@ -1,7 +1,7 @@
 import React from 'react';
 import {
 	EmployeesContext
-} from 'shared/model/EmployeesContext';
+} from 'shared/context/employeesContext/EmployeesContext';
 import { saveEmployees } from 'shared/model/saveToLS';
 
 const EmployeesListProvider = ( { children } ) => {

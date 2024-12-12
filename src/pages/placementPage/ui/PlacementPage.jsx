@@ -1,32 +1,39 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
 	Responsibles
-} from 'components/placementApp-interface/Responsibles/Responsibles';
-import { ArrowHref } from 'icons/ArrowHref/ArrowHref';
-import { getRates } from 'utils/getRates';
-import { ErrorContext } from 'utils/errorContext';
+} from 'widgets/responsibles/ui/Responsibles';
+import { getRates } from 'entities/rate/api/getRates';
+import {
+	ErrorContext
+} from 'shared/context/errorContext/errorContext';
 import {
 	PlacementContext
-} from 'shared/model/placementContext';
+} from 'shared/context/placementContext/placementContext';
+import cls from './placementApp.module.css';
+import { ArrowHref } from 'shared/icons/ArrowHref';
 
 const PlacementPage = () => {
-	const [isRatesLoaded, setRatesLoaded] = React.useState(false);
+	const [ isRatesLoaded, setRatesLoaded ] = React.useState(false);
 	const placementInfo = useContext(PlacementContext);
 
 	const setError = React.useContext(ErrorContext);
 
-	useEffect(async () => {
-		const rates = await getRates(
-			undefined,
-			placementInfo.options.taskId,
-		).catch((e) => setError(e));
-		setRatesLoaded(true);
+	useEffect(() => {
+
+		(async () => {
+			const rates = await getRates(
+				undefined,
+				placementInfo.options.taskId
+			).catch(( e ) => setError(e));
+
+			setRatesLoaded(true);
+		})();
 	});
 
-	const [id, setId] = React.useState(null);
+	const [ id, setId ] = React.useState(null);
 	useEffect(() => {
 		try {
-			BX24.callMethod('app.info', {}, (res) => {
+			BX24.callMethod('app.info', {}, ( res ) => {
 				if (res.error()) {
 					reject(new Error(res?.error().ex.error_description));
 					return;
@@ -40,7 +47,8 @@ const PlacementPage = () => {
 
 	return (
 		<div className="container position-relative py-3">
-            <span className="d-flex justify-content-between align-items-center">
+            <span
+				className="d-flex justify-content-between align-items-center">
                 <h1>Оценка сотрудников</h1>
 				{id ? (
 					<a

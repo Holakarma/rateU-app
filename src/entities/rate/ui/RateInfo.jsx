@@ -3,12 +3,12 @@ import React, {
 	useEffect,
 	useState
 } from 'react';
-import { getTask } from '/src/utils/getTask';
+import { getTask } from '/src/entities/task/api/getTask';
 import { ShowDetailedRate } from './ShowDetailedRate';
 import { useCurrentUser } from 'entities/user';
 import {
 	CriterionContext
-} from 'shared/model/CriterionContext';
+} from 'shared/context/criterionContext/CriterionContext';
 
 const RateInfo = ( { rates } ) => {
 	const [ task, setTask ] = useState(undefined);

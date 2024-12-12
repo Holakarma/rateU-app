@@ -7,3 +7,4 @@ export {
 export {
 	default as ChooseCriteria
 } from './ui/ChooseCriteria';
+export { default as addCriterion } from './api/addCriterion';

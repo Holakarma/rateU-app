@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { getUsers } from 'utils/createSavedUsers';
-import { getTask } from 'utils/getTask';
+import { getTask } from 'entities/task/api/getTask';
 import {
 	getCurrentUser
 } from 'entities/user/api/getCurrentUser';
 import { dateOptions } from 'shared/model/consts';
+import { getUsers } from 'entities/user';
 
 const TableRow = ({rate}) => {
 

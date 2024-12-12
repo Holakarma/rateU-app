@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import RateRow from './RateRow';
 import {
 	CriterionContext
-} from 'shared/model/CriterionContext';
+} from 'shared/context/criterionContext/CriterionContext';
 
 const RatesTable = ( {
 						 employees,

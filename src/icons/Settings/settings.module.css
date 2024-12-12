@@ -1,8 +1,0 @@
-.Settings {
-    fill: #000000;
-    transition: all ease .3s;
-}
-
-.Settings:hover {
-    fill: #676767;
-}

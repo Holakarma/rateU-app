@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { PeriodContext } from 'shared/model/periodContext';
+import { PeriodContext } from 'shared/context/periodContext/periodContext';
 import periodLS from 'entities/period/model/periodLS';
 
 const PeriodProvider = ( { children } ) => {

@@ -1,7 +1,7 @@
 import React, { Suspense, useContext } from 'react';
 import {
 	PlacementContext
-} from 'shared/model/placementContext';
+} from 'shared/context/placementContext/placementContext';
 import { Loader } from 'shared/ui/loader';
 import { MainPage } from 'pages/mainPage';
 import { PlacementPage } from 'pages/placementPage';

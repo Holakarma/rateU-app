@@ -5,10 +5,10 @@ import {
 import { useRates } from 'entities/rate';
 import {
 	EmployeesContext
-} from 'shared/model/EmployeesContext';
+} from 'shared/context/employeesContext/EmployeesContext';
 import {
 	CriterionContext
-} from 'shared/model/CriterionContext';
+} from 'shared/context/criterionContext/CriterionContext';
 import { useRights } from 'entities/user';
 
 const UsersList = () => {

@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import {
 	CriterionContext
-} from 'shared/model/CriterionContext';
-import { getRates } from 'utils/getRates';
-import { PeriodContext } from 'shared/model/periodContext';
+} from 'shared/context/criterionContext/CriterionContext';
+import { getRates } from 'entities/rate/api/getRates';
+import { PeriodContext } from 'shared/context/periodContext/periodContext';
 
 const useRates = () => {
 	const [ rates, setRates ] = useState([]);

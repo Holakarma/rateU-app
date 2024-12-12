@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRates } from 'entities/rate';
-import History from 'icons/History/History';
 import AllHistoryModal from './AllHistoryModal';
+import { History } from 'shared/icons/History'
 
 const AllHistoryModalBtn = () => {
 	const [ show, setShow ] = React.useState(false);
