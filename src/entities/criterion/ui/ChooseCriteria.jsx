@@ -7,7 +7,7 @@ import {
 } from 'entities/criterion/ui/RenderCriteria';
 import React from 'react';
 
-const ChooseCriteria = ( { setSelectedCriteria } ) => {
+const ChooseCriteria = () => {
 
 	const { isLoading } = useCriteria();
 
@@ -24,7 +24,6 @@ const ChooseCriteria = ( { setSelectedCriteria } ) => {
 					Выбор критериев
 				</Dropdown.Toggle>
 				<RenderCriteria
-					setSelectedCriteria={setSelectedCriteria}
 				/>
 			</Dropdown>
 		</div>

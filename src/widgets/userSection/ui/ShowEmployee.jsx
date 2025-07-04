@@ -27,6 +27,7 @@ export function ShowEmployee( {
 			const userInfo = await getUsers([ employee.id ]);
 			setImg(userInfo[0]?.['PERSONAL_PHOTO']);
 		})();
+		BX24.fitWindow();
 	}, []);
 
 	const [ average, setAverage ] = useState(0);

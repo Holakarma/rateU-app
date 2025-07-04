@@ -7,4 +7,7 @@ export {
 export {
 	default as ChooseCriteria
 } from './ui/ChooseCriteria';
-export { default as addCriterion } from './api/addCriterion';
+export {
+	default as addCriterion
+} from './api/addCriterion';
+export { getCriteriaFromLS } from './model/criteriaToLS';

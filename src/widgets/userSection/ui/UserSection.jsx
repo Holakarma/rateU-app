@@ -8,6 +8,7 @@ import {
 import { useRights, UserSelect } from 'entities/user';
 import {
 	ChooseCriteria,
+	getCriteriaFromLS,
 	useCriteria
 } from 'entities/criterion';
 import UsersList from 'widgets/userSection/ui/UsersList';
@@ -29,7 +30,13 @@ const UserSection = () => {
 
 	useEffect(() => {
 		if (!criteria) return;
-		setSelectedCriteria(criteria);
+		const savedCriteria = getCriteriaFromLS();
+
+		if (savedCriteria?.length) {
+			setSelectedCriteria(criteria.filter(criterion => savedCriteria.includes(criterion.ID)));
+		} else {
+			setSelectedCriteria(criteria);
+		}
 	}, [ criteria ]);
 
 	return (
@@ -41,10 +48,7 @@ const UserSection = () => {
 				<div
 					className="g-3 d-flex row justify-content-end">
 					<UserSelect />
-					<ChooseCriteria
-						criteria={criteria}
-						setSelectedCriteria={setSelectedCriteria}
-					/>
+					<ChooseCriteria />
 				</div>
 			</div>
 			<PeriodPicker />

@@ -12,18 +12,16 @@ import EmployeesListProvider
 import PeriodProvider from 'app/providers/PeriodProvider';
 
 
-/* // Мб где то нужно, пока не нашёл
- // function getAppId() {
- // 	return new Promise(( resolve, reject ) => {
- // 		BX24.callMethod('app.info', {}, ( res ) => {
- // 			if (res.error()) {
- // 				reject(new Error(res.error().ex.error_description));
- // 			} else resolve(res.data().ID);
- // 		});
- // 	});
- // }
- */
-
+// Мб где то нужно, пока не нашёл
+// function getAppId() {
+// 	return new Promise(( resolve, reject ) => {
+// 		BX24.callMethod('app.info', {}, ( res ) => {
+// 			if (res.error()) {
+// 				reject(new Error(res.error().ex.error_description));
+// 			} else resolve(res.data().ID);
+// 		});
+// 	});
+// }
 
 export function Providers() {
 	return (
